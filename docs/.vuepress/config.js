@@ -1,0 +1,143 @@
+module.exports = {
+    title: '灰头涂脑',
+    description: '站在巨人肩膀上看世界',
+    dest: './dist',
+    host: 'localhost',
+    port: '8080',
+    head: [
+        ['link', {rel: 'icon', href: '/icon.png'}],
+        ['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css' }],
+        ['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }],
+    ],
+    markdown: {
+        lineNumbers: true,
+        extendMarkdown: md => {
+            // 使用更多的 markdown-it 插件!
+            md.use(require('markdown-it-katex'))
+        }
+    },
+    extraWatchFiles: [
+        '/docs/guide/vue_js/vue-cli4.0创建项目',
+        '/docs/guide/algorithm/介绍',
+    ],
+    themeConfig: {
+        logo: '/nav_logo.png',  // 导航栏logo
+        nav: [{ // 头部导航栏
+            text: '学习笔记', link: '/guide/'
+        }, {
+            text: '面试题', link: '/question/'
+        }, {
+            text: '阅读书籍', link: '/books/'
+        }],
+        // {
+        //     text: 'Language',
+        //     ariaLabel: 'Language Menu',
+        //     items: [{
+        //         text: 'Chinese',
+        //         link: '/chinese/'
+        //     }, {
+        //         text: 'English',
+        //         link: '/english/'
+        //     }]
+        // }
+        sidebar: {
+            '/guide/': [{
+                title: '学习笔记',
+                collapsable: false,
+            }, {
+                title: 'JavaScript',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/javascript/js基础',
+                ]
+            }, {
+                title: 'Vue',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/vue_js/vue-cli4.0创建项目',
+                ]
+            }, {
+                title: 'Git',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/git/Git操作指南',
+                ]
+            }, {
+                title: 'Project',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/project/zhongshengyaoye',
+                ]
+            }, {
+                title: '算法',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/algorithm/介绍',
+                ]
+            }, {
+                title: '杂文乱炖',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/essays/向面试官提问',
+                    '/guide/essays/H5手机App开发',
+                ]
+            }],
+            '/question/': [{
+                title: '面试题汇总',
+                collapsable: false
+            }, {
+                title: 'HTML篇',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/question/qs_html/语义化的理解',
+                    '/question/qs_html/meta元素都有什么',
+                    '/question/qs_html/script的async跟defer的区别',
+                    '/question/qs_html/html标签b和strong的区别',
+                    '/question/qs_html/html布局元素的分类有哪些？描述每种布局元素的应用场景',
+                ]
+            }, {
+                title: 'JS篇',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/question/qs_js/节流与防抖'
+                ]
+            }, {
+                title: 'CSS篇',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/question/qs_css/如何让一个元素水平垂直居中',
+                    '/question/qs_css/css如何实现左侧固定300px，右侧自适应的布局',
+                    '/question/qs_css/标准盒模型和IE盒模型的区别',
+                ] 
+            }, {
+                title: '框架篇',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/question/qs_frame/1'
+                ]  
+            }, {
+                title: '异步篇',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/question/qs_async/1'
+                ] 
+            }]
+        },
+        smoothScroll: true,
+        sidebarDepth: 2,
+        lastUpdated: 'Last Updated',
+        searchMaxSuggestoins: 10
+    },
+    evergreen: true
+}
