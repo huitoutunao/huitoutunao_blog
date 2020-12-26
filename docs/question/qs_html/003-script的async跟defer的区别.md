@@ -1,4 +1,4 @@
-# script 的 async 跟 defer 的区别？
+# 003-script 的 async 跟 defer 的区别？
 
 为什么 script 标签有 async 和 defer 这两个属性，因为浏览器在执行 HTML 时，如果遇到 \<script\> 会停止页面的渲染，去下载和执行 js 的文件直到 \</script\> 为止，才会继续渲染页面。故浏览器在执行 js 文件时浏览器表现为一片空白。
 

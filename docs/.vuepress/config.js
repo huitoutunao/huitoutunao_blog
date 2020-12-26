@@ -96,27 +96,28 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/question/qs_html/语义化的理解',
-                    '/question/qs_html/meta元素都有什么',
-                    '/question/qs_html/script的async跟defer的区别',
-                    '/question/qs_html/html标签b和strong的区别',
-                    '/question/qs_html/html布局元素的分类有哪些？描述每种布局元素的应用场景',
+                    '/question/qs_html/001-语义化的理解',
+                    '/question/qs_html/002-meta元素都有什么',
+                    '/question/qs_html/003-script的async跟defer的区别',
+                    '/question/qs_html/004-html标签b和strong的区别',
+                    '/question/qs_html/005-html布局元素的分类有哪些？描述每种布局元素的应用场景',
                 ]
             }, {
                 title: 'JS篇',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/question/qs_js/节流与防抖'
+                    '/question/qs_js/节流与防抖',
+                    '/question/qs_js/001-递归实现，数组长度为5且元素的随机数在2-32间不重复的值',
                 ]
             }, {
                 title: 'CSS篇',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/question/qs_css/如何让一个元素水平垂直居中',
-                    '/question/qs_css/css如何实现左侧固定300px，右侧自适应的布局',
-                    '/question/qs_css/标准盒模型和IE盒模型的区别',
+                    '/question/qs_css/001-如何让一个元素水平垂直居中',
+                    '/question/qs_css/002-css如何实现左侧固定300px，右侧自适应的布局',
+                    '/question/qs_css/003-标准盒模型和IE盒模型的区别',
                 ] 
             }, {
                 title: '框架篇',
