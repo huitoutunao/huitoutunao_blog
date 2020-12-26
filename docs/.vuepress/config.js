@@ -17,7 +17,7 @@ module.exports = {
         }
     },
     extraWatchFiles: [
-        '/docs/guide/vue_js/vue-cli4.0创建项目',
+        '/docs/question/qs_js/002-去掉字符串中的空格',
         '/docs/guide/algorithm/介绍',
     ],
     themeConfig: {
@@ -109,6 +109,9 @@ module.exports = {
                 children: [
                     '/question/qs_js/节流与防抖',
                     '/question/qs_js/001-递归实现，数组长度为5且元素的随机数在2-32间不重复的值',
+                    '/question/qs_js/002-去掉字符串中的空格',
+                    '/question/qs_js/003-去除字符串中最后一个指定的字符',
+                    '/question/qs_js/004-写一个方法把下划线命名转成大驼峰命名',
                 ]
             }, {
                 title: 'CSS篇',
