@@ -17,7 +17,7 @@ module.exports = {
         }
     },
     extraWatchFiles: [
-        '/docs/question/qs_js/006-统计某一字符或字符串在另一个字符串中出现的次数',
+        '/docs/question/qs_css/004-求最终left、right的宽度',
         '/docs/guide/algorithm/介绍',
     ],
     themeConfig: {
@@ -123,6 +123,7 @@ module.exports = {
                     '/question/qs_css/001-如何让一个元素水平垂直居中',
                     '/question/qs_css/002-css如何实现左侧固定300px，右侧自适应的布局',
                     '/question/qs_css/003-标准盒模型和IE盒模型的区别',
+                    '/question/qs_css/004-求最终left、right的宽度',
                 ] 
             }, {
                 title: '框架篇',
