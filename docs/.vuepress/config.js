@@ -18,7 +18,7 @@ module.exports = {
     },
     extraWatchFiles: [
         '/docs/question/qs_css/004-求最终left、right的宽度',
-        '/docs/guide/algorithm/介绍',
+        '/docs/guide/essays/NPM发包、更新和撤销',
     ],
     themeConfig: {
         logo: '/nav_logo.png',  // 导航栏logo
@@ -86,6 +86,7 @@ module.exports = {
                 children: [
                     '/guide/essays/向面试官提问',
                     '/guide/essays/H5手机App开发',
+                    '/guide/essays/NPM发包、更新和撤销',
                 ]
             }],
             '/question/': [{
@@ -124,21 +125,21 @@ module.exports = {
                     '/question/qs_css/002-css如何实现左侧固定300px，右侧自适应的布局',
                     '/question/qs_css/003-标准盒模型和IE盒模型的区别',
                     '/question/qs_css/004-求最终left、right的宽度',
-                ] 
+                ]
             }, {
                 title: '框架篇',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
                     '/question/qs_frame/1'
-                ]  
+                ]
             }, {
                 title: '异步篇',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
                     '/question/qs_async/1'
-                ] 
+                ]
             }]
         },
         smoothScroll: true,
