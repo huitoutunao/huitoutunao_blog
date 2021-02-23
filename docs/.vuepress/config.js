@@ -18,7 +18,7 @@ module.exports = {
     },
     extraWatchFiles: [
         '/docs/question/qs_css/004-求最终left、right的宽度',
-        '/docs/guide/essays/NPM发包、更新和撤销',
+        '/docs/guide/javascript/js中栈内存和堆内存的区别',
     ],
     themeConfig: {
         logo: '/nav_logo.png',  // 导航栏logo
@@ -50,6 +50,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/guide/javascript/js基础',
+                    '/guide/javascript/js中栈内存和堆内存的区别',
                 ]
             }, {
                 title: 'Vue',
