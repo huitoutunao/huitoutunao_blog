@@ -4,7 +4,7 @@
 
 由于在工作中经常使用vue框架来开发项目，所以或多或少都有遇到一些问题。这篇文章主要总结vue-cli4.0创建项目的流程，和安装配置相关移动端适配插件。
 
-创建项目开始前，默认系统已经安装好了[node.js](https://nodejs.org/zh-cn/)，[webpack](https://webpack.docschina.org/)，[vue-cli](https://cli.vuejs.org/zh/guide/installation.html)
+创建项目开始前，默认系统已经安装好了[node.js](https://nodejs.org/zh-cn/)，[webpack](https://webpack.docschina.org/)，[vue-cli](https://cli.vuejs.org/zh/guide/installation.html)，在国内可能会遇到网络问题，安装淘宝源镜像和[mirror-config-china](https://www.npmjs.com/package/mirror-config-china)插件解决。
 
 ## 准备工作
 
@@ -20,6 +20,12 @@ $ npm -v
 // vue-cli版本号
 $vue -V
 @vue/cli 4.4.0
+
+// 安装淘宝镜像
+$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+// 安装 mirror-config-china
+$ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 ```
 
 ## 构建项目
