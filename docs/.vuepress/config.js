@@ -18,7 +18,7 @@ module.exports = {
     },
     extraWatchFiles: [
         '/docs/question/qs_css/004-求最终left、right的宽度',
-        '/docs/guide/javascript/js中栈内存和堆内存的区别',
+        '/docs/guide/git/Github搜索开源项目',
     ],
     themeConfig: {
         logo: '/nav_logo.png',  // 导航栏logo
@@ -65,6 +65,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/guide/git/Git操作指南',
+                    '/guide/git/Github搜索开源项目',
                 ]
             }, {
                 title: 'Project',
