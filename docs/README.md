@@ -5,7 +5,7 @@ actionText: 进入博客 →
 actionLink: /guide/
 features:
 - title: 学习笔记
-  details: 作为一名前端切图仔，想进阶到高级前端工程师，还有很长一段路要走，所以须要学习积累。
+  details: 记录自己在前端进阶路上的点滴，也希望我分享的文章能对你有所帮助，共勉！
 - title: 面试题
   details: 每周做 3-5 道前端高频面试题，对知识点的查漏补缺。
 - title: 阅读书籍

@@ -22,6 +22,7 @@ module.exports = {
     ],
     themeConfig: {
         // repo: 'https://github.com/Mulander-J/Wiki1001Pro.git', // 链接到 github 博客地址
+        // repoLabel: 'GitHub',
         logo: '/nav_logo.png',  // 导航栏logo
         nav: [{ // 头部导航栏
             text: '学习笔记', link: '/guide/'
@@ -30,22 +31,8 @@ module.exports = {
         }, {
             text: '阅读书籍', link: '/books/'
         }],
-        // {
-        //     text: 'Language',
-        //     ariaLabel: 'Language Menu',
-        //     items: [{
-        //         text: 'Chinese',
-        //         link: '/chinese/'
-        //     }, {
-        //         text: 'English',
-        //         link: '/english/'
-        //     }]
-        // }
         sidebar: {
             '/guide/': [{
-                title: '学习笔记',
-                collapsable: false,
-            }, {
                 title: 'JavaScript',
                 sidebarDepth: 2,
                 collapsable: true,
@@ -87,9 +74,6 @@ module.exports = {
                 ]
             }],
             '/question/': [{
-                title: '面试题汇总',
-                collapsable: false
-            }, {
                 title: 'HTML篇',
                 sidebarDepth: 2,
                 collapsable: true,
