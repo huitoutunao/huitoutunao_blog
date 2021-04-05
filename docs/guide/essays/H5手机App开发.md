@@ -1,9 +1,6 @@
 # H5 手机 App 开发
 
-作者：灰头涂脑  
-日期：2020-12-12
-
-> 阅读这篇[文章](http://www.ruanyifeng.com/blog/2019/12/hybrid-app-concepts.html)有感，自己把文章里写的好的地方摘录下来。
+> 阅读这篇[文章](http://www.ruanyifeng.com/blog/2019/12/hybrid-app-concepts.html)有感，将好的地方摘录下来。
 
 ## H5 含义
 

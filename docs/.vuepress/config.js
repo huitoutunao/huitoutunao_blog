@@ -10,7 +10,7 @@ module.exports = {
         ['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }],
     ],
     markdown: {
-        lineNumbers: true,
+        lineNumbers: false,
         extendMarkdown: md => {
             // 使用更多的 markdown-it 插件!
             md.use(require('markdown-it-katex'))
@@ -21,6 +21,7 @@ module.exports = {
         '/docs/guide/git/Github搜索开源项目',
     ],
     themeConfig: {
+        // repo: 'https://github.com/Mulander-J/Wiki1001Pro.git', // 链接到 github 博客地址
         logo: '/nav_logo.png',  // 导航栏logo
         nav: [{ // 头部导航栏
             text: '学习笔记', link: '/guide/'
@@ -68,13 +69,6 @@ module.exports = {
                     '/guide/git/Github搜索开源项目',
                 ]
             }, {
-                title: 'Project',
-                sidebarDepth: 2,
-                collapsable: true,
-                children: [
-                    '/guide/project/zhongshengyaoye',
-                ]
-            }, {
                 title: '算法',
                 sidebarDepth: 2,
                 collapsable: true,
@@ -86,9 +80,10 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
+                    '/guide/essays/VuePress搭建博客',
                     '/guide/essays/向面试官提问',
-                    '/guide/essays/H5手机App开发',
                     '/guide/essays/NPM发包、更新和撤销',
+                    '/guide/essays/H5手机App开发',
                 ]
             }],
             '/question/': [{
