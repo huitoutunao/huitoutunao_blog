@@ -25,7 +25,7 @@ module.exports = {
         // repoLabel: 'GitHub',
         logo: '/nav_logo.png',  // 导航栏logo
         nav: [{ // 头部导航栏
-            text: '学习笔记', link: '/guide/'
+            text: '前端笔记', link: '/guide/'
         }, {
             text: '面试题', link: '/question/'
         }, {
@@ -33,19 +33,26 @@ module.exports = {
         }],
         sidebar: {
             '/guide/': [{
-                title: 'JavaScript',
+                title: 'JavaScript 进阶',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/guide/javascript/js基础',
-                    '/guide/javascript/js中栈内存和堆内存的区别',
+                    '/guide/js_advanced/js基础',
+                    '/guide/js_advanced/js中栈内存和堆内存的区别',
                 ]
             }, {
-                title: 'Vue',
+                title: 'JavaScript 专题',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/guide/vue_js/vue-cli4.0创建项目',
+                    '/guide/js_subject/模拟实现instanceof',
+                ]
+            }, {
+                title: 'Vue2 进阶',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/vue_advanced/vue-cli4.0创建项目',
                 ]
             }, {
                 title: 'Git',
