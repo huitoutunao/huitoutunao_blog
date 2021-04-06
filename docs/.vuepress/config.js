@@ -45,8 +45,8 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/guide/js_subject/模拟实现instanceof',
                     '/guide/js_subject/模拟实现call、apply和bind',
+                    '/guide/js_subject/模拟实现instanceof',
                 ]
             }, {
                 title: 'Vue2 进阶',
