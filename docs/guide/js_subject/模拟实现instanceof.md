@@ -22,17 +22,23 @@ console.log(student instanceof People) // true
 
 ```js
 function myInstanceof (target, origin) {
-    if (typeof target !== 'object' || target === null) return false
+    if (typeof target !== 'object' || target === null) {
+        return false
+    }
 
     // Object.getPrototypeOf() 获取对象的原型，即内部的 [[prototype]] 属性（__proto__）
     var proto = Object.getPrototypeOf(target)
 
     while (true) {
         // 查找到原型链的尽头
-        if (proto === null) return false
+        if (proto === null) {
+            return false
+        }
 
         // 查找到相同的原型对象
-        if (proto === origin.prototype) return true
+        if (proto === origin.prototype) {
+            return true
+        }
         proto = Object.getPrototypeOf(proto)
     }
 }
