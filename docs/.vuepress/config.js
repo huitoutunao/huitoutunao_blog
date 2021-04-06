@@ -52,7 +52,7 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/guide/vue_advanced/vue-cli4.0创建项目',
+                    '/guide/vue2_advanced/vue-cli4.0创建项目',
                 ]
             }, {
                 title: 'Git',

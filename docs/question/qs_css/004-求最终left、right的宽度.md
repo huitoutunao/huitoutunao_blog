@@ -1,4 +1,4 @@
-# 004-求最终left、right的宽度
+# 004-求最终 left、right 的宽度
 
 ```html
 <div class="container">
