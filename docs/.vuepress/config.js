@@ -37,8 +37,9 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
-                    '/guide/js_advanced/js基础',
+                    '/guide/js_advanced/作用域和闭包',
                     '/guide/js_advanced/js中栈内存和堆内存的区别',
+                    '/guide/js_advanced/js基础',
                 ]
             }, {
                 title: 'JavaScript 专题',
