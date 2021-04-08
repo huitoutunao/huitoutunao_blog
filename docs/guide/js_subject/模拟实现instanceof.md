@@ -16,7 +16,7 @@ var student = new People('huitoutunao', 18)
 console.log(student instanceof People) // true
 ```
 
-思路：
+分析：
 1. student 必须是对象，所以排除基本类型
 2. student 可能是继承而来的，所以沿着原型链向上查找，直到结果是 `null` 或者 `student.__proto__ === People.prototype`
 
