@@ -64,7 +64,8 @@ baz()
 ![关于this_1](../../assets/js_advanced/this_1.png)
 ![关于this_2](../../assets/js_advanced/this_2.png)
 
-从调用栈列表中我们分析出 box 函数的调用位置是在 bar 这里。
+从调用栈列表中我们分析出 box 函数的调用位置是在 bar 这里。  
+**分析调用栈（就是为了到达当前执行位置所调用的所有函数）。真正的调用位置就在当前正在执行的函数的前一个调用中。**
 
 ### 默认规则
 
@@ -116,6 +117,73 @@ var name3 = 'bar'
 :::
 
 ### 隐式绑定
+
+这是调用位置是否有上下文对象，或者说是否被某个对象拥有或者包含。
+
+举个例子：
+```js
+function foo () {
+    console.log(this.name)
+}
+
+var obj = {
+    name: 'bar',
+    foo: foo
+}
+
+obj.foo() // bar
+```
+
+分析：
+
+调用位置会使用 obj 上下文来引用函数，因此你可以说函数被调用时 obj 对象 “拥有” 或 “包含”函数引用。所以这里的 this 会使用隐式绑定到 obj 上下文对象上。
+
+举个例子：
+```js
+function foo () {
+    console.log(this.name)
+}
+
+var obj1 = {
+    name: 'bar1',
+    foo: foo
+}
+
+var obj2 = {
+    name: 'bar2',
+    obj1: obj1
+}
+
+obj2.obj1.foo() // bar1
+```
+
+分析：
+
+对象属性引用链中只有上一层或者说最后一层在调用位置中起作用。
+
+举个例子：
+```js
+function foo () {
+    console.log(this.name)
+}
+
+function doFoo (fn) {
+    fn()
+}
+
+var obj = {
+    name: 'bar',
+    foo: foo
+}
+
+var name = 'global bar'
+
+doFun(obj.foo) // global bar
+```
+
+分析：
+
+fn 参数是 obj.foo 的一个引用，它引用的是 foo 函数本身，再来看 `fn()` 此时的调用位置是在 doFoo 调用栈里，所以当前调用位置是全局作用域，因此 this 被绑定到全局对象上了。
 
 ### 显式绑定
 
