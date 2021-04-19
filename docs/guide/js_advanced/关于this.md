@@ -23,17 +23,11 @@ for (var i = 0; i < 10; i++) {
 console.log(foo.count) // 0
 ```
 
-分析：
+分析：从 foo 函数输出的 4 条记录来看，foo 函数的确被执行了 4 次，但是 foo.count 输出的结果居然是 0。在执行 foo.count = 0 时，已经向函数对象 foo 添加了属性 count，但是函数内部代码 this.count 中的 this 并不指向函数对象，所以 foo.count 才会输出 0。
 
-从 foo 函数输出的 4 条记录来看，foo 函数的确被执行了 4 次，但是 foo.count 输出的结果居然是 0。在执行 foo.count = 0 时，已经向函数对象 foo 添加了属性 count，但是函数内部代码 this.count 中的 this 并不指向函数对象，所以 foo.count 才会输出 0。
+结论：this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。
 
-结论：
-
-this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。
-
-扩展：
-
-当一个函数被调用时，会创建一个活动记录（执行上下文）。这个记录会包含函数在哪里调用（调用栈）、函数的调用方式、传入的参数信息。this 就是这个记录的一个属性，会在函数执行的过程中用到。
+扩展：当一个函数被调用时，会创建一个活动记录（执行上下文）。这个记录会包含函数在哪里调用（调用栈）、函数的调用方式、传入的参数信息。this 就是这个记录的一个属性，会在函数执行的过程中用到。
 
 既然 this 的指向和函数的调用位置有关，那么在开发的时候如何判断呢？我们使用日常开发的调试工具 Chrome 浏览器来查看下。
 
@@ -107,9 +101,7 @@ var name3 = 'bar'
 })()
 ```
 
-分析：
-
-在全局作用域声明的变量就是全局对象的一个属性。因此 this.name 的 this 指向全局对象。  
+分析：在全局作用域声明的变量就是全局对象的一个属性。因此 this.name 的 this 指向全局对象。  
 如果函数**运行**在严格模式（demo2），则不能将全局对象用于默认绑定，因此 this 会绑定到 undefined，而在严格模式下**调用**则不影响 `foo3()` 函数的默认绑定。
 
 ::: warning 注意
@@ -134,9 +126,7 @@ var obj = {
 obj.foo() // bar
 ```
 
-分析：
-
-调用位置会使用 obj 上下文来引用函数，因此你可以说函数被调用时 obj 对象 “拥有” 或 “包含”函数引用。所以这里的 this 会使用隐式绑定到 obj 上下文对象上。
+分析：调用位置会使用 obj 上下文来引用函数，因此你可以说函数被调用时 obj 对象 “拥有” 或 “包含”函数引用。所以这里的 this 会使用隐式绑定到 obj 上下文对象上。
 
 举个例子：
 ```js
@@ -157,9 +147,7 @@ var obj2 = {
 obj2.obj1.foo() // bar1
 ```
 
-分析：
-
-对象属性引用链中只有上一层或者说最后一层在调用位置中起作用。
+分析：对象属性引用链中只有上一层或者说最后一层在调用位置中起作用。
 
 举个例子：
 ```js
@@ -181,12 +169,137 @@ var name = 'global bar'
 doFun(obj.foo) // global bar
 ```
 
-分析：
-
-fn 参数是 obj.foo 的一个引用，它引用的是 foo 函数本身，再来看 `fn()` 此时的调用位置是在 doFoo 调用栈里，所以当前调用位置是全局作用域，此时 this 被绑定到全局对象上了。
+分析：fn 参数是 obj.foo 的一个引用，它引用的是 foo 函数本身，再来看 `fn()` 此时的调用位置是在 doFoo 调用栈里，所以当前调用位置是全局作用域，此时 this 被绑定到全局对象上了。
 
 ### 显式绑定
 
+`call()` 和 `apply()` 方法的第一个参数是一个**对象**，是给 this 准备的，接着在调用函数时将其绑定到 this。因此可以直接指定 this 的绑定对象，我们称为显式绑定。
+
+举个例子：
+```js
+function foo () {
+    console.log(this.name)
+}
+
+var obj = {
+    name: 'bar'
+}
+
+foo.call(obj) // bar
+```
+
+分析：通过 `foo.call()`，我们可以在调用 foo 时强制把它的 this 绑定到 obj 上。这里使用 `foo.apply()` 也可以达到一样的结果，它们的区别是其他参数上。
+
+::: tip 提示
+如果你传入一个原始值（String、Boolean或Number）来当作 this 的绑定对象，这个原始值会被转换成它的对象形式（`new String()`、`new Boolean()`或`new Number()`），这称为基本包装类型的对象。
+:::
+
+#### 硬绑定
+
+举个例子：
+```js
+function foo () {
+    console.log(this.name)
+}
+
+var obj = {
+    name: 'bar'
+}
+
+function baz () {
+    foo.call(obj)
+}
+
+baz() // bar
+setTimeout(baz, 100) // bar
+
+baz.call(window) // bar
+```
+
+分析：创建了函数 `baz()`，并在它的内部手动调用了 `foo.call(obj)`，因此强制把 foo 的 this 绑定到了 obj。不管 baz 函数怎么被调用，foo 的 this 总会绑定到 obj 上。这种绑定是一种显示的强制绑定，因此称为硬绑定。
+
+#### 硬绑定应用场景
+
+一、典型的就是创建一个包裹函数，负责接收参数并返回值：
+```js
+function foo () {
+    console.log(this.a, b)
+    return this.a + b
+}
+
+var obj = {
+    a: 2
+}
+
+function bar () {
+    return foo.apply(obj, arguments)
+}
+
+var baz = bar(3)
+console.log(baz) // 5
+```
+
+二、创建一个可以重复使用的辅助函数：
+```js
+function foo (b) {
+    console.log(this.a, b)
+    return this.a + b
+}
+
+var obj = {
+    a: 2
+}
+
+function bind (fn, obj) {
+    return function () {
+        return fn.apply(obj, arguments)
+    }
+}
+
+var bar = bind(foo, obj)
+var res = bar(3)
+
+console.log(res) // 5
+```
+
+由于硬绑定是一种非常常用的模式，所以 ES5 内置了 bind 方法。它的用法如下：
+```js
+function foo (b) {
+    console.log(this.a, b)
+    return this.a + b
+}
+
+var obj = {
+    a: 2
+}
+
+var bar = foo.bind(obj)
+var res = bar(3)
+
+console.log(res) // 5
+```
+
 ### new 绑定
+
+通过 new 调用的函数，我们称之为构造函数调用。使用 new 来调用函数会自动执行下面的操作：
+
+1. 创建（或者说构造）一个全新的对象。
+2. 这个新对象会被执行 `[[Prototype]]` 连接。
+3. 这个新对象会绑定到函数调用的 this。
+4. 如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。
+
+举个例子：
+```js
+function foo (name) {
+    this.name = name
+}
+
+var bar = new foo('huitoutunao')
+console.log(bar.name) // huitoutunao
+```
+
+分析：使用 new 来调用 `foo()` 时，会构造一个新对象并把它绑定到 `foo()` 调用中的 this 上。
+
+### 优先级
 
 **部分整理自《你不知道的JavaScript》**
