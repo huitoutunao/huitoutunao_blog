@@ -302,4 +302,10 @@ console.log(bar.name) // huitoutunao
 
 ### 优先级
 
+上面介绍了四条绑定 this 的规则，如果某个调用位置满足这四条规则的条件，该怎么办呢？
+
+不用担心，它们是有使用优先级的，排序为：new 绑定 > 显示绑定 > 隐式绑定 > 默认绑定。
+
+如果将 null 或 undefined 作为 this 的绑定对象传入 call、apply 或 bind，这些值在调用时会被忽略，此时应用的是默认绑定规则。
+
 **部分整理自《你不知道的JavaScript》**
