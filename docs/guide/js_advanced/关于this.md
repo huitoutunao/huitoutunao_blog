@@ -102,7 +102,7 @@ var name3 = 'bar'
 ```
 
 分析：在全局作用域声明的变量就是全局对象的一个属性。因此 this.name 的 this 指向全局对象。  
-如果函数**运行**在严格模式（demo2），则不能将全局对象用于默认绑定，因此 this 会绑定到 undefined，而在严格模式下**调用**则不影响 `foo3()` 函数的默认绑定。
+如果函数**运行**在严格模式（demo2），则不能将全局对象用于默认绑定，因此 this 会绑定到 undefined，而在严格模式下**调用**则不影响 `foo3()` 函数的默认绑定。换句话说，决定 this 绑定对象的并不是调用位置是否处于严格模式，而是函数体是否处于严格模式，如果函数体处于严格模式，那么 this 就会被绑定到 undefined，否则就被绑定到全局对象。
 
 ::: warning 注意
 日常开发的时候，不应该将严格模式和非严格模式混合使用。整个程序要么严格要么非严格。
@@ -307,5 +307,76 @@ console.log(bar.name) // huitoutunao
 不用担心，它们是有使用优先级的，排序为：new 绑定 > 显示绑定 > 隐式绑定 > 默认绑定。
 
 如果将 null 或 undefined 作为 this 的绑定对象传入 call、apply 或 bind，这些值在调用时会被忽略，此时应用的是默认绑定规则。
+
+然而，总是使用 null 来忽略 this 绑定可能会产生一些副作用。例如：第三方库的某个函数上使用了 this，而你使用 null 来忽略 this 绑定，此时就会把它绑定到全局对象上，结果可能是修改全局对象。
+
+为了避免上述问题，推荐创建一个空对象（`Object.create(null)`）来代替 null，举个例子：
+```js
+function foo (a, b) {
+    console.log(a, b)
+}
+
+var $null = Object.create(null)
+
+foo.apply($null, [1, 2]) // 1, 2
+```
+
+### 软绑定
+
+实现默认绑定除了全局对象和 undefined 以外的值，以及保留隐式绑定或显示绑定的能力。**解决了硬绑定没有的灵活性**。
+```js
+if (!Function.prototype.softBind) {
+    Function.prototype.softBind = function (obj) {
+        var fn = this // 这里的 this 和 bound 函数里面的 this 指向不同对象。这里是指调用 softBind() 的对象。
+        var curried = [].slice.call(arguments, 1) // 因为规定第一个必须传入对象，所以从参数的第二个开始截取。
+
+        // 闭包
+        var bound = function () {
+            var _this = null
+            var args = curried.concat.apply(curried, arguments)
+
+            // 实现默认绑定除了全局对象和 undefined 以外的值，以及保留隐式绑定或显示绑定的能力。
+            if (!this || this === (window || global)) {
+                _this = obj
+            } else {
+                _this = this
+            }
+
+            return fn.apply(_this, args)
+        }
+
+        bound.prototype = Object.create(fn.prototype)
+        return bound
+    }
+}
+
+function foo () {
+    console.log('name：' + this.name)
+}
+
+var obj1 = {
+    name: '小明'
+}
+var obj2 = {
+    name: '小米'
+}
+var obj3 = {
+    name: '小红'
+}
+
+// 默认绑定
+var fooBindJ = foo.softBind(obj1)
+fooBindJ() // 小明
+
+// 隐式绑定
+obj2.foo = foo.softBind(obj1)
+obj2.foo() // 小米
+
+// 显示绑定
+fooBindJ.call(obj3) // 小红
+```
+
+## this 词法
+
 
 **部分整理自《你不知道的JavaScript》**
