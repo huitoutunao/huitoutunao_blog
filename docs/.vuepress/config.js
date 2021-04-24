@@ -13,7 +13,7 @@ module.exports = {
         lineNumbers: false,
         extendMarkdown: md => {
             // 使用更多的 markdown-it 插件!
-            md.use(require('markdown-it-katex'))
+            md.use(require('markdown-it-latex2img')) // 说明文档：https://makergyt.github.io/markdown-it-latex2img/
         }
     },
     extraWatchFiles: [
