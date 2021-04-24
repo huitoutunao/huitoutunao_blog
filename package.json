@@ -13,5 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "markdown-it-latex2img": "^0.0.6"
+  },
+  "devDependencies": {
+    "vuepress": "^1.2.0"
   }
 }
