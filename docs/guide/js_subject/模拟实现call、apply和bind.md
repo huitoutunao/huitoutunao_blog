@@ -93,8 +93,52 @@ console.log(bar.myCall(foo, 'kevin', 18))
 ```
 
 ## apply
+
 ### 介绍
+一句话介绍 apply：
+> apply() 方法调用一个具有给定 this 值的函数，以及以一个数组（或类数组对象）的形式提供的参数。
+
+因此除了传递参数的形式不同之外，其他实现和 call 类似。
 ### 实现
+```js
+Function.prototype.myApply = function ($this, arr) {
+    var context = $this || window
+    var res
+    context.fn = this
+
+    if (!arr) {
+        res = context.fn()
+    } else {
+        res = context.fn(...arr)
+    }
+
+    delete context.fn
+    return res
+}
+
+var v = 1
+var foo = {
+    v: 1
+}
+
+function bar (name, age) {
+    console.log(this.v)
+    return {
+        name: name,
+        age: age,
+        value: this.v
+    }
+}
+
+bar.myApply(null) // 1
+console.log(bar.myApply(foo, ['kevin', 18]))
+// 1
+// Object {
+//    name: 'kevin',
+//    age: 18,
+//    value: 1,
+// }
+```
 
 ## bind
 ### 介绍
