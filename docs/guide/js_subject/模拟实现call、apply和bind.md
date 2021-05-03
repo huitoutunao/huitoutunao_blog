@@ -141,5 +141,85 @@ console.log(bar.myApply(foo, ['kevin', 18]))
 ```
 
 ## bind
+
 ### 介绍
+一句话介绍 bind：
+> `bind()` 方法创建一个新的函数，在 `bind()` 被调用时，这个新函数的 this 被指定为 `bind()` 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。
+
+举个例子：
+```js
+// demo1
+var foo = {
+    v: 1
+}
+
+function bar (name, age) {
+    console.log(this.v)
+    console.log(name)
+    console.log(age)
+}
+
+var bindFoo = bar.bind(foo, 'daisy')
+bindFoo('20')
+// 1
+// daisy
+// 20
+```
+
+分析：
+
+1. 返回一个函数。
+2. 可以传入参数，在使用 bind 绑定时传入一个参数(name)，在后面执行返回函数时再传入另一个参数(age)。
+3. 调用 `bind()` 方法是一个函数。
+4. 作为构造函数的绑定函数。[见文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#%E4%BD%9C%E4%B8%BA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E7%9A%84%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0)
+
 ### 实现
+```js
+Function.prototype.myBind = function (context) {
+    if (typeof this !== 'function') {
+        throw new Error('调用 bind 的不是函数')
+    }
+
+    var $this = this
+    var args = Array.prototype.slice.call(arguments, 1)
+    var fnBind = function () {
+        var fnBindArgs = Array.prototype.slice.call(arguments)
+        var _this = null
+
+        if (this instanceof fnBind) {
+            _this = this
+        } else {
+            _this = context
+        }
+
+        return $this.apply(_this, args.concat(fnBindArgs))
+    }
+
+    fnBind.prototype = Object.create(this.prototype)
+    return fnBind
+}
+
+var value = 2
+var fooBind = {
+    value: 1
+}
+
+function barBind (name, age) {
+    this.habit = 'shopping'
+    console.log('barBind', this.value)
+    console.log('barBind', name)
+    console.log('barBind', age)
+}
+
+barBind.prototype.friend = 'xiaohong'
+
+var bindFoo = barBind.myBind(fooBind, 'xiaoming')
+var obj = new bindFoo('20')
+// barBind undefined
+// barBind xiaoming
+// barBind 20
+console.log(obj.habit)
+console.log(obj.friend)
+// shopping
+// xiaohong
+```
