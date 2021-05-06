@@ -78,7 +78,7 @@ foo1() // bar
 
 // demo2
 function foo2 () {
-    "use strict"
+    'use strict'
 
     console.log(this.name2)
 }
@@ -95,7 +95,7 @@ function foo3 () {
 var name3 = 'bar'
 
 (function () {
-    "use strict"
+    'use strict'
     
     foo3() // bar
 })()
@@ -408,4 +408,4 @@ bar.call(obj2) // 2
 
 在学习 JavaScript 基础中，关于 this 部分比较难以理解，同时也是最重要的内容，所以为了使自己能够对 this 这块知识体系的理解更加深入，写下了这篇文章总结。希望对你们也有所帮助。
 
-以上内容都是我参考阅读《你不知道的JavaScript》中，关于 this 解析所整理出来的文章总结。
+以上内容是参考《你不知道的JavaScript》中，关于 this 解析所整理出来的文章总结。
