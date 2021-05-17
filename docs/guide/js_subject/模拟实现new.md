@@ -75,7 +75,7 @@ function myNew () {
     // 通过 apply 使得 constructor 构造函数的 this 绑定到 obj，并且携带参数
     var res = constructor.apply(obj, arguments)
 
-    // 返回值对构造函数是否返回对象进行判断
+    // 对构造函数是否返回对象进行判断
     retutn typeof res === 'object' ? res : obj
 }
 
