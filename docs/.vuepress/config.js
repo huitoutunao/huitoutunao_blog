@@ -52,6 +52,7 @@ module.exports = {
                     '/guide/js_subject/模拟实现instanceof',
                     '/guide/js_subject/模拟实现call、apply和bind',
                     '/guide/js_subject/模拟实现new',
+                    '/guide/js_subject/数组去重',
                 ]
             }, {
                 title: 'Vue2 进阶',
