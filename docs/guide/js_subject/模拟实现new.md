@@ -23,7 +23,7 @@ foo.sayAge() // 20
 function Factory (name, age) {
     this.name = name
     this.age = age
-    
+
     return {
         name: name,
         job: 'fontend developer'
@@ -39,7 +39,7 @@ console.log(foo.age) // undefined
 function Factory (name, age) {
     this.name = name
     this.age = age
-    
+
     return 'hello world'
 }
 
@@ -76,7 +76,7 @@ function myNew () {
     var res = constructor.apply(obj, arguments)
 
     // 对构造函数是否返回对象进行判断
-    retutn typeof res === 'object' ? res : obj
+    return typeof res === 'object' ? res : obj
 }
 
 // 用法
