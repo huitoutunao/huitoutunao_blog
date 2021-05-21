@@ -96,4 +96,4 @@ console.log(foo.age) // 20
 
 ## 结语
 
-阅读[冴羽的博客](https://github.com/mqyqingfeng/Blog/issues/13)的学习笔记。
+这篇总结主要参考[冴羽的博客](https://github.com/mqyqingfeng/Blog/issues/13)。
