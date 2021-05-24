@@ -43,6 +43,7 @@ module.exports = {
                     '/guide/js_advanced/继承',
                     '/guide/js_advanced/浮点数精度',
                     '/guide/js_advanced/栈内存和堆内存的区别',
+                    '/guide/js_advanced/函数柯里化',
                 ]
             }, {
                 title: 'JavaScript 专题',
