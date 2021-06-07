@@ -2,37 +2,34 @@
 
 ## 前言
 
-由于在工作中经常使用vue框架来开发项目，所以或多或少都有遇到一些问题。这篇文章主要总结vue-cli4.0创建项目的流程，和安装配置相关移动端适配插件。
+由于在工作中经常使用vue框架来开发项目，所以或多或少都有遇到一些问题。这篇文章主要总结 vue-cli4.0 创建项目的流程，和安装配置相关移动端适配插件。
 
 创建项目开始前，默认系统已经安装好了[node.js](https://nodejs.org/zh-cn/)，[webpack](https://webpack.docschina.org/)，[vue-cli](https://cli.vuejs.org/zh/guide/installation.html)，在国内可能会遇到网络问题，安装淘宝源镜像和[mirror-config-china](https://www.npmjs.com/package/mirror-config-china)插件解决。
 
 ## 准备工作
 
-```javascript
-// node.js版本号
-$ node -v
-v12.13.0
+```sh
+# node.js 版本号：v12.13.0
+node -v
 
-// npm版本号
-$ npm -v
-6.10.0
+# npm 版本号：6.10.0
+npm -v
 
-// vue-cli版本号
-$vue -V
-@vue/cli 4.4.0
+# vue-cli 版本号：@vue/cli 4.4.0
+vue -V
 
-// 安装淘宝镜像
-$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+# 安装淘宝镜像
+npm install -g cnpm --registry=https://registry.npm.taobao.org
 
-// 安装 mirror-config-china
-$ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
+# 安装 mirror-config-china
+npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 ```
 
 ## 构建项目
 
 #### 打开命令行工具，执行下面语句开始创建项目：app_cli是即将要创建项目的名称也是存放项目文件的文件夹名称
 
-```js
+```sh
 vue create app_cli
 ```
 
@@ -40,23 +37,23 @@ vue create app_cli
 
 ![avatar](../../assets/vue_js/vue_1.jpg)
 
-#### 选项如下图，我分别选择了babel，router，vuex。  
+#### 选项如下图，我分别选择了babel，router，vuex。
 
-Babel：转码器，可以将ES6转成ES5代码  
+Babel：转码器，可以将ES6转成ES5代码
 
-Typescript：TypeScript是一个JavaScript（后缀.js）的超集（后缀.ts）包含并扩展了 JavaScript 的语法，需要被编译输出为 JavaScript在浏览器运行  
+Typescript：TypeScript是一个JavaScript（后缀.js）的超集（后缀.ts）包含并扩展了 JavaScript 的语法，需要被编译输出为 JavaScript在浏览器运行
 
-Progressive Web App (PWA) Support：渐进式Web应用程序  
+Progressive Web App (PWA) Support：渐进式Web应用程序
 
 Router：vue路由
 
-Vuex：vue的状态管理模式  
+Vuex：vue的状态管理模式
 
-CSS Pre-processors：CSS预处理器（如：less、sass、stylus） 
+CSS Pre-processors：CSS预处理器（如：less、sass、stylus）
 
-Linter / Formatter：代码风格检查和格式化（如：ESlint）  
+Linter / Formatter：代码风格检查和格式化（如：ESlint）
 
-Unit Testing：单元测试  
+Unit Testing：单元测试
 
 E2E Testing：e2e（end to end） 测试
 
@@ -75,30 +72,30 @@ E2E Testing：e2e（end to end） 测试
 
 > <font color=#f66>注意：</font>这里只是安装插件而已，千万不要选择官方提供的配置，因为后面会提供配置文件（如果安装成功，官方会提示你选择哪个配置方案，这时候直接退出就好）
 
-```js
-// 有时候会安装失败
+```sh
+# 有时候会安装失败
 vue add eslint
 
-// 上面安装失败，用下面这条语句，直接去图形界面搜索cli-plugin-eslint（一般排在最前面）
-// 注意：进入图形界面操作时，须要选择该项目文件夹
+# 上面安装失败，用下面这条语句，直接去图形界面搜索cli-plugin-eslint（一般排在最前面）
+# 注意：进入图形界面操作时，须要选择该项目文件夹
 vue ui
 ```
 安装好cli-plugin-eslint插件后，这里准备了js，css等相关的[配置文件](https://github.com/huitoutunao/vue-lint)，将它们放在项目根目录上，接下来还要补充安装相关依赖。
 
-```js
-// 补充安装eslint依赖
+```sh
+# 补充安装 eslint 依赖
 npm i -D eslint eslint-plugin-vue
 
-// 安装eslint-loader
+# 安装 eslint-loader
 npm i -D eslint-loader
 
-// 安装eslint-friendly-formatter
+# 安装 eslint-friendly-formatter
 npm i -D eslint-friendly-formatter
 
-// 安装babel-eslint
+# 安装 babel-eslint
 npm i -D babel-eslint
 
-// 安装stylelint-webpack-plugin stylelint
+# 安装 stylelint-webpack-plugin stylelint
 npm i -D stylelint-webpack-plugin stylelint
 ```
 
@@ -118,14 +115,12 @@ module.exports = {
 
 ## 配置移动端适配插件
 
-打开根目录的.postcssrc.js文件，可以看到那里已经写好了相关配置项，现在须要依次安装它们。  
-这里移动端适配使用的是vw方案，已经弃用flexible方案了。  
+打开根目录的.postcssrc.js文件，可以看到那里已经写好了相关配置项，现在须要依次安装它们。
+这里移动端适配使用的是vw方案，已经弃用flexible方案了。
 **注意：目前 vue-cli 4 的 postcss 的版本是 7，而 postcss-import 和 postcss-url 插件需要安装兼容 7 版本的，分别是 12.0.1 和 8.0.0，可以将下面这两个命令修改为 postcss-import@12.0.1、postcss-url@8.0.0**
 
-```js
-
+```sh
 npm i -S postcss-import postcss-url postcss-aspect-ratio-mini postcss-write-svg postcss-cssnext postcss-px-to-viewport cssnano
-
 ```
 ### postcss-import
 
@@ -143,12 +138,13 @@ postcss-cssnext插件可以让我们使用CSS未来的特性，其会对这些�
 
 cssnano主要用来压缩和清理CSS代码，配置中使用了preset: "advanced"，所以还需要另外安装：
 
-```js
-// 安装cssnano-preset-advanced
+```sh
+# 安装 cssnano-preset-advanced
 npm i -D cssnano-preset-advanced
+```
 
-// 安装好后，在.postcssrc.js文件上配置如下：（提供的文件已经配置好了）
-// 2020-12-22 更新
+安装好后，在.postcssrc.js文件上配置如下：（提供的文件已经配置好了）
+```js
 'cssnano': {
     "cssnano-preset-advanced": {
         zindex: false,
@@ -172,15 +168,15 @@ npm i -D cssnano-preset-advanced
 编写CSS时：
 
 ```css
-.ignore { 
+.ignore {
     margin: 10px; // 这里不会被编译成vw单位
-    background-color: red; 
-} 
-.box { 
-    width: 180px; 
-    height: 300px; 
-} 
-.hairlines { 
+    background-color: red;
+}
+.box {
+    width: 180px;
+    height: 300px;
+}
+.hairlines {
     border-bottom: 0.5px solid red; // 这里不会被编译成vw单位
 }
 ```
@@ -198,26 +194,26 @@ postcss-aspect-ratio-mini主要用来处理元素容器宽高比。在实际使�
 结构定义之后，需要在你的样式文件中添加一个统一的宽度比默认属性：
 
 ```css
-[aspectratio] { 
-  position: relative; 
-} 
+[aspectratio] {
+  position: relative;
+}
 
-[aspectratio]::before { 
-  content: ''; 
-  display: block; 
-  width: 1px; 
-  margin-left: -1px; 
-  height: 0; 
-} 
+[aspectratio]::before {
+  content: '';
+  display: block;
+  width: 1px;
+  margin-left: -1px;
+  height: 0;
+}
 
-[aspectratio-content] { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  width: 100%; 
-  height: 100%; 
+[aspectratio-content] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
 ```
 
@@ -238,65 +234,65 @@ postcss-aspect-ratio-mini主要用来处理元素容器宽高比。在实际使�
 补充解释：主要是因为在插件中做了相应的处理，不在每次调用aspect-ratio时，生成前面指定的默认样式代码，这样代码没那么冗余。所以在使用的时候，需要把width和background-color分开来写：
 
 ```css
-[w-188-246] { 
-  width: 188px; 
-  background-color: red; 
-} 
+[w-188-246] {
+  width: 188px;
+  background-color: red;
+}
 
-[w-188-246] { 
-  aspect-ratio: '188:246'; 
+[w-188-246] {
+  aspect-ratio: '188:246';
 }
 ```
 
 ### postcss-write-svg
 
-postcss-write-svg插件主要用来处理移动端1px的解决方案。该插件主要使用的是border-image和background来做1px的相关处理。比如：
+postcss-write-svg 插件主要用来处理移动端 1px 的解决方案。该插件主要使用的是 border-image 和 background 来做 1px 的相关处理。比如：
 
 ```css
-@svg 1px-border { 
-  height: 2px; 
-  @rect { 
-    fill: var(--color, black); 
-    width: 100%; 
-    height: 50%; 
-    } 
-} 
+@svg 1px-border {
+  height: 2px;
+  @rect {
+    fill: var(--color, black);
+    width: 100%;
+    height: 50%;
+    }
+}
 
-.example { 
-  border: 1px solid transparent; 
-  border-image: svg(1px-border param(--color #00b1ff)) 2 2 stretch; 
+.example {
+  border: 1px solid transparent;
+  border-image: svg(1px-border param(--color #00b1ff)) 2 2 stretch;
 }
 ```
 
-编译CSS后：
+编译 CSS 后：
 
 ```css
-.example { 
-  border: 1px solid transparent; 
-  border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='2px'%3E%3Crect fill='%2300b1ff' width='100%25' height='50%25'/%3E%3C/svg%3E") 2 2 stretch; 
+.example {
+    border: 1px solid transparent;
+    border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='2px'%3E%3Crect fill='%2300b1ff' width='100%25' height='50%25'/%3E%3C/svg%3E") 2 2 stretch;
 }
 ```
 
 上面演示的是使用 ***border-image*** 方式，除此之外还可以使用 ***background-image*** 来实现。比如：
 
 ```css
-@svg square { 
-  @rect { 
-    fill: var(--color, black); 
-    width: 100%; 
-    height: 100%; 
-    } 
-} 
+@svg square {
+  @rect {
+    fill: var(--color, black);
+    width: 100%;
+    height: 100%;
+    }
+}
 
-#example { 
-  background: white svg(square param(--color #00b1ff)) repeat-x left bottom; 
+#example {
+  background: white svg(square param(--color #00b1ff)) repeat-x left bottom;
   background-size: 100% 1px;
 }
 ```
 
 >  ***声明：*** 由于有一些低端机对border-image支持度不够友好，个人建议你使用background-image的这个方案。
 
-## 小彩蛋
+## 配置 vw 兼容 vant 组件
 
 如果你的设计稿是 750px，那么 vw 方案兼容 vant 组件需要配置这个插件 [postcss-design-convert](https://www.npmjs.com/package/postcss-design-convert)
 
