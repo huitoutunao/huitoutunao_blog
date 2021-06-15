@@ -73,6 +73,8 @@ wrapperDom.onmousemove = debounce(doEvent, 1000)
 
 正在阅读 loadsh 源码
 
+近一段时间在尝试使用 vscode 工具调试 lodash 源码，在网上找了相关资料学习。
+
 ## 应用
 
 ## 结语
