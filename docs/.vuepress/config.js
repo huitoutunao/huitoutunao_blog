@@ -86,9 +86,10 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/guide/essays/VuePress搭建博客',
-                    '/guide/essays/向面试官提问',
+                    '/guide/essays/vscode调试lodash源码',
                     '/guide/essays/NPM发包、更新和撤销',
                     '/guide/essays/H5手机App开发',
+                    '/guide/essays/向面试官提问',
                 ]
             }],
             '/question/': [{
