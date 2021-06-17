@@ -74,7 +74,10 @@ npm install -D @babel/core @babel/node @babel/preset-env
             "name": "Launch Node",
 
             // 调试时忽略文件 node_module
-            "skipFiles": ["<node_internals>/**"],
+            "skipFiles": [
+              "${workspaceFolder}/node_modules/**/*.js",
+              "<node_internals>/**/*.js"
+            ],
 
             // 程序的绝对路径，启动调试的入口文件 app.js
             "program": "${workspaceFolder}\\app.js",
