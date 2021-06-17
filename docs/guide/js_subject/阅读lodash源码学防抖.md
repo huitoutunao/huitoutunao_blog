@@ -34,7 +34,10 @@
 var count = 1
 var wrapperDom = document.getElementById('wrapper')
 
-function doEvent () {
+function doEvent (e) {
+    // 这两个是为了验证防抖前后的变化，后面会提到。
+    // console.log(this)
+    // console.log(e)
     wrapperDom.innerHTML = count++
 }
 wrapperDom.onmousemove = doEvent
@@ -50,10 +53,12 @@ wrapperDom.onmousemove = doEvent
 
 防抖指的是触发事件后，在 `n` 秒内函数只能执行一次，如果触发事件后在 `n` 秒内又触发了事件，则会重新计算函数，延长执行时间。
 
+## 实现
+
 根据上面的介绍，我们现在可以简单实现下：
 ```js
 function debounce (func, wait) {
-    var timeout
+    let timeout
     return function () {
         clearTimeout(timeout)
         timeout = setTimeout(func, wait)
@@ -68,14 +73,23 @@ wrapperDom.onmousemove = debounce(doEvent, 1000)
 
 现在不管你在 1s 内鼠标移动多少次，它都只在移动完 1s 后再触发事件。
 
+细心的你应该已经发现了，上面的实现过程中，this 的指向和 MouseEvent 对象参数发生了改变。那么现在我们来修复这两个已知问题，如下：
+```js
+function debounce (func, wait) {
+    let timeout
+    return function (...args) {
+        const lastThis = this
+        const lastArgs = args
 
-## 实现
+        clearTimeout(timeout)
+        timeout = setTimeout(function () {
+            func.apply(lastThis, lastArgs)
+        }, wait)
+    }
+}
+```
 
-正在阅读 loadsh 源码
-
-近一段时间在尝试使用 vscode 工具调试 lodash 源码，在网上找了相关资料学习。
-
-## 应用
+## 完善
 
 ## 结语
 
