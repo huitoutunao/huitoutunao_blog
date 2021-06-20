@@ -1,4 +1,4 @@
-# 阅读 lodash 源码学防抖
+# 阅读 Lodash 源码学防抖
 
 ## 前言
 
@@ -157,7 +157,7 @@ function debounce (func, wait, leading = false) {
 
 注意：当 leading 为 false 的时候，因为使用了 setTimeout ，我们将 `func.apply(context, args)` 的返回值赋给变量，最后再 return 的时候，值将会一直是 undefined，所以我们只在 leading 为 true 的时候返回函数的执行结果。
 
-虽然实际开发中，这个返回值几乎用不上，但是作为工具库的 lodash 考虑情况比较全面。
+虽然实际开发中，这个返回值几乎用不上，但是作为工具库的 Lodash 考虑情况比较全面。
 
 ## 取消
 
@@ -205,6 +205,12 @@ $('#btn').on('click', function () {
 })
 ```
 
+## 题外话
+
+或许有小伙伴会问，如果我想要调试 Lodash 源码怎么办？有没有方案推荐呢？
+
+有的哈。我已经把它总结到这篇文章了。[戳这里学习](/guide/essays/vscode调试lodash源码)
+
 ## 结语
 
 本文到这里就结束了，通过文章我们了解到什么是防抖以及它的实现原理，使用防抖函数可以解决项目中，搜索框输入关键字后间隔一段时间，才会请求获取建议列表......
@@ -213,7 +219,5 @@ $('#btn').on('click', function () {
 
 ## 参考文献
 
-[lodash 源码](https://github.com/lodash/lodash/blob/master/debounce.js)<br/>
+[Lodash 源码](https://github.com/lodash/lodash/blob/master/debounce.js)<br/>
 [冴羽的博客](https://github.com/mqyqingfeng/Blog/issues/22)
-
-
