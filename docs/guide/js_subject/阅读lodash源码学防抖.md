@@ -219,5 +219,5 @@ $('#btn').on('click', function () {
 
 ## 参考文献
 
-[Lodash 源码](https://github.com/lodash/lodash/blob/master/debounce.js)<br/>
-[冴羽的博客](https://github.com/mqyqingfeng/Blog/issues/22)
+- [Lodash 源码](https://github.com/lodash/lodash/blob/master/debounce.js)
+- [冴羽的博客](https://github.com/mqyqingfeng/Blog/issues/22)
