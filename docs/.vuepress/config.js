@@ -46,6 +46,7 @@ module.exports = {
                     '/guide/js_advanced/栈内存和堆内存的区别',
                     '/guide/js_advanced/函数柯里化',
                     '/guide/js_advanced/偏函数',
+                    '/guide/js_advanced/惰性函数',
                 ]
             }, {
                 title: 'JavaScript 专题',
