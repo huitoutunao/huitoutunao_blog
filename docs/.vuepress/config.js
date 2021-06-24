@@ -58,6 +58,7 @@ module.exports = {
                     '/guide/js_subject/模拟实现new',
                     '/guide/js_subject/数组去重',
                     '/guide/js_subject/阅读lodash源码学防抖',
+                    '/guide/js_subject/阅读lodash源码学节流',
                 ]
             }, {
                 title: 'Vue2 进阶',
