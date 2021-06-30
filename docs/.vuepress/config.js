@@ -16,6 +16,7 @@ module.exports = {
             md.use(require('markdown-it-latex2img')) // 说明文档：https://makergyt.github.io/markdown-it-latex2img/
         }
     },
+    plugins: ['@vuepress/medium-zoom'],
     extraWatchFiles: [
         '/docs/question/qs_css/004-求最终left、right的宽度',
         '/docs/guide/git/Github搜索开源项目',
