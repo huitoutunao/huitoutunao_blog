@@ -63,6 +63,7 @@ module.exports = {
                     '/guide/js_subject/阅读lodash源码学节流',
                     '/guide/js_subject/深拷贝',
                     '/guide/js_subject/如何求数组的最大值',
+                    '/guide/js_subject/数组扁平化',
                 ]
             }, {
                 title: 'Vue2 进阶',
