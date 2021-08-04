@@ -73,6 +73,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/guide/vue2_advanced/vue-cli4.0创建项目',
+                    '/guide/vue2_advanced/虚拟列表',
                 ]
             }, {
                 title: 'Git',
