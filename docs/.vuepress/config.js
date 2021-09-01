@@ -149,6 +149,14 @@ module.exports = {
                 children: [
                     '/question/qs_async/1'
                 ]
+            }],
+            '/books/': [{
+                title: '阅读感悟',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/books/read_think/追风筝的人',
+                ]
             }]
         },
         smoothScroll: true,
