@@ -84,6 +84,13 @@ module.exports = {
                     '/guide/git/Github搜索开源项目',
                 ]
             }, {
+                title: '浏览器',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/browser/Chrome架构初探',
+                ]
+            }, {
                 title: '算法',
                 sidebarDepth: 2,
                 collapsable: true,
