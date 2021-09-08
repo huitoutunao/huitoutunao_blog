@@ -90,7 +90,7 @@ module.exports = {
                 children: [
                     '/guide/browser/Chrome架构初探',
                     '/guide/browser/TCP协议简介',
-                    '/guide/browser/为什么很多站点第二次打开速度会很快',
+                    '/guide/browser/HTTP请求流程的简单介绍',
                 ]
             }, {
                 title: '算法',
