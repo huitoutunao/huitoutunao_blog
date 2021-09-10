@@ -76,14 +76,6 @@ module.exports = {
                     '/guide/vue2_advanced/虚拟列表',
                 ]
             }, {
-                title: 'Git',
-                sidebarDepth: 2,
-                collapsable: true,
-                children: [
-                    '/guide/git/Git操作指南',
-                    '/guide/git/Github搜索开源项目',
-                ]
-            }, {
                 title: '浏览器',
                 sidebarDepth: 2,
                 collapsable: true,
@@ -91,6 +83,7 @@ module.exports = {
                     '/guide/browser/Chrome架构初探',
                     '/guide/browser/TCP协议简介',
                     '/guide/browser/HTTP请求流程的简单介绍',
+                    '/guide/browser/浏览器输入URL发生了什么',
                 ]
             }, {
                 title: '算法',
@@ -98,6 +91,14 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/guide/algorithm/介绍',
+                ]
+            }, {
+                title: 'Git',
+                sidebarDepth: 2,
+                collapsable: true,
+                children: [
+                    '/guide/git/Git操作指南',
+                    '/guide/git/Github搜索开源项目',
                 ]
             }, {
                 title: '杂文乱炖',
