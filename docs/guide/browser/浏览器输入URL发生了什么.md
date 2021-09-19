@@ -116,14 +116,68 @@
 
 常见引起重排属性和方法如下：
 ```
-width height margin padding display border-width border position overflow font-size vertical-align min-height clientWidth clientHeight clientTop clientLeft offsetWidth offsetHeight offsetTop offsetLeft scrollWidth scrollHeight scrollTop scrollLeft scrollIntoView() scrollTo() getComputedStyle() getBoundingClientRect() scrollIntoViewIfNeeded()
+width
+height
+margin
+padding
+display
+border-width
+border
+position
+overflow
+font-size
+vertical-align
+min-height
+clientWidth
+clientHeight
+clientTop
+clientLeft
+offsetWidth
+offsetHeight
+offsetTop
+offsetLeft
+scrollWidth
+scrollHeight
+scrollTop
+scrollLeft
+
+scrollIntoView()
+scrollTo()
+getComputedStyle()
+getBoundingClientRect()
+scrollIntoViewIfNeeded()
 ```
 
 ### 什么是重绘
 
 当一个元素的外观发生改变，但没有改变布局，重新把元素外观绘制出来的过程，叫做重绘。
 
-### 重绘触发条件和影响
+![来自课程原图](../../assets/browser/browser_6.png)
+
+相较于重排操作，重绘省去了布局和分层阶段，所以执行效率会比重排操作要高一些。
+
+**重绘不一定导致重排，但重排一定会导致重绘。**
+
+### 触发重绘的操作
+
+常见引起重排属性如下：
+```
+color
+border-style
+visibility
+background
+text-decoration
+background-image
+background-position
+background-repeat
+outline-color
+outline
+outline-style
+border-radius
+outline-width
+box-shadow
+background-size
+```
 
 ### 什么是合成
 
