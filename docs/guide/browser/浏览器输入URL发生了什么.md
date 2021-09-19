@@ -89,6 +89,7 @@
 一旦所有图块都被光栅化，合成线程就会生成一个绘制图块的命令——“DrawQuad”，然后将该命令提交给浏览器进程。浏览器进程里面有一个叫 viz 的组件，用来接收合成线程发过来的 DrawQuad 命令，然后根据 DrawQuad 命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。到这里，经过这一系列的阶段，编写好的 HTML、CSS、JavaScript 等文件，经过浏览器就会显示出漂亮的页面了。
 
 渲染阶段总结一张图如下：
+
 ![来自课程原图](../../assets/browser/browser_4.png)
 
 ## 扩展：渲染阶段
@@ -97,11 +98,30 @@
 
 重排是在网络浏览器中执行的一个流程，用于重新计算文档中各元素的位置和几何形状，以便重新呈现该文档的部分内容或全部内容。
 
-### 重排触发条件和影响
+![来自课程原图](../../assets/browser/browser_5.png)
+
+重排需要更新完整的渲染流水线，所以开销也是最大的。
+
+### 触发重排的操作
+
+1. 页面首次渲染，这是开销最大的一次重排。
+2. 浏览器窗口尺寸改变。
+3. 元素位置和尺寸发生改变。
+4. 新增和删除可见元素。
+5. 内容发生改变（文字数量或图片大小等等）。
+6. 元素字体大小变化。
+7. 激活 css 伪类（:hover）。
+8. 设置 style 属性。
+9. 查询某些属性或调用某些方法：offsetWidth、offsetHeight 等，除此之外，当我们调用 getComputedStyle 方法，或者 IE 里的 currentStyle 时，也会触发重排，原理都是求一个“即时性”和“准确性”。
+
+常见引起重排属性和方法如下：
+```
+width height margin padding display border-width border position overflow font-size vertical-align min-height clientWidth clientHeight clientTop clientLeft offsetWidth offsetHeight offsetTop offsetLeft scrollWidth scrollHeight scrollTop scrollLeft scrollIntoView() scrollTo() getComputedStyle() getBoundingClientRect() scrollIntoViewIfNeeded()
+```
 
 ### 什么是重绘
 
-当一个元素的外观发生改变，但没有改变布局,重新把元素外观绘制出来的过程，叫做重绘。
+当一个元素的外观发生改变，但没有改变布局，重新把元素外观绘制出来的过程，叫做重绘。
 
 ### 重绘触发条件和影响
 
