@@ -65,8 +65,8 @@ module.exports = {
                     '/guide/js_subject/如何求数组的最大值',
                     '/guide/js_subject/数组扁平化',
                     '/guide/js_subject/事件循环机制',
-                    '/guide/js_subject/V8引擎的垃圾回收机制(简易)',
-                    '/guide/js_subject/V8引擎的垃圾回收机制(完整)',
+                    '/guide/js_subject/V8引擎的垃圾回收机制-简易',
+                    '/guide/js_subject/V8引擎的垃圾回收机制-完整',
                 ]
             }, {
                 title: 'Vue2 进阶',
