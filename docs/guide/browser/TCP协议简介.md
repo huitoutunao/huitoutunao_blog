@@ -50,4 +50,4 @@ TCP（Transmission Control Protocol，传输控制协议）是一种面向连接
 
 ## 总结
 
-这是学习《极客时间——浏览器工作原理与实践》李兵老师课程的笔记。
+这是学习[《浏览器工作原理与实践》](https://time.geekbang.org/column/intro/216)李兵老师课程的笔记。

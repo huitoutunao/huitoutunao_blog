@@ -79,4 +79,4 @@ Chrome 有个机制，同一个域名同时最多只能建立 6 个 TCP 连接�
 
 ![图片3](../../assets/browser/browser_3.png)
 
-这是学习《极客时间——浏览器工作原理与实践》李兵老师课程的笔记。
+这是学习[《浏览器工作原理与实践》](https://time.geekbang.org/column/intro/216)李兵老师课程的笔记。
