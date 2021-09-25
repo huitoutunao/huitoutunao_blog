@@ -48,6 +48,6 @@ TCP（Transmission Control Protocol，传输控制协议）是一种面向连接
 - 传输速度相对 UDP 较慢。
 - 数据包数量较多。
 
-## 总结
+## 结语
 
 这是学习[《浏览器工作原理与实践》](https://time.geekbang.org/column/intro/216)李兵老师课程的笔记。

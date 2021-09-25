@@ -75,7 +75,7 @@ Chrome 有个机制，同一个域名同时最多只能建立 6 个 TCP 连接�
 ## 登录状态是如何保持的？
 
 ![图片2](../../assets/browser/browser_2.png)
-## 总结
+## 结语
 
 ![图片3](../../assets/browser/browser_3.png)
 
