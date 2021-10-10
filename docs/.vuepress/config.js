@@ -67,6 +67,7 @@ module.exports = {
                     '/guide/js_subject/事件循环机制',
                     '/guide/js_subject/V8引擎的垃圾回收机制-简易',
                     '/guide/js_subject/V8引擎的垃圾回收机制-完整',
+                    '/guide/js_subject/V8是如何执行一段JS代码',
                 ]
             }, {
                 title: 'Vue2 进阶',
