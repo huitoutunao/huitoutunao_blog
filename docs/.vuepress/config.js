@@ -86,6 +86,7 @@ module.exports = {
                     '/guide/browser/TCP协议简介',
                     '/guide/browser/HTTP请求流程的简单介绍',
                     '/guide/browser/浏览器输入URL发生了什么',
+                    '/guide/browser/如何系统优化页面',
                 ]
             }, {
                 title: '算法',
