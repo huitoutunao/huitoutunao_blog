@@ -78,7 +78,7 @@ module.exports = {
                     '/guide/vue2_advanced/虚拟列表',
                 ]
             }, {
-                title: '浏览器',
+                title: '浏览器和HTTP',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
@@ -87,6 +87,7 @@ module.exports = {
                     '/guide/browser/HTTP请求流程的简单介绍',
                     '/guide/browser/浏览器输入URL发生了什么',
                     '/guide/browser/如何系统优化页面',
+                    '/guide/browser/浏览器常见安全问题',
                 ]
             }, {
                 title: '算法',
