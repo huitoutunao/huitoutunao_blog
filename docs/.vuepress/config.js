@@ -88,6 +88,7 @@ module.exports = {
                     '/guide/browser/浏览器输入URL发生了什么',
                     '/guide/browser/如何系统优化页面',
                     '/guide/browser/浏览器常见安全问题',
+                    '/guide/browser/HTTP基本认识',
                 ]
             }, {
                 title: '算法',
