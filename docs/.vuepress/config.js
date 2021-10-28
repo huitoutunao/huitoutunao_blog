@@ -89,6 +89,7 @@ module.exports = {
                     '/guide/browser/如何系统优化页面',
                     '/guide/browser/浏览器常见安全问题',
                     '/guide/browser/HTTP基本认识',
+                    '/guide/browser/HTTP的Cookie机制和缓存控制',
                 ]
             }, {
                 title: '算法',
