@@ -9,3 +9,7 @@
 见下图：
 
 ![预览图](../../assets/browser/browser_8.png)
+
+## Cookie 的属性
+
+### Cookie 的生存周期
