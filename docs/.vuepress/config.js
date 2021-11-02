@@ -48,6 +48,7 @@ module.exports = {
                     '/guide/js_advanced/函数柯里化',
                     '/guide/js_advanced/偏函数',
                     '/guide/js_advanced/惰性函数',
+                    '/guide/js_advanced/TypeScript基础',
                 ]
             }, {
                 title: 'JavaScript 专题',
