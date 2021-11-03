@@ -71,7 +71,7 @@ module.exports = {
                     '/guide/js_subject/V8是如何执行一段JS代码',
                 ]
             }, {
-                title: 'Vue2 进阶',
+                title: 'Vuejs 进阶',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
