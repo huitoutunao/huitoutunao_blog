@@ -43,6 +43,21 @@ let vo: void
 let num: number = vo
 ```
 
+## 未声明类型的变量
+
+变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型：
+```js
+let name
+name = 'huitoutunao'
+name = 7
+```
+等价于
+```ts
+let name: any
+name = 'huitoutunao'
+name = 7
+```
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
