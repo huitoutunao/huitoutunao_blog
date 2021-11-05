@@ -58,6 +58,22 @@ name = 'huitoutunao'
 name = 7
 ```
 
+## 类型推论
+
+举个例子：
+```ts
+let myNumber = 'seven'
+myNumber = 7 // 报错
+```
+等价于
+```ts
+let myNumber: string = 'seven'
+myNumber = 7
+```
+**如果定义的时候没有赋值，不管之后有没有赋值，都会被推断成 any 类型而完全不被类型检查。**
+
+## 联合类型
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
