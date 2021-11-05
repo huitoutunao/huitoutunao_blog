@@ -74,6 +74,45 @@ myNumber = 7
 
 ## 联合类型
 
+举个例子：
+```ts
+let myNumber: string | number
+myNumber = 'seven'
+myNumber = 7
+
+myNumber = true // 报错
+```
+允许 `myNumber` 的类型是 `string` 或 `number`, 但不能是其他类型。
+
+### 访问联合类型的属性或方法
+
+当 TypeScript 不确定一个联合类型的变量到底是哪个类型的时候，只能访问此联合类型的所有类型里共有的属性或方法：
+```ts
+function getArrLength(data: string | number): number {
+    return data.length
+}
+// 运行上面代码报错
+```
+
+`length` 不是 `string` 和 `number` 的共有属性，所以会报错，修改如下：
+```ts
+function getArrLength(data: string | number): number {
+    return data.toSting()
+}
+```
+
+联合类型的变量在被赋值的时候，会根据类型推论的规则推断出一个类型：
+```ts
+let myNumber: string | number
+myNumber = 'seven'
+console.log(myNumber.length) // 5
+
+myNumber = 7
+console.log(myNumber.length) // 报错，此时 myNumber 被推论为 number 类型，而这个类型没有 length 属性
+```
+
+## 对象类型接口
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
