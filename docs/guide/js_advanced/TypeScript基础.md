@@ -113,6 +113,21 @@ console.log(myNumber.length) // 报错，此时 myNumber 被推论为 number 类
 
 ## 对象类型接口
 
+举个简单例子：
+```ts
+interface Person {
+    name: string;
+    age: number;
+}
+
+let tom: Person = {
+    name: 'huitoutunao',
+    age: 25
+}
+```
+
+上面的例子中，定义了一个接口 `Person`，接着定义了一个变量 `huitoutunao`，它的类型是 `Person`。这样，我们就约束了 `huitoutunao` 的形状必须和接口 `Person` 一致。**接口一般首字母大写。**
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
