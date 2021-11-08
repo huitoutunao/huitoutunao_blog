@@ -120,13 +120,128 @@ interface Person {
     age: number;
 }
 
-let tom: Person = {
+let huitoutunao: Person = {
     name: 'huitoutunao',
     age: 25
 }
 ```
 
 上面的例子中，定义了一个接口 `Person`，接着定义了一个变量 `huitoutunao`，它的类型是 `Person`。这样，我们就约束了 `huitoutunao` 的形状必须和接口 `Person` 一致。**接口一般首字母大写。**
+
+定义的变量必须和接口的属性一致。
+
+### 可选属性
+
+可选属性的含义是该属性可以不存在，但仍然不允许添加未定义的属性：
+```ts
+interface Person {
+    name: string;
+    age?: number;
+}
+
+// 正确
+let huitoutunao: Person = {
+    name: 'huitoutunao'
+}
+
+// 错误
+let huitoutunao: Person = {
+    name: 'huitoutunao',
+    job: 'frontend'
+}
+```
+
+### 任意属性
+
+```ts
+interface Person {
+    name: string;
+    age?: number;
+    [propName: string]: any;
+}
+
+let huitoutunao: Person = {
+    name: 'huitoutunao',
+    gender: 'male'
+}
+```
+
+使用 `[propName: string]` 定义了任意属性取 `string` 类型的值。
+
+**一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集：**
+```ts
+interface Person {
+    name: string;
+    age?: number;
+    [propName: string]: string;
+}
+
+// 报错
+let huitoutunao: Person = {
+    name: 'huitoutunao',
+    age: 25,
+    gender: 'male'
+}
+```
+
+因为定义任意属性（字符串类型）的返回值必须是字符串类型或者是它的子集，但是 age（字符串类型）返回值是 `number` 类型，所以会报错。
+
+也可以在任意属性中使用联合类型：
+```ts
+interface Person {
+    name: string;
+    age?: number;
+    [propName: string]: string | number;
+}
+
+// 正确
+let huitoutunao: Person = {
+    name: 'huitoutunao',
+    age: 25,
+    gender: 'male'
+}
+```
+
+### 只读属性
+
+`readonly` 定义只读属性：
+```ts
+interface Person {
+    readonly id: number;
+    name: string;
+    age?: number;
+    [propName: string]: any;
+}
+
+let huitoutunao: Person = {
+    id: 89757,
+    name: 'huitoutunao',
+    gender: 'male'
+}
+
+huitoutunao.id = 9527 // 报错
+```
+
+注意，只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候：
+```ts
+interface Person {
+    readonly id: number;
+    name: string;
+    age?: number;
+    [propName: string]: any;
+}
+
+let huitoutunao: Person = {
+    name: 'huitoutunao',
+    gender: 'male'
+}
+
+// 在对 huitoutunao 进行赋值的时候，没有给 id 赋值，所以报错了。
+// 给 huitoutunao.id 赋值的时候，由于它是只读属性，所以报错了。
+huitoutunao.id = 89757
+```
+
+## 数组的类型
 
 ## 参考文献
 
