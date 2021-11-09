@@ -243,6 +243,22 @@ huitoutunao.id = 89757
 
 ## 数组的类型
 
+举个简单例子：
+```ts
+let fibonacci: number[] = [1, 1, 2, 3, 5]
+
+let fibonacci: number[] = [1, '1', 2, 3, 5] // 报错：数组的项中不允许出现其他的类型
+
+fibonacci.push('9') // 报错：不允许添加除 number 类型的其他数据
+```
+
+### 数组的泛型
+
+`Array<elemType>` 表示数组：
+```ts
+let fibonacci: Array<number> = [1, 1, 2, 3, 5]
+```
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
