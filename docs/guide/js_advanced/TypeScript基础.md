@@ -251,6 +251,10 @@ let fibonacci: number[] = [1, '1', 2, 3, 5] // 报错：数组的项中不允许
 
 fibonacci.push('9') // 报错：不允许添加除 number 类型的其他数据
 ```
+**用 any 表示数组中允许出现任意类型：**
+```ts
+let list: any[] = ['huitoutunao', 25, { job: 'frontend' }]
+```
 
 ### 数组的泛型
 
@@ -258,6 +262,60 @@ fibonacci.push('9') // 报错：不允许添加除 number 类型的其他数据
 ```ts
 let fibonacci: Array<number> = [1, 1, 2, 3, 5]
 ```
+
+### 类数组
+
+类数组不能用普通的数组的方式来描述，应该使用接口：
+```ts
+function func() {
+    let args: {
+        [index: number]: number;
+        length: number;
+        callee: Function;
+    } = arguments;
+}
+```
+
+事实上常用的类数组都有自己的接口定义，如 `IArguments`：
+```ts
+interface IArguments {
+    [index: number]: any;
+    length: number;
+    callee: Function;
+}
+```
+
+## 函数的类型
+
+### 函数声明
+
+简单例子：
+```ts
+function sum(x: number, y: number): number {
+    return x + y
+}
+
+sum(1, 2) // 正确
+sum(1) // 报错
+```
+
+输入参数个数和类型须和定义的保持一致，函数返回值类型是 `number`。
+
+### 函数表达式
+
+简单例子：
+```ts
+let sum = function (x: number, y: number): number {
+    return x + y
+}
+
+// 另一种写法
+let sum = (x: number, y: number) => number = function(x, y) {
+    return x + y
+}
+```
+
+在 TypeScript 的类型定义中，`=>` 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型。
 
 ## 参考文献
 
