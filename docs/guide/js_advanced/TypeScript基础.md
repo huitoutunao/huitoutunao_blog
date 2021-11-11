@@ -317,6 +317,18 @@ let sum = (x: number, y: number) => number = function(x, y) {
 
 在 TypeScript 的类型定义中，`=>` 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型。
 
+### 可选参数
+```ts
+function build(name: string, age?: number): string {
+    return `${name}.${age}`
+}
+
+let a = build('tom', 24) // 正确
+let b = build('jack') // 正确
+```
+
+**注意：可选参数后面不允许再出现必需参数了。**
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
