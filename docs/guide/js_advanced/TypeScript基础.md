@@ -329,6 +329,53 @@ let b = build('jack') // 正确
 
 **注意：可选参数后面不允许再出现必需参数了。**
 
+### 参数默认值
+
+举个例子：
+```ts
+function build(name: string, age: number = 18): string {
+    return `${name}.${age}`
+}
+
+let a = build('tom', 24) // 正确
+let b = build('jack') // 正确
+```
+
+**不受可选参数必须接在必需参数后面限制。**
+
+### 剩余参数
+
+举个例子：
+```ts
+function push(array: any[], ...items: any[]) {
+    items.forEach(function(item) {
+        array.push(item)
+    })
+}
+
+let a = []
+push(a, 1, 2, 3)
+```
+
+**注意：剩余参数只能是最后一个参数。**
+
+### 重载
+
+举个例子：
+```ts
+function reverse(x: number): number;
+function reverse(x: string): string;
+function reverse(x: number | string): number | string | void {
+    if (typeof x === 'number') {
+        return 11
+    } else if (typeof x === 'string') {
+        return '11'
+    }
+}
+```
+
+**注意：TypeScript 会优先从最前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面。**
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
