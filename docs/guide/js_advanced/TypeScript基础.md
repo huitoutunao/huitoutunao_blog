@@ -376,6 +376,49 @@ function reverse(x: number | string): number | string | void {
 
 **注意：TypeScript 会优先从最前面的函数定义开始匹配，所以多个函数定义如果有包含关系，需要优先把精确的定义写在前面。**
 
+## 类型断言
+
+### 概念
+
+类型断言可以用来手动指定一个值的类型。
+
+### 语法
+
+```ts
+值 as 类型
+或
+<类型>值
+```
+
+推荐使用 `值 as 类型 `。
+
+### 用途
+
+#### 将一个联合类型断言为其中一个类型
+
+举个例子：
+```ts
+interface Dog {
+    name: string;
+    run(): void;
+}
+
+interface Fish {
+    name: string;
+    swim(): void;
+}
+
+function isFish(animal: Fish | Dog) {
+    if (typeof (animal as Fish).swim === 'function') {
+        return true
+    }
+    return false
+}
+```
+
+此时 `animal` 是 `Fish` 类型。虽然 Typescript 编译器可以成功通过，但是无法避免运行时错误，所以不要滥用类型断言。
+
+
 ## 参考文献
 
 - [TypeScript](https://www.tslang.cn/)
