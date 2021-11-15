@@ -418,6 +418,26 @@ function isFish(animal: Fish | Dog) {
 
 此时 `animal` 是 `Fish` 类型。虽然 Typescript 编译器可以成功通过，但是无法避免运行时错误，所以不要滥用类型断言。
 
+#### 将一个父类断言为更加具体的子类
+
+```ts
+class childA extends Error {
+    code: number = 1
+}
+class childB extends Error {
+    statusCode: number = 200
+}
+
+function isApiError(error: Error) {
+    if (typeof (error as childA).code === 'number') {
+        return true
+    }
+    return false
+}
+```
+
+在 TypeScript 中，`class` 也可以定义类型接口。
+
 
 ## 参考文献
 
