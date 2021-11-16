@@ -438,6 +438,35 @@ function isApiError(error: Error) {
 
 在 TypeScript 中，`class` 也可以定义类型接口。
 
+#### 将任何一个类型断言为 `any`
+
+举个例子：
+```ts
+(window as any).foo = 1
+```
+
+**它极有可能掩盖了真正的类型错误，所以如果不是非常确定，就不要使用 as any。**
+
+**总之，一方面不能滥用 as any，另一方面也不要完全否定它的作用，我们需要在类型的严格性和开发的便利性之间掌握平衡（这也是 TypeScript 的设计理念之一），才能发挥出 TypeScript 最大的价值。**
+
+#### 将 `any` 断言为一个具体的类型
+
+```ts
+function getData(key: string): any {
+    return (window as any).data[key]
+}
+
+interface Dog {
+    name: string;
+    run(): void;
+}
+
+const ming = getData('ming') as Dog
+ming.run()
+```
+
+上面的例子中，我们调用完 `getData` 之后，立即将它断言为 `Dog` 类型。这样的话明确了 `ming` 的类型，后续对 `ming` 的访问时就有了代码补全，提高了代码的可维护性。
+
 
 ## 参考文献
 
