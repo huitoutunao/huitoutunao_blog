@@ -34,7 +34,7 @@ module.exports = {
         }],
         sidebar: {
             '/guide/': [{
-                title: 'JavaScript 进阶',
+                title: 'JavaScript进阶',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
@@ -51,7 +51,7 @@ module.exports = {
                     '/guide/js_advanced/TypeScript基础',
                 ]
             }, {
-                title: 'JavaScript 专题',
+                title: 'JavaScript专题',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
@@ -71,7 +71,7 @@ module.exports = {
                     '/guide/js_subject/V8是如何执行一段JS代码',
                 ]
             }, {
-                title: 'Vuejs 进阶',
+                title: 'Vuejs进阶',
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
