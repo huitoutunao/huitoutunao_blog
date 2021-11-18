@@ -28,3 +28,9 @@
 ```
 
 ## flex 计算方式
+
+## 参考文献
+
+- [flex 基础](https://www.w3cplus.com/css3/understanding-flexbox-everything-you-need-to-know.html)
+- [探索 Flexbox](https://www.w3cplus.com/css3/flexbox-adventures.html)
+- [深入理解 flex 布局以及计算](https://www.w3cplus.com/css3/flexbox-layout-and-calculation.html)
