@@ -100,14 +100,6 @@ module.exports = {
                     '/guide/algorithm/介绍',
                 ]
             }, {
-                title: 'Git',
-                sidebarDepth: 2,
-                collapsable: true,
-                children: [
-                    '/guide/git/Git操作指南',
-                    '/guide/git/Github搜索开源项目',
-                ]
-            }, {
                 title: '杂文乱炖',
                 sidebarDepth: 2,
                 collapsable: true,
@@ -116,6 +108,8 @@ module.exports = {
                     '/guide/essays/VuePress搭建博客',
                     '/guide/essays/vscode调试lodash源码',
                     '/guide/essays/NPM发包、更新和撤销',
+                    '/guide/essays/Git操作指南',
+                    '/guide/essays/Github搜索开源项目',
                     '/guide/essays/H5手机App开发',
                     '/guide/essays/向面试官提问',
                 ]
