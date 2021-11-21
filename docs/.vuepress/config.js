@@ -77,6 +77,7 @@ module.exports = {
                 children: [
                     '/guide/vue2_advanced/vue-cli4创建项目',
                     '/guide/vue2_advanced/虚拟列表',
+                    '/guide/vue2_advanced/Vue源码之Object的变化侦测',
                 ]
             }, {
                 title: '浏览器和HTTP',
