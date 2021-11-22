@@ -24,7 +24,32 @@ src
 Object.defineProperty(obj, prop, descriptor)
 ```
 
-`obj` 要定义属性的对象；`prop` 要定义或修改的属性的名称；`descriptor` 要定义或修改的属性描述符。
+`obj` 要定义属性的对象；`prop` 要定义或修改的属性的名称；`descriptor` 要定义或修改的属性描述符。`Vue.js` 之所以可以追踪到对象的变化，主要依靠属性描述符提供的 `get` 和 `set`。`get` 是一个给属性提供的 `getter` 函数，当访问该属性时，会调用此函数；`set` 是一个给属性提供的 `setter` 函数，当属性值被修改时，会调用此函数。
+
+因此模仿 `Vue` 源码写个简单例子：
+```js
+function defineReactive(data, key, val) {
+    Object.defineProperty(data, key, {
+        enumerable: true,
+        configurable: true,
+        get: function() {
+            return val
+        },
+        set: function(newVal) {
+            if (val === newVal) {
+                return
+            }
+            val = newVal
+        }
+    })
+}
+
+let obj = {}
+defineReactive(obj, 'name', 'huitoutunao')
+console.log(obj.name) // huitoutunao
+obj.name = 'jack'
+console.log(obj.name) // jack
+```
 
 ## 参考文献
 
