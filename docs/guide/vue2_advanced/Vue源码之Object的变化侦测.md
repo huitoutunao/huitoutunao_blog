@@ -26,7 +26,7 @@ Object.defineProperty(obj, prop, descriptor)
 
 `obj` 要定义属性的对象；`prop` 要定义或修改的属性的名称；`descriptor` 要定义或修改的属性描述符。`Vue.js` 之所以可以追踪到对象的变化，主要依靠属性描述符提供的 `get` 和 `set`。`get` 是一个给属性提供的 `getter` 函数，当访问该属性时，会调用此函数；`set` 是一个给属性提供的 `setter` 函数，当属性值被修改时，会调用此函数。
 
-因此模仿 `Vue` 源码写个简单例子：
+因此模仿 `Vue.js` 源码写个简单例子：
 ```js
 function defineReactive(data, key, val) {
     Object.defineProperty(data, key, {
@@ -50,6 +50,21 @@ console.log(obj.name) // huitoutunao
 obj.name = 'jack'
 console.log(obj.name) // jack
 ```
+
+## 收集依赖
+
+通过上面 `Object.defineProperty()` 方法提供的 `getter` 函数进行收集依赖，在 `setter` 函数进行通知依赖。
+
+举个例子：
+```html
+<template>
+    <h1>{{ title }}</h1>
+</template>
+```
+
+该模板使用了数据 title，所以当 title 发生变化时，也需要通知使用它的地方更新。
+
+### 依赖被收集到哪里
 
 ## 参考文献
 
