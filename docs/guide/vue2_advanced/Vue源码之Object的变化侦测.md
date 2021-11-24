@@ -66,7 +66,67 @@ console.log(obj.name) // jack
 
 ### 依赖被收集到哪里
 
+首先为了收集来自各个地方的引用，在定义每个 key 时就需要有一个数组来保存当前 key 的依赖。假设依赖是一个函数或者是上面提到的那个模板，且它保存在 `window.target` 上，现在可以把 defineReactive 函数改造如下：
+```js
+import Dep from './dep.js'
+
+function defineReactive(data, key, val) {
+    let dep = new Dep()
+    Object.defineProperty(data, key, {
+        enumerable: true,
+        configurable: true,
+        get: function() {
+            return val
+        },
+        set: function(newVal) {
+            if (val === newVal) {
+                return
+            }
+            val = newVal
+        }
+    })
+}
+```
+```js
+// dep.js
+export default class Dep {
+    constructor() {
+        this.subs = []
+    }
+
+    addSub(sub) {
+        this.subs.push(sub)
+    }
+
+    removeSub(sub) {
+        remove(this.subs, sub)
+    }
+
+    depend() {
+        if (window.target) {
+            this.addSub(window.target)
+        }
+    }
+
+    notify() {
+        const subs = this.subs.slice()
+        for (let i = 0, l = subs.length; i < l; i++) {
+            subs[i].update()
+        }
+    }
+}
+
+function remove(arr, item) {
+    if (arr.length) {
+        const index = arr.indexOf(item)
+        if (index > -1) {
+            return arr.splice(index, 1)
+        }
+    }
+}
+```
+
 ## 参考文献
 
-- 书籍《深入浅出 Vue.js》
+- 《深入浅出 Vue.js》刘博文·著
 - [learnVue](https://github.com/answershuto/learnVue)
