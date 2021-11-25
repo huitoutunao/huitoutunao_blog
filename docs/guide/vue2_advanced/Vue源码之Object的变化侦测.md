@@ -76,6 +76,7 @@ function defineReactive(data, key, val) {
         enumerable: true,
         configurable: true,
         get: function() {
+            dep.depend()
             return val
         },
         set: function(newVal) {
@@ -83,6 +84,7 @@ function defineReactive(data, key, val) {
                 return
             }
             val = newVal
+            dep.notify()
         }
     })
 }
@@ -94,20 +96,24 @@ export default class Dep {
         this.subs = []
     }
 
+    // 添加依赖
     addSub(sub) {
         this.subs.push(sub)
     }
 
+    // 移除依赖
     removeSub(sub) {
         remove(this.subs, sub)
     }
 
+    // 收集依赖
     depend() {
         if (window.target) {
             this.addSub(window.target)
         }
     }
 
+    // 通知依赖
     notify() {
         const subs = this.subs.slice()
         for (let i = 0, l = subs.length; i < l; i++) {
