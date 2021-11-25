@@ -117,7 +117,7 @@ export default class Dep {
     notify() {
         const subs = this.subs.slice()
         for (let i = 0, l = subs.length; i < l; i++) {
-            subs[i].update()
+            subs[i].update() // 触发依赖项定义的 update 函数，后面会补充
         }
     }
 }
