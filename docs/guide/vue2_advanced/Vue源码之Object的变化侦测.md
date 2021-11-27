@@ -71,64 +71,64 @@ console.log(obj.name) // jack
 import Dep from './dep.js'
 
 function defineReactive(data, key, val) {
-    let dep = new Dep()
-    Object.defineProperty(data, key, {
-        enumerable: true,
-        configurable: true,
-        get: function() {
-            dep.depend()
-            return val
-        },
-        set: function(newVal) {
-            if (val === newVal) {
-                return
-            }
-            val = newVal
-            dep.notify()
-        }
-    })
+  let dep = new Dep()
+  Object.defineProperty(data, key, {
+    enumerable: true,
+    configurable: true,
+    get: function () {
+      dep.depend()
+      return val
+    },
+    set: function (newVal) {
+      if (val === newVal) {
+        return
+      }
+      val = newVal
+      dep.notify()
+    },
+  })
 }
 ```
 ```js
 // dep.js
 export default class Dep {
-    constructor() {
-        this.subs = []
-    }
+  constructor() {
+    this.subs = []
+  }
 
-    // 添加依赖
-    addSub(sub) {
-        this.subs.push(sub)
-    }
+  // 添加依赖
+  addSub(sub) {
+    this.subs.push(sub)
+  }
 
-    // 移除依赖
-    removeSub(sub) {
-        remove(this.subs, sub)
-    }
+  // 移除依赖
+  removeSub(sub) {
+    remove(this.subs, sub)
+  }
 
-    // 收集依赖
-    depend() {
-        if (window.target) {
-            this.addSub(window.target)
-        }
+  // 收集依赖
+  depend() {
+    if (window.target) {
+      this.addSub(window.target)
     }
-
-    // 通知依赖
-    notify() {
-        const subs = this.subs.slice()
-        for (let i = 0, l = subs.length; i < l; i++) {
-            subs[i].update() // 触发依赖项定义的 update 函数，后面会补充
-        }
+  }
+  
+  // 通知依赖
+  notify() {
+    const subs = this.subs.slice()
+    for (let i = 0, l = subs.length; i < l; i++) {
+      subs[i].update() // 触发依赖项定义的 update 函数，后面会补充
     }
+  }
 }
 
 function remove(arr, item) {
-    if (arr.length) {
-        const index = arr.indexOf(item)
-        if (index > -1) {
-            return arr.splice(index, 1)
-        }
+  if (arr.length) {
+    const index = arr.indexOf(item)
+    if (index > -1) {
+      return arr.splice(index, 1)
     }
+  }
 }
 ```
 
@@ -136,7 +136,11 @@ function remove(arr, item) {
 
 ### Watcher
 
-因为上面的依赖是直接添加进 Dep 中，依赖可能比较多且它类型还不一样，所以需要抽象出一个能集中处理这些情况的类。Watcher 是一个中介角色，数据发生变化时通知它，它再去通知其他依赖。
+因为上面的依赖是直接添加进 Dep 中，依赖可能比较多且它类型还不一样，所以需要抽象出一个能集中处理这些情况的类，然后，收集依赖时只收集这个类的实例。
+
+Watcher 充当一个中介角色，数据发生变化时通知它，它再去通知其他依赖。
+
+正在研究中...
 
 ## 参考文献
 
