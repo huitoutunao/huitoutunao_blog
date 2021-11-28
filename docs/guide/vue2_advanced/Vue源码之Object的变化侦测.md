@@ -140,7 +140,38 @@ function remove(arr, item) {
 
 Watcher 充当一个中介角色，数据发生变化时通知它，它再去通知其他依赖。
 
-正在研究中...
+举个例子：
+```js
+vm.$watch('a.b.c', function(newVal, oldVal) {
+  // 做什么
+})
+```
+当 `data.a.b.c` 属性发生变化时，触发第二个参数中的函数。即当 `data.a.b.c` 的值变化时，通知 Watcher。接着，Watcher 再执行参数中的回调函数。
+
+```js
+// watcher.js
+export default class Watcher {
+  constructor(vm, expOrFn, cb) {
+    this.vm = vm
+    this.getter = parsePath(expOrFn)
+    this.cb = cb
+    this.value = this.get()
+  }
+
+  get() {
+    window.target = this
+    let value = this.getter.call(this.vm, this.vm)
+    window.target = undefined
+    return value
+  }
+
+  update() {
+    const oldValue = this.value
+    this.value = this.get()
+    this.cb.call(this.vm, this.value, oldValue)
+  }
+}
+```
 
 ## 参考文献
 
