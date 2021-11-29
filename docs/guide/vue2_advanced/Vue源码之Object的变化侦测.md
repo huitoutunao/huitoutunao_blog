@@ -136,7 +136,7 @@ function remove(arr, item) {
 
 ### Watcher
 
-因为上面的依赖是直接添加进 Dep 中，依赖可能比较多且它类型还不一样，所以需要抽象出一个能集中处理这些情况的类，然后，收集依赖时只收集这个类的实例。
+因为上面的依赖是直接添加进 Dep 中，依赖可能比较多且它类型还不一样，所以需要抽象出一个能集中处理这些情况的类，然后，收集依赖时只收集这个**类的实例**。
 
 Watcher 充当一个中介角色，数据发生变化时通知它，它再去通知其他依赖。
 
@@ -146,29 +146,61 @@ vm.$watch('a.b.c', function(newVal, oldVal) {
   // 做什么
 })
 ```
-当 `data.a.b.c` 属性发生变化时，触发第二个参数中的函数。即当 `data.a.b.c` 的值变化时，通知 Watcher。接着，Watcher 再执行参数中的回调函数。
+
+当 `data.a.b.c` 属性发生变化时，触发第二个参数中的函数。即当 `data.a.b.c` 的值变化时，通知 Watcher。接着，Watcher 再执行参数中的回调函数。也说明 `$watch` 函数内部有使用到 Watcher 封装好的类的实例。
 
 ```js
 // watcher.js
+import { parsePath } from '../util/lang.js'
+
 export default class Watcher {
+  /* 
+    vm：当前组件实例
+    expOrFn：表达式或函数
+    cb：回调函数
+  */
   constructor(vm, expOrFn, cb) {
     this.vm = vm
-    this.getter = parsePath(expOrFn)
+    if (typeof expOrFn === 'function') {
+      this.getter = expOrFn
+    } else {
+      this.getter = parsePath(expOrFn) // 解析简单路径，返回函数
+    }
     this.cb = cb
-    this.value = this.get()
+    this.value = this.get() // 读取属性值
   }
 
   get() {
+    // 前面说过依赖保存在 window.target 上，所以把当前的实例赋值给它
+    // 当前实例，即当前的依赖调用 Watcher 类生成的实例
     window.target = this
-    let value = this.getter.call(this.vm, this.vm)
+    let value = this.getter.call(this.vm, this.vm) // 读取属性值，同时将依赖添加进 Dep 中
     window.target = undefined
     return value
   }
 
   update() {
     const oldValue = this.value
-    this.value = this.get()
+    this.value = this.get() // 获取更新后的值
     this.cb.call(this.vm, this.value, oldValue)
+  }
+}
+```
+```js
+// lang.js
+const bailRE = /[^\w.$]/ // 排除字符组 [0-9a-zA-Z_]
+export function parsePath(path) {
+  if (bailRE.test(path)) {
+    return
+  }
+
+  const segments = path.split('.')
+  return function(obj) {
+    for (let i = 0; i < segments.length; i++) {
+      if (!obj) return
+      obj = obj[segments[i]]
+    }
+    return obj
   }
 }
 ```
