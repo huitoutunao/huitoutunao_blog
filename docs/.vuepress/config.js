@@ -137,6 +137,7 @@ module.exports = {
                     '/question/qs_js/004-写一个方法把下划线命名转成大驼峰命名',
                     '/question/qs_js/005-写一个去除制表符和换行符的方法',
                     '/question/qs_js/006-统计某一字符或字符串在另一个字符串中出现的次数',
+                    '/question/qs_js/007-介绍下Set、Map、WeakSet和WeakMap的区别',
                 ]
             }, {
                 title: 'CSS篇',
