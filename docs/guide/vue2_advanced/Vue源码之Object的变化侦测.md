@@ -207,6 +207,39 @@ export function parsePath(path) {
 
 ## 递归侦测所有 key
 
+上面只能侦测对象的某一属性，现在是希望数据中的所有属性都能侦测到，所以要封装一个 Observer 类。
+```js
+export class Observer {
+  constructor(value) {
+    this.value = value
+    if (!Array.isArray(value)) {
+      this.walk(value) // 只有 Object 类型才调用 walk 方法
+    }
+  }
+
+  // 将每一个属性转换成 getter/setter 的形式来侦测变化
+  walk(obj) {
+    const keys = Object.keys(obj)
+    for (let i = 0; i < keys.length; i++) {
+      defineReactive(obj, keys[i], obj[keys[i]])
+    }
+  }
+}
+
+function defineReactive(data, key, val) {
+  if (typeof val === 'object') {
+    new Observer(val) // 递归对象的子属性
+  }
+  // ...省略代码
+}
+
+let tom = {
+  name: 'tom'
+  age: '24'
+}
+let obs = new Observer(tom) // tom 变成了响应式的 object
+```
+
 ## 参考文献
 
 - 《深入浅出 Vue.js》刘博文·著
