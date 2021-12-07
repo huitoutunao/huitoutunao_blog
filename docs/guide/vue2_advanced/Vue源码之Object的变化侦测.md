@@ -240,6 +240,16 @@ let tom = {
 let obs = new Observer(tom) // tom 变成了响应式的 object
 ```
 
+## 总结
+
+通过 `Object.defineProperty` 将对象属性转换成 getter/setter 的形式来追踪变化。读取数据时触发 getter，修改数据时触发 setter。
+
+在 getter 中收集依赖，在 setter 中通知依赖。创建 Dep 类来帮助我们收集依赖，删除依赖和通知依赖。
+
+依赖就是 Watcher，它充当一个中介角色，数据发生变化时通知它，它再去通知其他依赖。
+
+最后创建了 Observer 类将对象的所有属性都转换成响应式。
+
 ## 参考文献
 
 - 《深入浅出 Vue.js》刘博文·著
