@@ -51,6 +51,8 @@ export const arrayMethods = Object.create(arrayProto) // arrayMethods 继承自 
 })
 ```
 
+## 拦截器覆盖 Array 原型
+
 
 ## 参考文献
 
