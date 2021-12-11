@@ -53,6 +53,23 @@ export const arrayMethods = Object.create(arrayProto) // arrayMethods 继承自 
 
 ## 拦截器覆盖 Array 原型
 
+为了不污染全局的 Array，我们可以只覆盖那些响应式数组的数据。因此通过修改 Observer 类来覆盖响应数组 Array 原型的方法。
+```js
+import { arrayMethods } from './array.js'
+
+export class Observer {
+  constructor(value) {
+    this.value = value
+    if (Array.isArray(value)) {
+      value.__proto__ = arrayMethods // 覆盖 value 原型的方法
+    } else {
+      this.walk(value)
+    }
+  }
+  // ...省略代码
+}
+```
+
 
 ## 参考文献
 
