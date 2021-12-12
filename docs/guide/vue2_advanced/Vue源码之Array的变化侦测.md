@@ -44,7 +44,7 @@ export const arrayMethods = Object.create(arrayProto) // arrayMethods 继承自 
     enumerable: false,
     writable: true,
     configurable: true,
-    value: function mutator (...args) {
+    value: function mutator(...args) {
       return original.apply(this, args) // 实际调用 Array.prototype 上的方法
     }
   })
@@ -56,17 +56,54 @@ export const arrayMethods = Object.create(arrayProto) // arrayMethods 继承自 
 为了不污染全局的 Array，我们可以只覆盖那些响应式数组的数据。因此通过修改 Observer 类来覆盖响应数组 Array 原型的方法。
 ```js
 import { arrayMethods } from './array.js'
+import { def } from '../util/lang.js'
+// ...省略其他引入
+
+const hasProto = '__proto__' in {}
+const arrayKeys = Object.getOwnPropertyNames(arrayMethods) // 数组方法名称列表
 
 export class Observer {
   constructor(value) {
     this.value = value
     if (Array.isArray(value)) {
-      value.__proto__ = arrayMethods // 覆盖 value 原型的方法
+      // 兼容浏览器是否支持 __proto__ 属性
+      if (hasProto) {
+        protoAugment(value, arrayMethods)
+      } else {
+        copyAugment(value, arrayMethods, arrayKeys)
+      }
     } else {
       this.walk(value)
     }
   }
   // ...省略代码
+}
+
+// 支持 __proto__ 属性
+function protoAugment(target, src) {
+  target.__proto__ = src
+}
+
+// 不支持 __proto__ 属性，直接遍历数组方法挂载到对象上
+// 所以使用这些数组方法时，并不是调用 Array.prototype 上的方法，而是挂载到对象上的方法，即拦截器的方法
+function copyAugment(target, src, keys) {
+  for (let i = 0, l = keys.length; i < l; i++) {
+    const key = keys[i]
+    def(target, key, src[key])
+  }
+}
+```
+```js
+// util/lang.js
+
+// 定义属性
+export function def(obj, key, val, enumerable) {
+  Object.defineProperty(obj, key, {
+    value: val,
+    enumerable: !!enumerable,
+    writable: true,
+    configurable: true
+  })
 }
 ```
 
