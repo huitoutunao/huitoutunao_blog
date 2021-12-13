@@ -87,7 +87,7 @@ function protoAugment(target, src) {
 // 不支持 __proto__ 属性，直接遍历数组方法挂载到对象上
 // 所以使用这些数组方法时，并不是调用 Array.prototype 上的方法，而是挂载到对象上的方法，即拦截器的方法
 function copyAugment(target, src, keys) {
-  for (let i = 0, l = keys.length; i < l; i++) {
+  for (let i = 0, len = keys.length; i < len; i++) {
     const key = keys[i]
     def(target, key, src[key])
   }
@@ -107,6 +107,18 @@ export function def(obj, key, val, enumerable) {
 }
 ```
 
+## 如何收集依赖
+
+Array 在 getter 中收集依赖，依赖被存储到 Dep 里。
+
+举个例子：
+```js
+{
+  list: [1, 2, 3, 4, 5]
+}
+```
+
+因为获取 list 中的数据要读取 list 这个属性，所以肯定会触发 list 中的 getter 函数。
 
 ## 参考文献
 
