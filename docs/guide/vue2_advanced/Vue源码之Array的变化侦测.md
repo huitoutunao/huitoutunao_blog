@@ -119,6 +119,89 @@ Array 在 getter 中收集依赖，依赖被存储到 Dep 里。
 ```
 
 因为获取 list 中的数据要读取 list 这个属性，所以肯定会触发 list 中的 getter 函数。
+```js
+import { hasOwn, isObject } from '../shared/util.js'
+
+export class Observer {
+  constructor(value) {
+    this.value = value
+    this.dep = new Dep()
+    def(value, '__ob__', this)
+
+    if (Array.isArray(value)) {
+      if (hasProto) {
+        protoAugment(value, arrayMethods)
+      } else {
+        copyAugment(value, arrayMethods, arrayKeys)
+      }
+    } else {
+      this.walk(value)
+    }
+  }
+
+  // ...省略代码
+}
+
+/**
+ * 为 value 创建一个 Observer 实例
+ * 如果创建成功，直接返回创建的 Observer 实例
+ * 如果 value 已经存在一个 Observer 实例，则直接返回它
+*/
+export function observe(value, asRootData) {
+  if (!isObject(value)) {
+    return
+  }
+
+  let ob
+  if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+    ob = value.__ob__
+  } else {
+    ob = new Observer(value)
+  }
+  return ob
+}
+
+function defineReactive(data, key, val) {
+  // if (typeof val === 'object') {
+  //   new Observer(val)
+  // }
+  let childOb = observe(val)
+  let dep = new Dep()
+  Object.defineProperty(data, key, {
+    enumerable: true,
+    configurable: true,
+    get: function () {
+      dep.depend()
+
+      if (childOb) {
+        childOb.dep.depend()
+      }
+      return val
+    },
+    set: function (newVal) {
+      if (val === newVal) {
+        return
+      }
+      val = newVal
+      dep.notify()
+    },
+  })
+}
+```
+```js
+// shared/util.js
+
+// 快速检测对象
+export function isObject(obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+// 检测对象是否有属性
+const hasOwnProperty = Object.prototype.hasOwnProperty
+export function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key)
+}
+```
 
 ## 参考文献
 
