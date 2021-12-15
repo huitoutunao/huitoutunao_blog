@@ -116,6 +116,8 @@ Array 在 getter 中收集依赖，依赖被存储到 Dep 里。
 {
   list: [1, 2, 3, 4, 5]
 }
+
+this.list
 ```
 
 因为获取 list 中的数据要读取 list 这个属性，所以肯定会触发 list 中的 getter 函数。
@@ -153,6 +155,8 @@ export function observe(value, asRootData) {
   }
 
   let ob
+
+  // __ob__ 标记 value 是否被 Observer 转换为响应式数据
   if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__
   } else {
@@ -165,7 +169,7 @@ function defineReactive(data, key, val) {
   // if (typeof val === 'object') {
   //   new Observer(val)
   // }
-  let childOb = observe(val)
+  let childOb = observe(val) // childOb 是 Observer 实例
   let dep = new Dep()
   Object.defineProperty(data, key, {
     enumerable: true,
@@ -174,7 +178,7 @@ function defineReactive(data, key, val) {
       dep.depend()
 
       if (childOb) {
-        childOb.dep.depend()
+        childOb.dep.depend() // 调用 Observer 实例 dep 属性方法收集依赖
       }
       return val
     },
@@ -196,7 +200,7 @@ export function isObject(obj) {
   return obj !== null && typeof obj === 'object'
 }
 
-// 检测对象是否有属性
+// 检测对象是否有某属性
 const hasOwnProperty = Object.prototype.hasOwnProperty
 export function hasOwn(obj, key) {
   return hasOwnProperty.call(obj, key)
