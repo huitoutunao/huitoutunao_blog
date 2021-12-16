@@ -198,6 +198,28 @@ function defineReactive(data, key, val) {
 }
 ```
 ```js
+;[
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse'
+].forEach(function (method) {
+  const original = arrayProto[method]
+  def(arrayMethods, method, function mutator(...args) {
+    const result = original.apply(this, args)
+    const ob = this.__ob__ // this 指向调用该拦截器方法的对象，即 value（数组）
+    ob.dep.notify() // 通知依赖
+    return result
+  })
+})
+
+// 假设 value 是数组类型且定义了 __ob__ 属性。
+// 当 value.push(1) 执行时，实际是调用了拦截器的 push 方法，所以 push 方法里的 this 此时指向 value，所以 this.__ob__ 可以访问 Observer 实例。
+```
+```js
 // shared/util.js
 
 // 快速检测对象
