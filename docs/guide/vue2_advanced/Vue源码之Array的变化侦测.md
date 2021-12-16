@@ -124,11 +124,16 @@ this.list
 ```js
 import { hasOwn, isObject } from '../shared/util.js'
 
+// 举例 伪代码
+// new Observer({
+//   list: [1, 2, 3, 4, 5]
+// })
+
 export class Observer {
   constructor(value) {
     this.value = value
-    this.dep = new Dep()
-    def(value, '__ob__', this)
+    this.dep = new Dep() // Observer 实例需要调用 Dep 的收集和通知依赖方法
+    def(value, '__ob__', this) // this 指向 Observer 实例
 
     if (Array.isArray(value)) {
       if (hasProto) {
@@ -160,9 +165,9 @@ export function observe(value, asRootData) {
   if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__
   } else {
-    ob = new Observer(value)
+    ob = new Observer(value) // 将 value 转为响应式数据
   }
-  return ob
+  return ob // Observer 实例
 }
 
 function defineReactive(data, key, val) {
