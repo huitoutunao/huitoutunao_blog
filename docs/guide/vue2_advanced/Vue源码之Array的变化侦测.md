@@ -234,6 +234,8 @@ export function hasOwn(obj, key) {
 }
 ```
 
+## 侦测数组中元素的变化
+
 ## 参考文献
 
 - 《深入浅出 Vue.js》刘博文·著
