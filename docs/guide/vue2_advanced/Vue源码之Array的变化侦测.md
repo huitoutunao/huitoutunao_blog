@@ -236,7 +236,78 @@ export function hasOwn(obj, key) {
 
 ## 侦测数组中元素的变化
 
+直接上代码：
+```js
+export class Observer {
+  constructor(value) {
+    this.value = value
+    this.dep = new Dep()
+    def(value, '__ob__', this)
+
+    if (Array.isArray(value)) {
+      if (hasProto) {
+        protoAugment(value, arrayMethods)
+      } else {
+        copyAugment(value, arrayMethods, arrayKeys)
+      }
+      this.observeArray(value) // 将数组的每一项转成响应式数据
+    } else {
+      this.walk(value)
+    }
+  }
+
+  // 侦测 Array 中的每一项
+  observeArray(items) {
+    for (let i = 0, l = items.length; i < l; i++) {
+      observe(items[i])
+    }
+  }
+
+  // ...省略其他代码
+}
+```
+
 ## 侦测新增元素的变化
+
+直接上代码：
+```js
+;[
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse'
+].forEach(function(method) {
+  const original = arrayProto[method]
+  def(arrayMethods, method, function mutator(...args) {
+    const result = original.apply(this, args)
+    const ob = this.__ob__
+
+    let inserted
+    switch (method) {
+      case 'path':
+      case 'unshift':
+        inserted = args
+        break
+      case 'splice':
+        inserted = args.slice(2)
+        break
+    }
+    if (inserted) {
+      ob.observeArray(inserted)
+    }
+
+    ob.dep.notify()
+    return result
+  })
+})
+```
+
+数组新增元素的方法有 `push`，`unshift` 和 `splice`，将它们的参数传入 `observeArray` 方法转换成响应式数据。
+
+## 结语
 
 ## 参考文献
 
