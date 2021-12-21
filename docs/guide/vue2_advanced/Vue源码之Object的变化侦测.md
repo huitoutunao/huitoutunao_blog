@@ -240,7 +240,7 @@ let tom = {
 let obs = new Observer(tom) // tom 变成了响应式的 object
 ```
 
-## 总结
+## 结语
 
 通过 `Object.defineProperty` 将对象属性转换成 getter/setter 的形式来追踪变化。读取数据时触发 getter，修改数据时触发 setter。
 
