@@ -56,3 +56,11 @@ const isWeekday = (date) => date.getDay() % 6 !== 0
 console.log(isWeekday(new Date(2021, 0, 11))) // true (周一)
 console.log(isWeekday(new Date(2021, 0, 10))) // false (周日)
 ```
+
+## 获取所有参数的平均值
+
+`reduce()` 方法计算
+```js
+const average = (...args) => args.reduce((a, b) => a + b) / args.length
+average(1, 2, 3, 4) // 2.5
+```
