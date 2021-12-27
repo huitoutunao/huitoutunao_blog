@@ -80,6 +80,7 @@ module.exports = {
                     '/guide/vue2_advanced/虚拟列表',
                     '/guide/vue2_advanced/Vue源码之Object的变化侦测',
                     '/guide/vue2_advanced/Vue源码之Array的变化侦测',
+                    '/guide/vue2_advanced/Vue源码之虚拟DOM',
                 ]
             }, {
                 title: '浏览器和HTTP',
