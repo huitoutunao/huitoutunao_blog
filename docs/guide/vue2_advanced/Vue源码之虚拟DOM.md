@@ -25,7 +25,7 @@ VNode 可以理解成节点描述对象，它描述了应该怎样去创建真�
 
 VNode 创建 DOM 并插入视图。
 ```
-vnode => DOM => 视图
+vnode (创建) => DOM (渲染) => 视图
 ```
 
 ### VNode 的作用
@@ -40,3 +40,17 @@ vnode => DOM => 视图
 - 组件节点
 - 函数式节点
 - 克隆节点
+
+## patch
+
+patch 是在现有 DOM 上进行修改来达到渲染视图的目的。对现有 DOM 进行修改需要做三件事：
+- 创建新增的节点
+- 删除已经废弃的节点
+- 修改需要更新的节点
+
+### 新增节点
+
+## 参考文献
+
+- 《深入浅出 Vue.js》刘博文·著
+- [learnVue](https://github.com/answershuto/learnVue)
