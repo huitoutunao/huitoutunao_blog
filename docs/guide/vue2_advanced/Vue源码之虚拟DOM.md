@@ -68,6 +68,51 @@ vnode 和 oldVNode 是相同节点，对它们进行更细致的比对，替换�
 
 ### 创建节点
 
+元素节点、注释节点和文本节点。整个流程如下：
+```js
+// 伪代码
+// 起始-创建节点
+if ('vnode是元素节点') {
+    console.log('创建元素节点')
+} else {
+    if ('vnode是注释节点') {
+        console.log('创建注释节点')
+    } else {
+        console.log('创建文本节点')
+    }
+}
+// 终点-插入到指定父节点中
+```
+
+### 删除节点
+
+```js
+// 删除一组节点
+function removeVnodes(vnodes, startIdx, endIdx) {
+    for (; startIdx <= endIdx; ++startIdx) {
+        const ch = vnodes[startIdx]
+        if (ifDef(ch)) {
+            removeNode(ch.elm)
+        }
+    }
+}
+
+// 删除单个节点
+const nodeOps = {
+    removeChild(node, child) {
+        node.removeChild(child)
+    }
+}
+
+function removeNode(el) {
+    const parent = nodeOps.parentNode(el)
+    if (isDef(parent)) {
+        nodeOps.removeChild(parent, el)
+    }
+}
+```
+
+
 ## 参考文献
 
 - 《深入浅出 Vue.js》刘博文·著
