@@ -57,20 +57,8 @@ patch 是在现有 DOM 上进行修改来达到渲染视图的目的。对现有
 - vnode 和 oldVNode 不是同一个节点，即vnode 是新节点而 oldVNode 是废弃节点
 
 元素节点、注释节点和文本节点。整个流程如下：
-```js
-// 伪代码
-// 起始-创建节点
-if ('vnode是元素节点') {
-    console.log('创建元素节点')
-} else {
-    if ('vnode是注释节点') {
-        console.log('创建注释节点')
-    } else {
-        console.log('创建文本节点')
-    }
-}
-// 终点-插入到指定父节点中
-```
+
+![vnode1](../../assets/vue_js/vnode_1.png)
 
 ### 删除节点
 
@@ -107,6 +95,14 @@ function removeNode(el) {
 vnode 和 oldVNode 是相同节点，对它们进行更细致的比对，替换差异化的值。
 
 所以整个 patch 运行流程是这样的，首先检测 oldVNode 是否存在，如果不存在，就使用 vnode 创建节点并插入视图。否则进入下一步判断，oldVNode 和 vnode 是否是同一个节点，如果是，就使用 patchVnode 进行更详细的比对与更新操作。否则使用 vnode 创建真实节点并插入到视图中旧节点的旁边，最后将视图中的旧节点删除。
+
+更新节点的逻辑流程如下：
+
+![vnode2](../../assets/vue_js/vnode_2.png)
+
+更新节点的具体实现过程如下：
+
+![vnode3](../../assets/vue_js/vnode_1.png)
 
 ### 更新子节点
 
