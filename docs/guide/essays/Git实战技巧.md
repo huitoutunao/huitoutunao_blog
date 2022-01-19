@@ -36,3 +36,14 @@ $ git add .
 # 等价于 git add . 和 git commit -m。注意：对新文件不受影响
 $ git commit -am '提交至本地仓库'
 ```
+
+3. `git pull` 将远程仓库代码拉取合并到本地仓库，等同于 `git fetch + git merge`
+```sh
+# 等同于 git fetch + git rebase(变基)
+$ git pull --rebase
+```
+
+## 参考文献
+
+- [git 官方文档](https://www.git-scm.com/docs)
+- [我在工作中是如何使用 git 的](https://juejin.cn/post/6974184935804534815)
