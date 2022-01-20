@@ -43,6 +43,36 @@ $ git commit -am '提交至本地仓库'
 $ git pull --rebase
 ```
 
+4. `git fetch` 与 `git pull` 不同的是 `git fetch` 操作仅仅只会拉取远程的更改，不会自动进行 `merge` 操作。对你当前的代码没有影响
+```sh
+# 拉取特定分支
+$ git fetch <远程主机名> <分支名>
+
+# 拉取远程主机所有分支
+$ git fetch --all
+```
+
+5. `git branch` 分支
+```sh
+# 新建本地分支，但不切换
+git branch <branch-name> 
+
+# 查看本地分支
+git branch
+
+# 查看远程分支
+git branch -r
+
+# 查看本地和远程分支
+git branch -a
+
+# 删除本地分支
+git branch -D <branch-nane>
+
+# 重新命名分支
+git branch -m <old-branch-name> <new-branch-name>
+```
+
 ## 参考文献
 
 - [git 官方文档](https://www.git-scm.com/docs)
