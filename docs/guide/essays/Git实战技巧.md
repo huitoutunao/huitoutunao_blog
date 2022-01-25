@@ -77,6 +77,21 @@ git branch -m <old-branch-name> <new-branch-name>
 
 ### git rebase
 
+rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到当前分支上。
+
+举个例子：
+
+现在有 2 个分支，分别是 master 和 test 分支，它们都是基于 test1 提交检出的分支。在 master 分支上分别提交两个文件 `3.js` 和 `4.js`，test 分支上分别提交两个文件 `1.js` 和 `2.js`。它们的提交记录截图如下：
+
+![git2](../../assets/essays/git_2.png)
+
+
+在 test 分支上执行 `git rebase master` 命令，可以看到先是逐个应用了 master 分支的更改，然后以 master 分支最后的提交作为基点，再逐个应用 test 的每个更改。最后切换到 master 分支上，执行合并后得到下面记录截图：
+
+![git3](../../assets/essays/git_3.png)
+
+上面的例子还是比较简单的，如果在变基时遇到代码冲突，我们需要依次使用 `git add`、`git rebase --continue` 的方式来处理冲突，完成 rebase 的过程，如果不想要某次 rebase 的结果，那么需要使用 `git rebase --skip` 来跳过这次 rebase 操作。
+
 ## 参考文献
 
 - [git 官方文档](https://www.git-scm.com/docs)
