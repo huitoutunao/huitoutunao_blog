@@ -92,6 +92,8 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 
 上面的例子还是比较简单的，如果在变基时遇到代码冲突，我们需要依次使用 `git add`、`git rebase --continue` 的方式来处理冲突，完成 rebase 的过程，如果不想要某次 rebase 的结果，那么需要使用 `git rebase --skip` 来跳过这次 rebase 操作。
 
+`git merge` 在不是 `fast-forward`（快速合并）的情况下，会产生一条额外的合并记录，类似 `Merge branch 'xxx' into 'xxx'` 的一条提交信息。另外，在解决冲突的时候，用 merge 只需要解决一次冲突即可，简单粗暴，而用 rebase 的时候 ，需要依次解决每次的冲突，才可以提交。
+
 ## 参考文献
 
 - [git 官方文档](https://www.git-scm.com/docs)
