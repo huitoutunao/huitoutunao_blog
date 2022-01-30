@@ -141,6 +141,14 @@ git revert 会自动生成一条提交记录。
 
 git reset 会直接将提交记录退回到指定的 commit 上，如果是在自己开发分支上，可以使用这种方式撤销提交记录，之后使用 `git push --force` 进行推送到远程。多人协作的集成分支上推荐使用 git revert 命令进行撤消提交。这样，提交的历史记录不会被抹去，可以安全的进行撤回。
 
+### 不同的工作区域撤销更改
+
+如果提交了 `1.js` 的文件修改，想将它恢复，那就使用 `git checkout -- <filename>`，filename 这里是 `1.js`。
+
+## 结语
+
+工作中使用 git 比较频繁，除了 `git add`、`git commit`、`git merge`、`git pull` 和 `git push` 基础命令之外。今天还扩展了些比较灵活的命令，希望能在日后工作中解决代码管理问题。
+
 ## 参考文献
 
 - [git 官方文档](https://www.git-scm.com/docs)
