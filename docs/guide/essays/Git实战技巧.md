@@ -120,13 +120,26 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 特别注意，只能在自己使用的 test 分支上进行 rebase 操作，不允许在集成分支上进行 rebase，因为这种操作会修改集成分支的历史记录。
 :::
 
-### 使用 `git cherry-pick` 获取指定的 commit
+### `git cherry-pick` 获取指定的 commit
 
 例如 master 分支上只要 test 分支上新增功能的提交，那么就可以使用 `git cherry-pick [commit-hash]`
 
 如果合并发生冲突，解决冲突后执行 `git add .`，然后执行 `git cherry-pick --continue`。
 
 如果需要多个 `cherry-pick` 需要同步到目标分支，可以简写为 `git cherry-pick <first-commit-id>...<last-commit-id>`，这是一个左开右闭的区间，也就时说 `first-commit-id` 提交带来的代码的改动不会被合并过去，如果需要合并过去，可以使用 `git cherry-pick <first-commit-id>^...<last-commit-id>`，它表示包含 `first-commit-id` 到 `last-commit-id` 在内的提交都会被合并过去。
+
+### git revert 回滚某次的提交
+
+git revert 撤销某次操作，此操作不会修改原本的提交记录，而是会新增一条提交记录来抵消某次操作。
+
+- `git revert <commit-id>` 针对普通 commit
+- `git revert <commit-id> -m` 针对 merge 的 commit
+
+git revert 会自动生成一条提交记录。
+
+![git8](../../assets/essays/git_8.png)
+
+git reset 会直接将提交记录退回到指定的 commit 上，如果是在自己开发分支上，可以使用这种方式撤销提交记录，之后使用 `git push --force` 进行推送到远程。多人协作的集成分支上推荐使用 git revert 命令进行撤消提交。这样，提交的历史记录不会被抹去，可以安全的进行撤回。
 
 ## 参考文献
 
