@@ -100,6 +100,26 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 
 `git merge` 在不是 `fast-forward`（快速合并）的情况下，会产生一条额外的合并记录，类似 `Merge branch 'xxx' into 'xxx'` 的一条提交信息。另外，在解决冲突的时候，用 merge 只需要解决一次冲突即可，简单粗暴，而用 rebase 的时候 ，需要依次解决每次的冲突，才可以提交。
 
+### `git rebase -i`
+
+在开发中，如果遇到多个无效提交想将它们压缩成一次提交，需要使用命令 `git rebase -i <base-commit>`，其中 `<base-commit>` 是提交的 id，以它作为起点，把后面的提交压缩（不包含起点），然后会进入 vim 的交互式界面：
+
+![git5](../../assets/essays/git_5.png)
+
+我们要使用 Squash 策略进行合并，但至少保留一个 pick，否则命令会执行失败。
+
+![git6](../../assets/essays/git_6.png)
+
+退出编辑模式，然后键入 `:wq` 保存并推出，此时又会出现另一个界面。
+
+![git7](../../assets/essays/git_7.png)
+
+键入 `:E` 进入编辑模式，将更改合并提交的文案，最后再 `:wq` 保存并退出。
+
+::: warning 注意
+特别注意，只能在自己使用的 test 分支上进行 rebase 操作，不允许在集成分支上进行 rebase，因为这种操作会修改集成分支的历史记录。
+:::
+
 ## 参考文献
 
 - [git 官方文档](https://www.git-scm.com/docs)
