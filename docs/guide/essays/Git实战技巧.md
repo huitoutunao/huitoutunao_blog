@@ -102,7 +102,7 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 
 ### `git rebase -i`
 
-在开发中，如果遇到多个无效提交想将它们压缩成一次提交，需要使用命令 `git rebase -i <base-commit>`，其中 `<base-commit>` 是提交的 id，以它作为起点，把后面的提交压缩（不包含起点），然后会进入 vim 的交互式界面：
+在开发中，如果遇到多个无效提交想将它们压缩成一次提交，需要使用命令 `git rebase -i <base-commit>`，其中 `<base-commit>` 是提交的 hash 值，以它作为起点，把后面的提交压缩（不包含起点），然后会进入 vim 的交互式界面：
 
 ![git5](../../assets/essays/git_5.png)
 
@@ -119,6 +119,14 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 ::: warning 注意
 特别注意，只能在自己使用的 test 分支上进行 rebase 操作，不允许在集成分支上进行 rebase，因为这种操作会修改集成分支的历史记录。
 :::
+
+### 使用 `git cherry-pick` 获取指定的 commit
+
+例如 master 分支上只要 test 分支上新增功能的提交，那么就可以使用 `git cherry-pick [commit-hash]`
+
+如果合并发生冲突，解决冲突后执行 `git add .`，然后执行 `git cherry-pick --continue`。
+
+如果需要多个 `cherry-pick` 需要同步到目标分支，可以简写为 `git cherry-pick <first-commit-id>...<last-commit-id>`，这是一个左开右闭的区间，也就时说 `first-commit-id` 提交带来的代码的改动不会被合并过去，如果需要合并过去，可以使用 `git cherry-pick <first-commit-id>^...<last-commit-id>`，它表示包含 `first-commit-id` 到 `last-commit-id` 在内的提交都会被合并过去。
 
 ## 参考文献
 
