@@ -108,6 +108,7 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
+                    '/guide/essays/Sass、Scss与Less区别',
                     '/guide/essays/从零搭建一个简单的Vue脚手架',
                     '/guide/essays/VuePress搭建博客',
                     '/guide/essays/vscode调试lodash源码',
