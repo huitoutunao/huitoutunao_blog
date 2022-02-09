@@ -109,6 +109,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/guide/essays/从零搭建一个简单的Vue脚手架',
+                    '/guide/essays/Sass实用技巧',
                     '/guide/essays/VuePress搭建博客',
                     '/guide/essays/vscode调试lodash源码',
                     '/guide/essays/NPM发包、更新和撤销',
