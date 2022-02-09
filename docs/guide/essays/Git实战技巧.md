@@ -55,7 +55,7 @@ $ git fetch --all
 5. `git branch` 分支
 ```sh
 # 新建本地分支，但不切换
-git branch <branch-name> 
+git branch <branch-name>
 
 # 查看本地分支
 git branch
@@ -92,7 +92,62 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 
 上面的例子还是比较简单的，如果在变基时遇到代码冲突，我们需要依次使用 `git add`、`git rebase --continue` 的方式来处理冲突，完成 rebase 的过程，如果不想要某次 rebase 的结果，那么需要使用 `git rebase --skip` 来跳过这次 rebase 操作。
 
+解决冲突后，运行 `git rebase --continue` 会出现下面的 `vim` 界面：
+
+![git4](../../assets/essays/git_4.png)
+
+然后键入 `:E` 进入编辑模式，如果需要修改提交文案，可以键入 `i`，`delete` 是删除文案键，更新文案完成后，键入 `esc` 退出编辑模式，最后键入 `:wq` 保存并退出。
+
 `git merge` 在不是 `fast-forward`（快速合并）的情况下，会产生一条额外的合并记录，类似 `Merge branch 'xxx' into 'xxx'` 的一条提交信息。另外，在解决冲突的时候，用 merge 只需要解决一次冲突即可，简单粗暴，而用 rebase 的时候 ，需要依次解决每次的冲突，才可以提交。
+
+### `git rebase -i`
+
+在开发中，如果遇到多个无效提交想将它们压缩成一次提交，需要使用命令 `git rebase -i <base-commit>`，其中 `<base-commit>` 是提交的 hash 值，以它作为起点，把后面的提交压缩（不包含起点），然后会进入 vim 的交互式界面：
+
+![git5](../../assets/essays/git_5.png)
+
+我们要使用 Squash 策略进行合并，但至少保留一个 pick，否则命令会执行失败。
+
+![git6](../../assets/essays/git_6.png)
+
+退出编辑模式，然后键入 `:wq` 保存并推出，此时又会出现另一个界面。
+
+![git7](../../assets/essays/git_7.png)
+
+键入 `:E` 进入编辑模式，将更改合并提交的文案，最后再 `:wq` 保存并退出。
+
+::: warning 注意
+特别注意，只能在自己使用的 test 分支上进行 rebase 操作，不允许在集成分支上进行 rebase，因为这种操作会修改集成分支的历史记录。
+:::
+
+### `git cherry-pick` 获取指定的 commit
+
+例如 master 分支上只要 test 分支上新增功能的提交，那么就可以使用 `git cherry-pick [commit-hash]`
+
+如果合并发生冲突，解决冲突后执行 `git add .`，然后执行 `git cherry-pick --continue`。
+
+如果需要多个 `cherry-pick` 需要同步到目标分支，可以简写为 `git cherry-pick <first-commit-id>...<last-commit-id>`，这是一个左开右闭的区间，也就时说 `first-commit-id` 提交带来的代码的改动不会被合并过去，如果需要合并过去，可以使用 `git cherry-pick <first-commit-id>^...<last-commit-id>`，它表示包含 `first-commit-id` 到 `last-commit-id` 在内的提交都会被合并过去。
+
+### git revert 回滚某次的提交
+
+git revert 撤销某次操作，此操作不会修改原本的提交记录，而是会新增一条提交记录来抵消某次操作。
+
+- `git revert <commit-id>` 针对普通 commit
+- `git revert <commit-id> -m` 针对 merge 的 commit
+
+git revert 会自动生成一条提交记录。
+
+![git8](../../assets/essays/git_8.png)
+
+git reset 会直接将提交记录退回到指定的 commit 上，如果是在自己开发分支上，可以使用这种方式撤销提交记录，之后使用 `git push --force` 进行推送到远程。多人协作的集成分支上推荐使用 git revert 命令进行撤消提交。这样，提交的历史记录不会被抹去，可以安全的进行撤回。
+
+### 不同的工作区域撤销更改
+
+如果提交了 `1.js` 的文件修改，想将它恢复，那就使用 `git checkout -- <filename>`，filename 这里是 `1.js`。
+
+## 结语
+
+工作中使用 git 比较频繁，除了 `git add`、`git commit`、`git merge`、`git pull` 和 `git push` 基础命令之外。今天还扩展了些比较灵活的命令，希望能在日后工作中解决代码管理问题。
 
 ## 参考文献
 
