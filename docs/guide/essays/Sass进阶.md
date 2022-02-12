@@ -112,3 +112,7 @@ $index-width: 10px;
     $index: $index - 1;
 }
 ```
+
+## 参考文献
+
+- [Sass控制命令：@if,@for,@each和@while](https://www.w3cplus.com/preprocessor/Sass-control-directives-if-for-each-while.html)
