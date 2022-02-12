@@ -99,3 +99,16 @@ $list: red green yellow black orange;
 ```
 
 ### @while
+
+只要 `@while` 后面的条件为 `false` 就会停止循环。
+```scss
+$index: 4;
+$index-width: 10px;
+
+@while $index > 0 {
+    .box-#{$index} {
+        width: $index-width + $index;
+    }
+    $index: $index - 1;
+}
+```
