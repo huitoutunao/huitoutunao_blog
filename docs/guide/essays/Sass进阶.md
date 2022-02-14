@@ -213,6 +213,82 @@ $index-width: 10px;
 }
 ```
 
+## @mixin
+
+### 基础
+
+`@mixin` 定义的是一个片段，这个片段可以是类似变量的一段文字一条属性，也可以是一整个选择器和内容，也可以是一个选择器的一部分 `CSS` 代码。此外还可以传递参数，通过参数生成不同代码。它需要配合 `@include` 命令来引用这段代码，类似复制的效果。`@mixin` 定义的内容，不会编译输出。
+```scss
+@mixin font($color, $fontSize: 14px) {
+    color: $color;
+    font-size: $fontSize;
+}
+
+p { @include font(red); }
+h1 { @include font(blue, 20px); }
+```
+编译后：
+```scss
+p { color: red; font-size: 14px; }
+h1 { color: blue; font-size: 20px; }
+```
+
+### 传递多参数
+
+需要在参数后面加上三个点，表示这个参数可能包含多条属性：
+```scss
+@mixin box-shadow($shadows...) {
+    -moz-box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    box-shadow: $shadows;
+}
+
+.shadow {
+    height: 200px;
+    @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+```
+
+此外，多值参数还可以用在 `@include` 传參的时候，分解某个变量值，例如：
+```scss
+@mixin colors($text, $background, $border) {
+    color: $text;
+    background-color: $background;
+    border-color: $border;
+}
+
+$values: #ff0000, #00ff00, #0000ff;
+.box1 {
+    @include colors($values...);
+}
+
+$value-map: (text: #00ff00, background: #0000ff, border: #ff0000);
+.box2 {
+    @include colors($value-map...);
+}
+```
+
+### 向 @mixin 传递内容
+
+对于编写响应式不要太友好，例如：
+```scss
+#logo {
+    font-size: 32px;
+}
+@mixin iphone5 {
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+        @content;
+    }
+}
+@include iphone5 {
+    #logo {
+        font-size: 12px;
+    }
+}
+```
+`@content` 是即将插入 `@include` 中的内容。
+
 ## 参考文献
 
 - [Sass控制命令：@if,@for,@each和@while](https://www.w3cplus.com/preprocessor/Sass-control-directives-if-for-each-while.html)
+- [Sass进阶](https://www.w3cplus.com/preprocessor/sass-advanced.html)
