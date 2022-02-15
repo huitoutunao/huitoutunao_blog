@@ -288,6 +288,38 @@ $value-map: (text: #00ff00, background: #0000ff, border: #ff0000);
 ```
 `@content` 是即将插入 `@include` 中的内容。
 
+## 组织 Sass 文件
+
+![sass_1](../../assets/essays/sass_1.png)
+
+### base
+
+该文件夹包含初始化模板相关的文件。
+
+### components
+
+该文件夹包含组件样式相关的文件。
+
+### helpers
+
+该文件夹包含 Sass 的工具和帮助之类的样式文件。
+
+### layouts
+
+该文件夹包含布局相关的文件。比如说“header”，“footer”，“网格布局”和“响应式布局”等。
+
+### pages
+
+如果你需要针对一些页面写特定的样式，我想将他们放在 `pages/` 文件夹中是非常酷的，并且以页面的名称来命名。
+
+### theme
+
+该文件夹包含主题样式的相关文件。
+
+### vendors
+
+主要用来包含来自外部的库和框架的 CSS 文件。
+
 ## 参考文献
 
 - [Sass控制命令：@if,@for,@each和@while](https://www.w3cplus.com/preprocessor/Sass-control-directives-if-for-each-while.html)
