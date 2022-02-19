@@ -108,6 +108,7 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
+                    '/guide/essays/NVM的安装和使用',
                     '/guide/essays/Sass进阶',
                     '/guide/essays/Sass、Scss与Less区别',
                     '/guide/essays/从零搭建一个简单的Vue脚手架',
