@@ -70,7 +70,7 @@ nvm root [path] 设置和查看root路径
 $ nvm install 12.22.10
 ```
 
-附带的 `npm` 包可能会下载失败，这时候可以单独去 `npm` 官网找对应的版本下载（文末贴出了参考链接），然后将它解压到 `D:\nvm\nvm\v12.22.10\node_modules`，接着把解压后的文件夹名称改为 `npm`，接着把 `D:\nvm\nvm\v12.22.10\node_modules\npm\bin` 目录下面两个文件拷贝下，分别是 `npm file` 和 `npm .cmd file`，拷贝到目录 `D:\nvm\nvm\v12.22.10`。
+附带的 `npm` 包可能会下载失败，这时候可以单独去 `npm` 官网找对应的版本下载（文末贴出了参考链接），然后将它解压到 `D:\nvm\nvm\v12.22.10\node_modules`，接着把解压后的文件夹名称改为 `npm`，接着把 `D:\nvm\nvm\v12.22.10\node_modules\npm\bin` 目录下面 4 个文件拷贝下，分别是 `npm/npx file` 和 `npm/npx .cmd file`，拷贝到目录 `D:\nvm\nvm\v12.22.10`。
 
 通过如下命令检测：
 ```sh
