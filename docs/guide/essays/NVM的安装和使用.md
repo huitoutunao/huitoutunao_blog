@@ -37,7 +37,9 @@ $ nvm
 
 # 查看已安装 node 版本
 $ nvm ls
-nvm install          // 安装最新版本 nvm
+
+# 安装最新版本 nvm
+$ nvm install
 nvm install vXX      // 安装对应 vXX 版本的 node
 nvm uninstall vXX    // 卸载对应 vXX 版本的 node
 nvm use xxx          // 选择使用XXX版本
