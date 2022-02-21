@@ -133,6 +133,29 @@ $ npm i -g yarn
 见下图：
 ![nvm_2](../../assets/essays/nvm_2.png)
 
+### 更改存储路径
+```sh
+# 查看 yarn 全局 bin 位置
+$ yarn global bin
+
+# 查看 yarn 全局安装位置
+$ yarn global dir
+
+# 查看 yarn 全局 cache 位置
+$ yarn cache dir
+
+# 更改 yarn 全局 bin 位置
+$ yarn config set prefix "D:\nodejs\yarn_bin"
+
+# 更改 yarn 全局 global 位置
+$ yarn config set global-folder "D:\nodejs\yarn_global"
+
+# 更改 yarn 全局 cache 位置
+$ yarn config set cache-folder "D:\nodejs\yarn_cache"
+```
+
+将 `D:\nodejs\yarn_bin` 添加到环境变量的 path 变量中，若该目录下自动生成了 bin 目录，则添加 `D:\nodejs\yarn_bin\bin` 到环境变量中。
+
 ## 结语
 
 本文到这里就结束了，对安装 nvm 过程中遇到的问题做一个总结，希望我的分享能够对你有一点帮助。
