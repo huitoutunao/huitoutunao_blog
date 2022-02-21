@@ -35,33 +35,38 @@ $ nvm
 # 会提示 nvw 下的相关命令
 $ nvm
 
+# 显示 node是运行在 32 位还是 64 位
+$ nvm arch
+
+# 安装 node， version 是特定版本也可以是最新稳定版本 latest。可选参数 arch 指定安装 32 位还是 64 位版本，默认是系统位数
+$ nvm install <version> [arch]
+
 # 查看已安装 node 版本
 $ nvm ls
 
-# 安装最新版本 nvm
-$ nvm install
-nvm install vXX      // 安装对应 vXX 版本的 node
-nvm uninstall vXX    // 卸载对应 vXX 版本的 node
-nvm use xxx          // 选择使用XXX版本
-num list             // 查看本地已安装的版本
-nvm list available   // 查看所有版本
-NVM常用命令
-nvm list installed   // 查看已经安装的版本
-nvm list available   // 查看网络可以安装的版本
-nvm version          // 查看当前的版本
-nvm use <version>    // 切换使用指定的版本node
-nvm current          // 显示当前版本
-nvm alias <name> <version> ## 给不同的版本号添加别名
-nvm unalias <name> ## 删除已定义的别名
-nvm reinstall-packages <version> ## 在当前版本node环境下，重新全局安装指定版本号的npm包
-nvm on 打开nodejs控制
-nvm off 关闭nodejs控制
-nvm proxy 查看设置与代理
-nvm node_mirror [url] 设置或者查看setting.txt中的node_mirror，如果不设置的默认是 https://nodejs.org/dist/
-nvm npm_mirror [url] 设置或者查看setting.txt中的npm_mirror,如果不设置的话默认的是： https://github.com/npm/npm/archive/.
-nvm uninstall <version> 卸载制定的版本
-nvm use [version] [arch] 切换制定的node版本和位数
-nvm root [path] 设置和查看root路径
+# 开启 node 版本管理
+$ nvm on
+
+# 关闭 node 版本管理
+$ nvm off
+
+# 设置代理
+$ nvm proxy [url]
+
+# 设置 node 镜像，设置后可至安装目录 settings.txt文件查看
+$ nvm node_mirror [url]
+
+# 设置 npm 镜像，设置后可至安装目录 settings.txt文件查看
+$ nvm npm_mirror [url]
+
+# 卸载指定版本 node
+$ nvm uninstall <version>
+
+# 使用制定版本 node，可指定 32/64 位
+$ nvm use [version] [arch]
+
+# 设置存储不同版本 node 的目录
+$ nvm root [path]
 ```
 
 ### 安装 `Node.js` 版本
@@ -112,6 +117,25 @@ $ npm config set cache "D:\nodejs\node_cache"
 ::: warning 注意
 每次使用 nvm 切换 node 版本，最好都查看一下 npm 全局配置路径是否失效。
 :::
+
+### 安装 yarn
+
+```sh
+$ npm i -g yarn
+```
+
+我安装完之后，运行 yarn 命令出现了报错，问题和解决方案[戳这里](https://www.jianshu.com/p/8963e6f80e67)。
+
+1. 以管理的身份运行 powershell。
+2. 运行命令 `set-ExecutionPolicy RemoteSigned`。
+3. 执行策略更改。
+
+见下图：
+![nvm_2](../../assets/essays/nvm_2.png)
+
+## 结语
+
+本文到这里就结束了，对安装 nvm 过程中遇到的问题做一个总结，希望我的分享能够对你有一点帮助。
 
 ## 参考文献
 
