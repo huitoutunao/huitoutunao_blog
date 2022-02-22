@@ -213,6 +213,45 @@ $index-width: 10px;
 }
 ```
 
+另一个例子：
+```scss
+%flex-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.flex-a {
+    @extend %flex-box;
+    width: 100px;
+    height: 100px;
+}
+.flex-b {
+    @extend %flex-box;
+    width: 200px;
+    height: 200px;
+}
+```
+编译后：
+```css
+.flex-a, .flex-b {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.flex-a {
+    width: 100px;
+    height: 100px;
+}
+.flex-b {
+    width: 200px;
+    height: 200px;
+}
+```
+
+多个选择器运用了相同的 `%placeholder` 也只会输出一次代码。没有引用的 `%placeholder` 是不会输出任何 CSS 代码。
+
 ## @mixin
 
 ### 基础
@@ -319,6 +358,13 @@ $value-map: (text: #00ff00, background: #0000ff, border: #ff0000);
 ### vendors
 
 主要用来包含来自外部的库和框架的 CSS 文件。
+
+## 限制嵌套
+
+原则如下：
+1. 嵌套永远不要超过三个层级；
+2. 确保输出的CSS简洁、可重用；
+3. 使用嵌套是很有意义的，而不是默认选项；
 
 ## 参考文献
 
