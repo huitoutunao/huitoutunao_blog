@@ -64,3 +64,10 @@ console.log(isWeekday(new Date(2021, 0, 10))) // false (周日)
 const average = (...args) => args.reduce((a, b) => a + b) / args.length
 average(1, 2, 3, 4) // 2.5
 ```
+
+## 参考文献
+
+- [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
+- [死磕 36 个 JS 手写题（搞懂后，提升真的大）](https://juejin.cn/post/6946022649768181774)
+- [灵活运用JS开发技巧](https://juejin.cn/post/6844903838449664013)
+- [编写自己的代码库（javascript常用实例的实现与封装）](https://juejin.cn/post/6844903520596918280)
