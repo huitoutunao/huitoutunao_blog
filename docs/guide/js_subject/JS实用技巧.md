@@ -7,7 +7,7 @@ Javascript 可以做许多神奇的事情，也有很多东西需要学习，下
 ## 保留指定的小数位
 
 ```js
-const toFixed = (n, fixed) => ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed);
+const toFixed = (n, fixed) => ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed)
 
 // Examples
 toFixed(99.198726354, 1) // 99.1
@@ -21,7 +21,7 @@ toFixed(99.198726354, 6) // 99.198726
 ## 反转字符串
 
 ```js
-const reverse = str => str.split('').reverse().join('');
+const reverse = str => str.split('').reverse().join('')
 
 // Examples
 reverse('hello world') // 'dlrow olleh'
