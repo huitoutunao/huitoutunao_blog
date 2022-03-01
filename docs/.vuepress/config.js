@@ -76,6 +76,7 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
+                    '/guide/vue2_advanced/vue2与vue3的区别',
                     '/guide/vue2_advanced/vue-cli4创建项目',
                     '/guide/vue2_advanced/虚拟列表',
                     '/guide/vue2_advanced/Vue源码之Object的变化侦测',
