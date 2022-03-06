@@ -10,6 +10,8 @@
 - 新增 `Composition API` 和 `setup`
 - 更好的支持 `TypeScript`
 
+## 生命周期
+
 ## 参考文献
 
 - [Vue3 对比 Vue2.x 差异性、注意点、整体梳理，与React hook比又如何？](https://juejin.cn/post/6892295955844956167)
