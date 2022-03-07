@@ -6,11 +6,17 @@
 
 根据官方介绍，`vue3` 主要变化在以下几个方面：
 
-- 更强的性能以及更好的 `tree shaking`
-- 新增 `Composition API` 和 `setup`
-- 更好的支持 `TypeScript`
+- 更强的性能以及更好的 `tree shaking`；
+- 新增 `Composition API` 和 `setup`；
+- 更好的支持 `TypeScript`；
 
 ## 生命周期
+
+1. 实例销毁钩子函数名称区别如下：
+
+vue2：beforeDestroy 和 destroyed。
+
+vue3：beforeUnmount 和 unmounted。
 
 ## 参考文献
 
