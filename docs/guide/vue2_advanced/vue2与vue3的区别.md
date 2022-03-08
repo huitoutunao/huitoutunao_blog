@@ -64,7 +64,7 @@ renderTriggered => onRenderTriggered
 
 vue3 使用 `Proxy` 代替了 `Object.defineProperty()`。因为 vue2 使用它导致无法深层跟踪数组对象的变化，如果在定义对象后添加了属性，是不会触发更新渲染的。
 
-它们两者兼容性问题比较：
+它们两者兼容性比较：
 
 - vue2 不兼容 IE8 以下浏览器，因为 `Object.defineProperty()` 语法。
 - vue3 不兼容 IE11 以下浏览器，因为 `Proxy` 语法。
