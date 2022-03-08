@@ -24,7 +24,7 @@ vue3：beforeUnmount 和 unmounted。
 
 在创建组件实例时，在初始 `prop` 解析之后立即调用 `setup`。在生命周期方面，它是在 `beforeCreate` 钩子之前调用的。
 
-`setup` 生命周期钩子需要从导入才能使用，例如：
+`setup` 生命周期钩子需要导入才能使用，例如：
 ```js
 import { onMounted, onUpdated, onUnmounted } from 'vue'
 
@@ -59,6 +59,15 @@ errorCaptured => onErrorCaptured
 renderTracked => onRenderTracked
 renderTriggered => onRenderTriggered
 ```
+
+## 响应式原理
+
+vue3 使用 `Proxy` 代替了 `Object.defineProperty()`。因为 vue2 使用它导致无法深层跟踪数组对象的变化，如果在定义对象后添加了属性，是不会触发更新渲染的。
+
+它们两者兼容性问题比较：
+
+- vue2 不兼容 IE8 以下浏览器，因为 `Object.defineProperty()` 语法。
+- vue3 不兼容 IE11 以下浏览器，因为 `Proxy` 语法。
 
 ## 参考文献
 
