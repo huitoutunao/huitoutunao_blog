@@ -37,13 +37,13 @@ axios.defaults.timeout = 15000
 // 创建实例
 const instance = axios.create({
     baseURL: BASE_URL,
-    transformRequest: [
-        (data) => {
-            let v = data
-            v = QS.stringify(v)
-            return v
-        },
-    ],
+    // transformRequest: [
+    //     (data) => {
+    //         let v = data
+    //         v = QS.stringify(v)
+    //         return v
+    //     },
+    // ],
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
     },
@@ -81,7 +81,7 @@ instance.interceptors.response.use(function(response) {
 // 封装 post 请求
 export function post(url, data) {
     return new Promise((resolve, reject) => {
-        instance.post(url, data)
+        instance.post(url, QS.stringify(data))
             .then((res) => {
                 return resolve(res)
             })
@@ -92,15 +92,15 @@ export function post(url, data) {
 }
 
 // 封装 get 请求
-// export function get(url, params) {
-//     return new Promise((resolve, reject) => {
-//             axios.get(url, {
-//                 params
-//             }).then(res => {
-//                 return resolve(res)
-//             }).catch(err =>{
-//                 return reject(err)     
-//         })
-//     })
-// }
+export function get(url, params) {
+    return new Promise((resolve, reject) => {
+            axios.get(url, {
+                params
+            }).then(res => {
+                return resolve(res)
+            }).catch(err =>{
+                return reject(err)     
+        })
+    })
+}
 ```
