@@ -146,7 +146,7 @@ function fetchToken() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        timeout: 30000,
+        timeout: 15000,
     })
 
     return instance
@@ -181,11 +181,11 @@ function createBaseInstance() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        timeout: 30000,
+        timeout: 15000,
     })
 
     // 请求拦截器
-    const handleRequest = function handleRequest(config) {
+    const handleRequest = function(config) {
         const cfg = config
         const token = localStorage.getItem('token') || ''
 
@@ -198,7 +198,7 @@ function createBaseInstance() {
     }
 
     // 响应拦截器
-    const handleResponse = async function handleResponse(response) {
+    const handleResponse = async function(response) {
         const responseData = response
         if (responseData.data.result === 'success') {
             return Promise.resolve(responseData.data)
@@ -218,7 +218,7 @@ function createBaseInstance() {
     }
 
     // 处理异常
-    const handleError = function handleError(error) {
+    const handleError = function(error) {
         if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
             return Promise.reject(new Error('加载超时'))
         }
