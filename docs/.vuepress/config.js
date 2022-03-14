@@ -110,6 +110,7 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
+                    '/guide/essays/认识JSBridge',
                     '/guide/essays/NVM的安装和使用',
                     '/guide/essays/Sass进阶',
                     '/guide/essays/Sass、Scss与Less区别',
