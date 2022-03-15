@@ -45,6 +45,90 @@ alert('qrcode', callback())
 window.NativeApi.share(xxx)
 ```
 
+###  Native 调用 JavaScript
+
+只要 H5 将 JS 方法暴露在 Window 上给 Native 调用即可。
+
+## JSBridge 的使用
+
+例如：Android 使用第三方库[JsBridge](https://github.com/lzyzsd/JsBridge)，iOS 使用第三方库[WebViewJavascriptBridge](https://github.com/marcuswestin/WebViewJavascriptBridge)。
+
+可以做如下封装：
+```js
+/**
+ * Android https://github.com/lzyzsd/JsBridge
+ * IOS https://github.com/marcuswestin/WebViewJavascriptBridge
+ * h5 与客户端通信协议
+ *
+ * 示例 1
+ * JSBridge.h5CallNative(
+      {
+        type: 'getphoto',
+        cameraDevice: '0',
+      },
+      function (res) {
+        console.log(res)
+      }
+    )
+ * 示例 2
+   JSBridge.nativeCallH5(
+     'fnName',
+     function (res) {
+       console.log(res)
+     }
+   )
+ */
+export const JSBridge = {
+  setupWebViewJavascriptBridge(callback) {
+    if (window.WebViewJavascriptBridge) {
+      callback(window.WebViewJavascriptBridge)
+    } else if (window.WVJBCallbacks) {
+      window.WVJBCallbacks.push(callback)
+    } else {
+      window.WVJBCallbacks = [callback]
+      const WVJBIframe = document.createElement('iframe')
+      WVJBIframe.style.display = 'none'
+      WVJBIframe.src = 'https://__bridge_loaded__'
+      document.documentElement.appendChild(WVJBIframe)
+      setTimeout(function () {
+        document.documentElement.removeChild(WVJBIframe)
+      }, 0)
+    }
+  },
+
+  /**
+   * h5 调用客户端
+   * @param {String} fnInNative 调用协议的方法名
+   * @param {Object} param 调用协议的参数
+   * @param {Function} callback 接收客户端回调函数
+   */
+  h5CallNative(fnInNative, param, callback) {
+    this.setupWebViewJavascriptBridge(function (bridge) {
+      bridge.callHandler(fnInNative, param, function (responseData) {
+        if (callback) callback(responseData)
+      })
+    })
+  },
+
+  /**
+   * 客户端调用 h5 Js 方法
+   * @param {String} fnInJs 注册方法名
+   * @param {Function} callback 接收客户端回调函数
+   */
+  nativeCallH5(fnInJs, callback) {
+    this.setupWebViewJavascriptBridge(function (bridge) {
+      bridge.registerHandler(fnInJs, function (responseData) {
+        if (callback) callback(responseData)
+      })
+    })
+  },
+}
+```
+
+## 结语
+
+通过这篇文章，可以简单了解 JSBridge 的概念和作用，以及第三方库的使用。希望这篇文章能够帮助到你。
+
 ## 参考文献
 
 [小白必看，JSBridge 初探](https://www.zoo.team/article/jsbridge)
