@@ -62,9 +62,9 @@ window.NativeApi.share(xxx)
  *
  * 示例 1
  * JSBridge.h5CallNative(
+ *    'fnName'
       {
-        type: 'getphoto',
-        cameraDevice: '0',
+        param: '0',
       },
       function (res) {
         console.log(res)
