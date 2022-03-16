@@ -80,11 +80,13 @@ window.NativeApi.share(xxx)
  */
 export const JSBridge = {
   setupWebViewJavascriptBridge(callback) {
-    if (window.WebViewJavascriptBridge) {
-      return callback(WebViewJavascriptBridge)
-    } else if (window.WVJBCallbacks) {
-      return window.WVJBCallbacks.push(callback)
-    } else {
+    try {
+      if (window.WebViewJavascriptBridge) {
+        return callback(WebViewJavascriptBridge)
+      }
+      if (window.WVJBCallbacks) {
+        return window.WVJBCallbacks.push(callback)
+      }
       window.WVJBCallbacks = [callback]
       const WVJBIframe = document.createElement('iframe')
       WVJBIframe.style.display = 'none'
@@ -93,6 +95,9 @@ export const JSBridge = {
       setTimeout(function () {
         document.documentElement.removeChild(WVJBIframe)
       }, 0)
+    } catch (e) {
+      // 处理异常
+      console.log(e)
     }
   },
 
