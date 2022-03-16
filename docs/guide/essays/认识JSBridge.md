@@ -81,9 +81,9 @@ window.NativeApi.share(xxx)
 export const JSBridge = {
   setupWebViewJavascriptBridge(callback) {
     if (window.WebViewJavascriptBridge) {
-      callback(window.WebViewJavascriptBridge)
+      return callback(WebViewJavascriptBridge)
     } else if (window.WVJBCallbacks) {
-      window.WVJBCallbacks.push(callback)
+      return window.WVJBCallbacks.push(callback)
     } else {
       window.WVJBCallbacks = [callback]
       const WVJBIframe = document.createElement('iframe')
