@@ -65,6 +65,15 @@ const average = (...args) => args.reduce((a, b) => a + b) / args.length
 average(1, 2, 3, 4) // 2.5
 ```
 
+## 关于拼接字符串
+
+不要忘记了 `${}` 里面可以写任意 JavaScript 表达式，运算和引用对象属性。
+```js
+const name = 'huitoutunao'
+const score = 59
+return `${name}${score > 60 ? '合格' : '不合格'}`
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
