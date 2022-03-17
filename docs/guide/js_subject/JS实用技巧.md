@@ -82,6 +82,22 @@ let index = 1
 obj[`topic${index}`] = '话题内容'
 ```
 
+## 关于输入框非空的判断
+
+```js
+if (value !== null && value !== undefined && value !== '') {
+    //...
+}
+```
+
+优化
+
+```js
+if ((value??'') !== '') {
+  //...
+}
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
