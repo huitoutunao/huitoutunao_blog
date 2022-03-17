@@ -74,6 +74,14 @@ const score = 59
 return `${name}${score > 60 ? '合格' : '不合格'}`
 ```
 
+## 关于添加对象属性
+
+```js
+let obj = {}
+let index = 1
+obj[`topic${index}`] = '话题内容'
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
