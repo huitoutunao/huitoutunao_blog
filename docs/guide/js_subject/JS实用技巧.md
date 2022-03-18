@@ -98,6 +98,14 @@ if ((value??'') !== '') {
 }
 ```
 
+## 精确小数
+
+```js
+const RoundNum = (num, decimal) => Math.round(num * 10 ** decimal) / 10 ** decimal
+const num = RoundNum(9.99, 1)
+// num => 9.9
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
