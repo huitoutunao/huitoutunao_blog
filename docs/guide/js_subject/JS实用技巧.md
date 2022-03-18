@@ -104,8 +104,8 @@ if ((value??'') !== '') {
 const RoundNum = (num, decimal) => Math.round(num * 10 ** decimal) / 10 ** decimal
 const num1 = RoundNum(9.59, 1)
 const num2 = RoundNum(9.594, 1)
-// num => 9.6
-// num => 9.59
+// num1 => 9.6
+// num2 => 9.59
 ```
 
 ## 参考文献
