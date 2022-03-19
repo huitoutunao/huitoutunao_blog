@@ -108,6 +108,25 @@ const num2 = RoundNum(9.594, 1)
 // num2 => 9.59
 ```
 
+## 补零
+
+```js
+const FillZero = (num, len) => num.toString().padStart(len, '0')
+const num = FillZero(119, 4)
+// num => 0119
+```
+
+## 转数值
+
+只对 `null、""、false、数值字符串` 有效
+```js
+const num1 = +null
+const num2 = +''
+const num3 = +false
+const num4 = +'119'
+// num1 num2 num3 num4 => 0 0 0 119
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
