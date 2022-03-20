@@ -108,6 +108,14 @@ const num2 = RoundNum(9.594, 1)
 // num2 => 9.59
 ```
 
+## 判断奇偶数
+
+```js
+const OddEven = num => !!(num & 1) ? 'odd' : 'even'
+const num = OddEven(2)
+// num => "even"
+```
+
 ## 补零
 
 ```js
@@ -125,6 +133,13 @@ const num2 = +''
 const num3 = +false
 const num4 = +'119'
 // num1 num2 num3 num4 => 0 0 0 119
+```
+
+## 生成范围内的随机数
+
+```js
+const RandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+const num = RandomNum(1, 10)
 ```
 
 ## 参考文献
