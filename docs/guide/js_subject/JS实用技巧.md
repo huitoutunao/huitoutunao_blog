@@ -142,6 +142,60 @@ const RandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1)) + mi
 const num = RandomNum(1, 10)
 ```
 
+## 判断数据类型
+
+可判断类型：undefined、null、string、number、boolean、array、object、symbol、date、regexp、function、asyncfunction、arguments、set、map、weakset、weakmap
+```js
+function dataType(target, type) {
+  const data = Object.prototype.toString.call(target).replace(/\[object (\w+)\]/, "$1").toLowerCase()
+  return type ? data === type : data
+}
+
+dataType('str') // "string"
+dataType(123) // "number"
+dataType(true) // "boolean"
+dataType([], "array") // true
+```
+
+## 是否为空数组
+
+```js
+const arr = []
+const flag = Array.isArray(arr) && !arr.length
+// flag => true
+```
+
+## 是否为空对象
+
+```js
+// dataType 上面实现的类型判断函数
+const obj = {}
+const flag = dataType(obj, "object") && !Object.keys(obj).length
+// flag => true
+```
+
+## 过滤空值
+
+空值：undefined、null、""、0、false、NaN
+```js
+const arr = [undefined, null, "", 0, false, NaN, 1, 2].filter(Boolean)
+// arr => [1, 2]
+```
+
+## 异步累计
+
+```js
+async function Func(deps) {
+  return deps.reduce(async(t, v) => {
+    const dep = await t
+    const version = await Todo(v)
+    dep[v] = version
+    return dep
+  }, Promise.resolve({}))
+}
+const result = await Func() // 在 async 包围下使用
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
