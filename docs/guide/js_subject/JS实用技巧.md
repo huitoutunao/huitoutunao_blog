@@ -196,6 +196,21 @@ async function Func(deps) {
 const result = await Func() // 在 async 包围下使用
 ```
 
+## 使用 .reduce() 替换 .map().filter()
+
+```js
+const _arr = [0, 2, 4, 6]
+
+// map.filter
+const arr1 = _arr.map(v => v * 2).filter(v => v > 2)
+// reduce
+const arr2 = _arr.reduce((acc, cur) => {
+    cur = cur * 2
+    cur > 2 && acc.push(cur)
+    return acc
+}, [])
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
