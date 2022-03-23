@@ -213,6 +213,10 @@ const arr2 = _arr.reduce((acc, cur) => {
 
 ## reduce 按顺序执行 Promise
 
+```js
+console.log('js')
+```
+
 ## 参考文献
 
 - [你会用ES6，那倒是用啊](https://juejin.cn/post/7016520448204603423)
