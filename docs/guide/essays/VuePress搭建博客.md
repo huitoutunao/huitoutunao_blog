@@ -6,6 +6,8 @@
 
 参考案例：[wiki1001](https://mulander-j.github.io/wiki1001/FAQ/Console/A002.html)
 
+[冴羽搭建博客](https://github.com/mqyqingfeng/Blog/issues/235)
+
 ## 发布部署
 
 借助 github action 自动部署我们的博客。
