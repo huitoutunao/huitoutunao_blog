@@ -158,6 +158,8 @@ module.exports = {
                     '/question/qs_css/002-css如何实现左侧固定300px，右侧自适应的布局',
                     '/question/qs_css/003-标准盒模型和IE盒模型的区别',
                     '/question/qs_css/004-求最终left、right的宽度',
+                    '/question/qs_css/005-em_px_rem_vh_vw',
+                    '/question/qs_css/006-隐藏元素及区别', 
                 ]
             }, {
                 title: '框架篇',
