@@ -22,8 +22,8 @@ module.exports = {
         '/docs/guide/git/Github搜索开源项目',
     ],
     themeConfig: {
-        // repo: 'https://github.com/Mulander-J/Wiki1001Pro.git', // 链接到 github 博客地址
-        // repoLabel: 'GitHub',
+        repo: 'https://github.com/huitoutunao/Blog', // 链接到 github 博客地址
+        repoLabel: 'GitHub',
         logo: '/nav_logo.png',  // 导航栏logo
         nav: [{ // 头部导航栏
             text: '前端笔记', link: '/guide/'
