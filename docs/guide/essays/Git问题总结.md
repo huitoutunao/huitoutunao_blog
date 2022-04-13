@@ -56,3 +56,14 @@ $ git branch --set-upstream-to=origin/main main
 ```sh
 $ git push origin main:main // git push <远程主机名> <本地分支名>:<远程分支名>
 ```
+
+## git 提交代码解决 lf 和 crlf 冲突
+
+推荐全局设置
+```sh
+# 提交时转换为 lf，检出时不转换
+$ git config --global core.autocrlf input
+
+# 拒绝提交包含混合换行符的文件
+$ git config --global core.safecrlf true
+```
