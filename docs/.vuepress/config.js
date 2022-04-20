@@ -161,6 +161,7 @@ module.exports = {
                     '/question/qs_css/005-em_px_rem_vh_vw',
                     '/question/qs_css/006-隐藏元素及区别', 
                     '/question/qs_css/007-实现三栏布局中间自适应', 
+                    '/question/qs_css/008-如何画一个三角形', 
                 ]
             }, {
                 title: '框架篇',
