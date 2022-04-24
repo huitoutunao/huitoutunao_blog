@@ -67,3 +67,18 @@ $ git config --global core.autocrlf input
 # 拒绝提交包含混合换行符的文件
 $ git config --global core.safecrlf true
 ```
+
+## git 提交代码超时
+
+1. ssh: connect to host github.com port 22: Connection timed out.
+解决方式：[参考链接](https://blog.csdn.net/qq_41166135/article/details/81282572)
+
+下面内容复制到 `git安装目录\etc\ssh\ssh_config` 文件的末尾处：
+```
+Host github.com
+User xxx // 自己的登录名或者邮箱
+Hostname ssh.github.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+Port 443
+```
