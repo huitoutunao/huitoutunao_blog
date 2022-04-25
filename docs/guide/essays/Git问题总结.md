@@ -86,7 +86,7 @@ Port 443
 2. Failed to connect to github.com port 443: Timed out.
 解决方式：[参考链接](https://blog.csdn.net/weixin_45685193/article/details/120606369)
 
-如果使用了科学上网，那么运行下面指令设置全局代理，代理的 `ip` 和端口号以你的 `IE` 代理为准：
+如果使用了科学上网，那么运行下面指令设置全局或局部代理，代理的 `ip` 和端口号以你的 `IE` 代理为准：
 
 查看 IE 代理如下操作：`IE 浏览器 => 设置 => Internet 选项 => 连接 => 局域网设置`
 ```sh
