@@ -71,7 +71,7 @@ $ git config --global core.safecrlf true
 ## git 提交代码超时
 
 1. ssh: connect to host github.com port 22: Connection timed out.
-解决方式：[参考链接](https://blog.csdn.net/qq_41166135/article/details/81282572)
+解决方式：[参考链接1](https://blog.csdn.net/qq_41166135/article/details/81282572)、[参考链接2](https://segmentfault.com/a/1190000037797501)
 
 下面内容复制到 `git安装目录\etc\ssh\ssh_config` 文件的末尾处：
 ```
