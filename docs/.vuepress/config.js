@@ -149,7 +149,7 @@ module.exports = {
                     '/question/qs_js/006-统计某一字符或字符串在另一个字符串中出现的次数',
                     '/question/qs_js/007-介绍下Set、Map、WeakSet和WeakMap的区别',
                 ]
-            }, {
+            }, { 
                 title: 'CSS篇',
                 sidebarDepth: 2,
                 collapsable: true,
@@ -162,6 +162,7 @@ module.exports = {
                     '/question/qs_css/006-隐藏元素及区别', 
                     '/question/qs_css/007-实现三栏布局中间自适应', 
                     '/question/qs_css/008-如何画一个三角形', 
+                    '/question/qs_css/009-css动画有哪些', 
                 ]
             }, {
                 title: '框架篇',
