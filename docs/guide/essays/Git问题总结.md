@@ -8,9 +8,9 @@
 
 最后，git 仓库关联
 ```sh
-$ git remote add origin git@lhcxy: ~/Test.git
+$ git remote add origin git@lhcxy:~/Test.git
 
-$ git remote add origin git@huitoutunao: ~/Test.git
+$ git remote add origin git@huitoutunao:~/Test.git
 ```
 
 ## git 拉取远程某分支
