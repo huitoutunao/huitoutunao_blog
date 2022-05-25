@@ -45,6 +45,14 @@ $ git config branch.{branch-name}.description
 $ git config credential.helper store
 ```
 
+由于 `2021-08-13` 之后不再支持密码输入，因此需要换成 token，这个 token 在 github 主页设置 `Developer settings`，我这里是生成一个永久期限的。
+
+然后在当前项目目录运行如下命令设置远程仓库地址：
+```sh
+$ git remote set-url origin https://<token>@github.com/<username>/<repo>.git
+```
+[参考地址](https://blog.csdn.net/weixin_48505549/article/details/123173915)
+
 ## git 设置默认分支
 
 例如：`main` 是你想要的默认分支
