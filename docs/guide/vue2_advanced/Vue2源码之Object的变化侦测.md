@@ -1,4 +1,4 @@
-# Vue 源码之 Object 的变化侦测
+# Vue2 源码之 Object 的变化侦测
 
 ## 前言
 
@@ -7,8 +7,8 @@
 `Vue.js` 的源码目录结构如下：
 ```
 src
-├── compiler        # 编译相关 
-├── core            # 核心代码 
+├── compiler        # 编译相关
+├── core            # 核心代码
 ├── platforms       # 不同平台的支持
 ├── server          # 服务端渲染
 ├── sfc             # .vue 文件解析
@@ -112,7 +112,7 @@ export default class Dep {
       this.addSub(window.target)
     }
   }
-  
+
   // 通知依赖
   notify() {
     const subs = this.subs.slice()
@@ -154,7 +154,7 @@ vm.$watch('a.b.c', function(newVal, oldVal) {
 import { parsePath } from '../util/lang.js'
 
 export default class Watcher {
-  /* 
+  /*
     vm：当前组件实例
     expOrFn：表达式或函数
     cb：回调函数
