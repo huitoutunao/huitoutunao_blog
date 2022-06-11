@@ -77,12 +77,12 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/guide/vue2_advanced/vue2与vue3的区别',
-                    '/guide/vue2_advanced/Vue项目简易封装Axios',
+                    '/guide/vue2_advanced/Vue2项目简易封装Axios',
                     '/guide/vue2_advanced/vue-cli4创建项目',
                     '/guide/vue2_advanced/虚拟列表',
-                    '/guide/vue2_advanced/Vue源码之Object的变化侦测',
-                    '/guide/vue2_advanced/Vue源码之Array的变化侦测',
-                    '/guide/vue2_advanced/Vue源码之虚拟DOM',
+                    '/guide/vue2_advanced/Vue2源码之Object的变化侦测',
+                    '/guide/vue2_advanced/Vue2源码之Array的变化侦测',
+                    '/guide/vue2_advanced/Vue2源码之虚拟DOM',
                 ]
             }, {
                 title: '浏览器和HTTP',
@@ -150,7 +150,7 @@ module.exports = {
                     '/question/qs_js/007-介绍下Set、Map、WeakSet和WeakMap的区别',
                     '/question/qs_js/008-如何判断一个元素是否在可视区域中',
                 ]
-            }, { 
+            }, {
                 title: 'CSS篇',
                 sidebarDepth: 2,
                 collapsable: true,
@@ -160,11 +160,11 @@ module.exports = {
                     '/question/qs_css/003-标准盒模型和IE盒模型的区别',
                     '/question/qs_css/004-求最终left、right的宽度',
                     '/question/qs_css/005-em_px_rem_vh_vw',
-                    '/question/qs_css/006-隐藏元素及区别', 
-                    '/question/qs_css/007-实现三栏布局中间自适应', 
-                    '/question/qs_css/008-如何画一个三角形', 
-                    '/question/qs_css/009-css动画有哪些', 
-                    '/question/qs_css/010-谈谈对BFC的理解', 
+                    '/question/qs_css/006-隐藏元素及区别',
+                    '/question/qs_css/007-实现三栏布局中间自适应',
+                    '/question/qs_css/008-如何画一个三角形',
+                    '/question/qs_css/009-css动画有哪些',
+                    '/question/qs_css/010-谈谈对BFC的理解',
                 ]
             }, {
                 title: '框架篇',

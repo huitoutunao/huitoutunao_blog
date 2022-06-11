@@ -1,4 +1,4 @@
-# Vue 项目简易封装 Axios
+# Vue2 项目简易封装 Axios
 
 ## 前言
 
@@ -90,7 +90,7 @@ export function get(url, params) {
             }).then(res => {
                 return resolve(res)
             }).catch(err =>{
-                return reject(err)     
+                return reject(err)
         })
     })
 }

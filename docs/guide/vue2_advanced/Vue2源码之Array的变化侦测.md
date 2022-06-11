@@ -1,4 +1,4 @@
-# Vue 源码之 Array 的变化侦测
+# Vue2 源码之 Array 的变化侦测
 
 ## 前言
 
@@ -7,8 +7,8 @@
 `Vue.js` 的源码目录结构如下：
 ```
 src
-├── compiler        # 编译相关 
-├── core            # 核心代码 
+├── compiler        # 编译相关
+├── core            # 核心代码
 ├── platforms       # 不同平台的支持
 ├── server          # 服务端渲染
 ├── sfc             # .vue 文件解析
