@@ -149,6 +149,7 @@ module.exports = {
                     '/question/qs_js/006-统计某一字符或字符串在另一个字符串中出现的次数',
                     '/question/qs_js/007-介绍下Set、Map、WeakSet和WeakMap的区别',
                     '/question/qs_js/008-如何判断一个元素是否在可视区域中',
+                    '/question/qs_js/009-手写filter函数',
                 ]
             }, {
                 title: 'CSS篇',
