@@ -14,3 +14,12 @@ var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
 注意：
 + 不对空数组进行检测
 + 不改变原始数组
+
+## 实现
+```js
+Array.prototype.filter = function(fn, thisArg) {
+    if (typeof fn !== 'function) {
+        throw '参数必须为函数'
+    }
+}
+```
