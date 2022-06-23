@@ -18,8 +18,29 @@ var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
 ## 实现
 ```js
 Array.prototype.filter = function(fn, thisArg) {
-    if (typeof fn !== 'function) {
-        throw '参数必须为函数'
+  let that
+  const result = []
+
+  if (typeof fn !== 'function') {
+    throw new Error('参数必须是函数')
+  }
+
+  const arr = this
+  if (!Array.isArray(arr)) {
+    throw new Error('只能数组使用 filter 方法')
+  }
+
+  if (arguments.length > 1) {
+    that = thisArg
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    const res = fn.call(that, arr[i], i, arr)
+    if (res) {
+      result.push(arr[i])
     }
+  }
+
+  return result
 }
 ```
