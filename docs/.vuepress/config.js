@@ -150,6 +150,7 @@ module.exports = {
                     '/question/qs_js/007-介绍下Set、Map、WeakSet和WeakMap的区别',
                     '/question/qs_js/008-如何判断一个元素是否在可视区域中',
                     '/question/qs_js/009-手写filter函数',
+                    '/question/qs_js/010-手写reduce函数',
                 ]
             }, {
                 title: 'CSS篇',
