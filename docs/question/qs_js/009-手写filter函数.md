@@ -17,7 +17,7 @@ var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
 
 ## 实现
 ```js
-Array.prototype.filter = function(fn, thisArg) {
+Array.prototype.myFilter = function(fn, thisArg) {
   let that
   const result = []
 
