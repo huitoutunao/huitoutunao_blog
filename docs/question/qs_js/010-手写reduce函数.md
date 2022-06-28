@@ -19,5 +19,49 @@ reduce(function(previousValue, currentValue, currentIndex, array) { /* ... */ },
 
 ## 实现
 ```js
-Array.prototype.myReduce = function(fn, initVal) {}
+Array.prototype.myReduce = function(fn, initVal) {
+  const arr = this
+  if (Object.prototype.toString.call(arr) !== '[object Array]') {
+    throw new Error('不是数组')
+  }
+
+  if (!arr.length) {
+    throw new Error('空数组不作处理')
+  }
+
+  if (typeof fn !== 'function') {
+    throw new Error('参数必须是函数')
+  }
+
+  let preValue
+  let curIndex
+  if (arguments.length > 1) {
+    preValue = initVal
+    curIndex = 0
+  } else {
+    [preValue] = arr
+    curIndex = 1
+  }
+
+  for (let i = curIndex; i < arr.length; i++) {
+    const item = arr[i]
+    preValue = fn(preValue, item, i, arr)
+  }
+
+  return preValue
+}
+
+const list = [1, 2, 3, 4, 5]
+
+// 未设置初始值
+const count = list.myReduce((pV, cV, index, array) => {
+  return pV + cV
+})
+console.log(count) // 15
+
+// 设置初始值
+const count = list.myReduce((pV, cV, index, array) => {
+  return pV + cV
+}, 1)
+console.log(count) // 16
 ```
