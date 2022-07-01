@@ -2,5 +2,13 @@
 
 ## 实现
 ```js
+Array.prototype.myMap = function(fn, thisArg) {
+  const res = []
+  const that = thisArg || null
+  this.reduce((prev, curr, index, array) => {
+    res.push(fn.call(that, curr, index, array))
+  }, null)
 
+  return res
+}
 ```
