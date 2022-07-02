@@ -152,6 +152,7 @@ module.exports = {
                     '/question/qs_js/009-手写filter函数',
                     '/question/qs_js/010-手写reduce函数',
                     '/question/qs_js/011-手写reduce实现map函数',
+                    '/question/qs_js/012-AJAX',
                 ]
             }, {
                 title: 'CSS篇',
