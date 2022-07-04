@@ -38,7 +38,44 @@ AJAX 的原理简单来说通过 `XmlHttpRequest` 对象来向服务器发异步
 
 在现代浏览器上写 AJAX 主要依靠 `XMLHttpRequest` 对象，下面简单封装：
 ```js
-const ajax = function () {
+const ajax = function (options) {
   const xhr = new XMLHttpRequest()
+  const option = options || {}
+  const params = option.data
+
+  option.type = (option.type || 'GET').toUpperCase()
+  option.dataType = option.dataType || 'json'
+
+  if (option.type === 'GET') {
+    xhr.open('GET', `${option.url}?${params}`, true)
+    xhr.send(null)
+  } else if (option.type === 'POST') {
+    xhr.open('POST', option.url, true)
+    xhr.send(params)
+  }
+
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4) {
+      const { status } = xhr
+      if (status >= 200 && status < 300) {
+        option?.success(xhr.responseText, xhr.responseXML)
+      } else {
+        option?.fail(status)
+      }
+    }
+  }
 }
+
+ajax({
+  type: 'post',
+  dataType: 'json',
+  data: {},
+  url: 'https://www.example.com',
+  success(text, xml) {
+    console.log(text, xml)
+  },
+  fail(status) {
+    console.log(status)
+  },
+})
 ```
