@@ -69,6 +69,7 @@ module.exports = {
                     '/guide/js_subject/V8引擎的垃圾回收机制-简易',
                     '/guide/js_subject/V8引擎的垃圾回收机制-完整',
                     '/guide/js_subject/V8是如何执行一段JS代码',
+                    '/guide/js_subject/手撕Promise',
                     '/guide/js_subject/JS实用技巧',
                 ]
             }, {
