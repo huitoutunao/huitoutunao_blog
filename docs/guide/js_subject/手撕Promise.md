@@ -1,7 +1,7 @@
 # 手撕 Promise
 ## 基本结构
 
-+ 构造函数里传入两个函数作为参数（resolve, reject）
++ 构造函数里传入一个函数，它有两个参数（resolve, reject）
 + resolve 成功时执行回调
 + reject 失败时执行回调
   
