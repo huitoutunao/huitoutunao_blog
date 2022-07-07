@@ -145,6 +145,34 @@ git reset 会直接将提交记录退回到指定的 commit 上，如果是在�
 
 如果提交了 `1.js` 的文件修改，想将它恢复，那就使用 `git checkout -- <filename>`，filename 这里是 `1.js`。
 
+### git stash 来暂存文件
+
+现在你正在用你的 feature 分支上开发新功能。这时，生产环境上出现了一个 bug 需要紧急修复，但是你这部分代码还没开发完，不想提交，怎么办？这个时候可以用 `git stash` 命令先把工作区已经修改的文件暂存起来，然后切换到 hotfix 分支上进行 bug 的修复，修复完成后，切换回 feature 分支，从堆栈中恢复刚刚保存的内容。
+
+基础命令如下：
+```sh
+# 把本地的改动暂存起来
+$ git stash
+
+# 执行存储时，添加备注，方便查找
+$ git stash save "message"
+
+# 查看 stash 列表
+$ git stash list
+
+# 应用最近一次暂存的修改，并删除暂存的记录
+$ git stash pop
+
+# 应用某个存储,但不会把存储从存储列表中删除，默认使用第一个存储,即 stash@{0}，如果要使用其他个
+$ git stash apply
+
+# 应用某个储藏 stash@{$num}
+git stash apply stash@{$num}
+
+# 删除所有缓存的 stash
+$ git stash clear
+```
+
 ## 结语
 
 工作中使用 git 比较频繁，除了 `git add`、`git commit`、`git merge`、`git pull` 和 `git push` 基础命令之外。今天还扩展了些比较灵活的命令，希望能在日后工作中解决代码管理问题。
