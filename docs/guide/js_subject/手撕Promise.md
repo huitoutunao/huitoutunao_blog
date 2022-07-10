@@ -101,7 +101,7 @@ console.log(mp)
 
 > 它的作用是为 Promise 实例添加状态改变时的回调函数。then 方法的第一个参数是 resolved 状态的回调函数，第二个参数是 rejected 状态的回调函数，它们都是可选的。
 
-```js
+```diff
 class MyPromise {
   constructor(fn) {
     this.status = 'pending'
@@ -125,15 +125,15 @@ class MyPromise {
     fn(resolve, reject)
   }
 
-  then(handleFullfilled, handleRejected) {
-    if (this.status === 'success') {
-      handleFullfilled(this.success)
-    }
-
-    if (this.status === 'error') {
-      handleRejected(this.error)
-    }
-  }
++ then(handleFullfilled, handleRejected) {
++   if (this.status === 'success') {
++     handleFullfilled(this.success)
++   }
++
++   if (this.status === 'error') {
++     handleRejected(this.error)
++   }
++ }
 }
 
 const mp = new MyPromise((resolve) => {
