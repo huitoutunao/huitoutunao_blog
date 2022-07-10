@@ -97,6 +97,57 @@ console.log(mp)
 // }
 ```
 
+## Promise.prototype.then()
+
+> 它的作用是为 Promise 实例添加状态改变时的回调函数。then 方法的第一个参数是 resolved 状态的回调函数，第二个参数是 rejected 状态的回调函数，它们都是可选的。
+
+```js
+class MyPromise {
+  constructor(fn) {
+    this.status = 'pending'
+    this.success = ''
+    this.error = ''
+
+    const resolve = (res) => {
+      if (this.status === 'pending') {
+        this.success = res
+        this.status = 'success'
+      }
+    }
+
+    const reject = (err) => {
+      if (this.status === 'pending') {
+        this.error = err
+        this.status = 'error'
+      }
+    }
+
+    fn(resolve, reject)
+  }
+
+  then(handleFullfilled, handleRejected) {
+    if (this.status === 'success') {
+      handleFullfilled(this.success)
+    }
+
+    if (this.status === 'error') {
+      handleRejected(this.error)
+    }
+  }
+}
+
+const mp = new MyPromise((resolve) => {
+  resolve('我是成功')
+})
+mp.then((res) => {
+  console.log('进入then的fulfilled,', res)
+}, (err) => {
+  console.log('进入then的rejected,', err)
+})
+// => 结果
+// 进入then的fulfilled, 我是成功
+```
+
 ## 参考资料
 
 [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
