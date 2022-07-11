@@ -101,7 +101,7 @@ console.log(mp)
 
 > 它的作用是为 Promise 实例添加状态改变时的回调函数。then 方法的第一个参数是 resolved 状态的回调函数，第二个参数是 rejected 状态的回调函数，它们都是可选的。
 
-```diff
+```js
 class MyPromise {
   constructor(fn) {
     this.status = 'pending'
@@ -125,15 +125,15 @@ class MyPromise {
     fn(resolve, reject)
   }
 
-+ then(handleFullfilled, handleRejected) {
-+   if (this.status === 'success') {
-+     handleFullfilled(this.success)
-+   }
-+
-+   if (this.status === 'error') {
-+     handleRejected(this.error)
-+   }
-+ }
+  then(handleFullfilled, handleRejected) {
+    if (this.status === 'success') {
+      handleFullfilled(this.success)
+    }
+
+    if (this.status === 'error') {
+      handleRejected(this.error)
+    }
+  }
 }
 
 const mp = new MyPromise((resolve) => {
@@ -146,6 +146,60 @@ mp.then((res) => {
 })
 // => 结果
 // 进入then的fulfilled, 我是成功
+```
+
+## 异步实现
+
+当 resolve 在 setTimeout 内执行，then 的 state 还是 pending 等待状态。我们就需要在 then 调用的时候，将成功和失败存到各自的数组，一旦 reject 或者 resolve，就调用它们。
+
+```js
+class MyPromise {
+  constructor(fn) {
+    this.status = 'pending'
+    this.success = ''
+    this.error = ''
+    this.resolveQueue = []
+    this.rejectQueue = []
+
+    const resolve = (res) => {
+      if (this.status === 'pending') {
+        this.success = res
+        this.status = 'success'
+        this.resolveQueue.forEach((item) => item())
+      }
+    }
+
+    const reject = (err) => {
+      if (this.status === 'pending') {
+        this.error = err
+        this.status = 'error'
+        this.rejectQueue.forEach((item) => item())
+      }
+    }
+
+    fn(resolve, reject)
+  }
+
+  then(handleFullfilled, handleRejected) {
+    if (this.status === 'success') {
+      handleFullfilled(this.success)
+    }
+
+    if (this.status === 'error') {
+      handleRejected(this.error)
+    }
+
+    if (this.status === 'pending') {
+      this.resolveQueue.push(() => {
+        handleFullfilled(this.success)
+      })
+
+      this.rejectQueue.push(() => {
+        handleRejected(this.error)
+      })
+    }
+  }
+}
 ```
 
 ## 参考资料
