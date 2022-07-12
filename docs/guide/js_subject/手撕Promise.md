@@ -200,6 +200,10 @@ class MyPromise {
     }
   }
 }
+
+const mp = new MyPromise((resolve) => {
+  setTimeout(resolve('我是成功'), 100)
+})
 ```
 
 ## 参考资料
