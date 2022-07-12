@@ -202,8 +202,13 @@ class MyPromise {
 }
 
 const mp = new MyPromise((resolve) => {
-  setTimeout(resolve('我是成功'), 100)
+  setTimeout(() => resolve('我是成功'), 3000)
 })
+mp.then((res) => {
+  console.log('进入then的fulfilled,', res)
+})
+// => 3s 后输出结果
+// 进入then的fulfilled, 我是成功
 ```
 
 ## 参考资料
