@@ -211,6 +211,10 @@ mp.then((res) => {
 // 进入then的fulfilled, 我是成功
 ```
 
+## then 链式调用
+
+原理：在第一个 then 中返回一个新的 Promise。
+
 ## 参考资料
 
 + [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
