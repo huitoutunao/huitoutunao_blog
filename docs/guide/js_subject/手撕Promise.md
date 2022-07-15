@@ -215,6 +215,56 @@ mp.then((res) => {
 
 原理：在第一个 then 中返回一个新的 Promise。
 
+```js
+class MyPromise {
+  constructor(fn) {
+    this.status = 'pending'
+    this.success = ''
+    this.error = ''
+    this.resolveQueue = []
+    this.rejectQueue = []
+
+    const resolve = (res) => {
+      if (this.status === 'pending') {
+        this.success = res
+        this.status = 'success'
+        this.resolveQueue.forEach((item) => item())
+      }
+    }
+
+    const reject = (err) => {
+      if (this.status === 'pending') {
+        this.error = err
+        this.status = 'error'
+        this.rejectQueue.forEach((item) => item())
+      }
+    }
+
+    fn(resolve, reject)
+  }
+
+  then(handleFullfilled, handleRejected) {
+    if (this.status === 'success') {
+      handleFullfilled(this.success)
+    }
+
+    if (this.status === 'error') {
+      handleRejected(this.error)
+    }
+
+    if (this.status === 'pending') {
+      this.resolveQueue.push(() => {
+        handleFullfilled(this.success)
+      })
+
+      this.rejectQueue.push(() => {
+        handleRejected(this.error)
+      })
+    }
+  }
+}
+```
+
 ## 参考资料
 
 + [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
