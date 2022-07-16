@@ -173,6 +173,18 @@ git stash apply stash@{$num}
 $ git stash clear
 ```
 
+## git 提交规范类型
+
++ feat - 新功能
++ fix - 修复 bug
++ docs - 文档修改或注释
++ style - 代码格式(不影响代码运行)
++ refactor - 重构、优化(既不增加新功能，也不是修复 bug)
++ perf - 性能优化
++ test - 添加测试
++ chore - 构建过程或辅助工具的变动
++ revert - 回退版本
+
 ## 结语
 
 工作中使用 git 比较频繁，除了 `git add`、`git commit`、`git merge`、`git pull` 和 `git push` 基础命令之外。今天还扩展了些比较灵活的命令，希望能在日后工作中解决代码管理问题。
