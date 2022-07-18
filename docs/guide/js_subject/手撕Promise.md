@@ -244,6 +244,8 @@ class MyPromise {
   }
 
   then(handleFullfilled, handleRejected) {
+    let promise2
+    // promise2 = new Promise((resolve, reject) => {})
     if (this.status === 'success') {
       handleFullfilled(this.success)
     }
