@@ -216,6 +216,8 @@ mp.then((res) => {
 原理：在第一个 then 中返回一个新的 Promise。
 
 ```js
+const resolvePromise = (chainPromise, x, resolve, reject) => {}
+
 class MyPromise {
   constructor(fn) {
     this.status = 'pending'
@@ -244,25 +246,31 @@ class MyPromise {
   }
 
   then(handleFullfilled, handleRejected) {
-    let promise2
-    // promise2 = new Promise((resolve, reject) => {})
-    if (this.status === 'success') {
-      handleFullfilled(this.success)
-    }
+    const chainPromise = new Promise((resolve, reject) => {
+      if (this.status === 'success') {
+        const x = handleFullfilled(this.success)
+        resolvePromise(chainPromise, x, resolve, reject)
+      }
 
-    if (this.status === 'error') {
-      handleRejected(this.error)
-    }
+      if (this.status === 'error') {
+        const x = handleRejected(this.error)
+        resolvePromise(chainPromise, x, resolve, reject)
+      }
 
-    if (this.status === 'pending') {
-      this.resolveQueue.push(() => {
-        handleFullfilled(this.success)
-      })
+      if (this.status === 'pending') {
+        this.resolveQueue.push(() => {
+          const x = handleFullfilled(this.success)
+          resolvePromise(chainPromise, x, resolve, reject)
+        })
 
-      this.rejectQueue.push(() => {
-        handleRejected(this.error)
-      })
-    }
+        this.rejectQueue.push(() => {
+          const x = handleRejected(this.error)
+          resolvePromise(chainPromise, x, resolve, reject)
+        })
+      }
+    })
+
+    return chainPromise
   }
 }
 // 待补充...
