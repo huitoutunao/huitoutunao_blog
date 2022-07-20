@@ -216,7 +216,44 @@ mp.then((res) => {
 原理：在第一个 then 中返回一个新的 Promise。
 
 ```js
-const resolvePromise = (chainPromise, x, resolve, reject) => {}
+const resolvePromise = (chainPromise, x, resolve, reject) => {
+  let flag
+  if (x === chainPromise) {
+    return reject(new TypeError('Chaining cycle detected for promise'))
+  }
+
+  if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
+    try {
+      const { then } = x
+
+      if (typeof then === 'function') {
+        then.call(x, (res) => {
+          if (flag) {
+            return ''
+          }
+          flag = true
+          resolvePromise(chainPromise, res, resolve, reject)
+        }, (err) => {
+          if (flag) {
+            return ''
+          }
+          flag = true
+          return reject(err)
+        })
+      } else {
+        return resolve(x)
+      }
+    } catch (e) {
+      if (flag) {
+        return ''
+      }
+      flag = true
+      return reject(e)
+    }
+  }
+
+  return resolve(x)
+}
 
 class MyPromise {
   constructor(fn) {
