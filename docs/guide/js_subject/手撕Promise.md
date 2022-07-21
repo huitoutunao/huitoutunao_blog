@@ -232,7 +232,7 @@ const resolvePromise = (chainPromise, x, resolve, reject) => {
             return ''
           }
           flag = true
-          resolvePromise(chainPromise, res, resolve, reject)
+          return resolvePromise(chainPromise, res, resolve, reject)
         }, (err) => {
           if (flag) {
             return ''
