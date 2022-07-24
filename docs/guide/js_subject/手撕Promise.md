@@ -229,13 +229,13 @@ const resolvePromise = (chainPromise, x, resolve, reject) => {
       if (typeof then === 'function') {
         then.call(x, (res) => {
           if (flag) {
-            return ''
+            return
           }
           flag = true
-          return resolvePromise(chainPromise, res, resolve, reject)
+          resolvePromise(chainPromise, res, resolve, reject)
         }, (err) => {
           if (flag) {
-            return ''
+            return
           }
           flag = true
           return reject(err)
