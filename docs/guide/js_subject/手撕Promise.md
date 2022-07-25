@@ -238,21 +238,21 @@ const resolvePromise = (chainPromise, x, resolve, reject) => {
             return
           }
           flag = true
-          return reject(err)
+          reject(err)
         })
       } else {
-        return resolve(x)
+        resolve(x)
       }
     } catch (e) {
       if (flag) {
-        return ''
+        return
       }
       flag = true
-      return reject(e)
+      reject(e)
     }
+  } else {
+    resolve(x)
   }
-
-  return resolve(x)
 }
 
 class MyPromise {
@@ -310,7 +310,21 @@ class MyPromise {
     return chainPromise
   }
 }
-// 待补充...
+
+// 测试用例
+new MyPromise((resolve) => {
+  resolve('我是第一名')
+}).then((res) => {
+  console.log('进入1', res)
+  return new Promise((resolve) => {
+    resolve('hello world')
+  })
+}).then((res) => {
+  console.log('进入2', res)
+})
+// => 结果
+// 进入1 我是第一名
+// 进入2 hello world
 ```
 
 ## 参考资料
