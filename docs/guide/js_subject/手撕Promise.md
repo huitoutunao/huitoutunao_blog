@@ -327,6 +327,10 @@ new MyPromise((resolve) => {
 // 进入2 hello world
 ```
 
+## onFulfilled 和 onRejected 的异步调用
+
+原理：`setTimeout` 解决异步问题
+
 ## 参考资料
 
 + [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
