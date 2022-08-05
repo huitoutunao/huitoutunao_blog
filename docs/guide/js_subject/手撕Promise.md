@@ -331,6 +331,104 @@ new MyPromise((resolve) => {
 
 原理：`setTimeout` 解决异步问题
 
+以上面为基础，优化如下：
+```js
+const resolvePromise = (chainPromise, x, resolve, reject) => {
+  let flag
+  if (x === chainPromise) {
+    return reject(new TypeError('Chaining cycle detected for promise'))
+  }
+
+  if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
+    try {
+      const { then } = x
+
+      if (typeof then === 'function') {
+        then.call(x, (res) => {
+          if (flag) {
+            return
+          }
+          flag = true
+          resolvePromise(chainPromise, res, resolve, reject)
+        }, (err) => {
+          if (flag) {
+            return
+          }
+          flag = true
+          reject(err)
+        })
+      } else {
+        resolve(x)
+      }
+    } catch (e) {
+      if (flag) {
+        return
+      }
+      flag = true
+      reject(e)
+    }
+  } else {
+    resolve(x)
+  }
+}
+
+class MyPromise {
+  constructor(fn) {
+    this.status = 'pending'
+    this.success = ''
+    this.error = ''
+    this.resolveQueue = []
+    this.rejectQueue = []
+
+    const resolve = (res) => {
+      if (this.status === 'pending') {
+        this.success = res
+        this.status = 'success'
+        this.resolveQueue.forEach((item) => item())
+      }
+    }
+
+    const reject = (err) => {
+      if (this.status === 'pending') {
+        this.error = err
+        this.status = 'error'
+        this.rejectQueue.forEach((item) => item())
+      }
+    }
+
+    fn(resolve, reject)
+  }
+
+  then(handleFullfilled, handleRejected) {
+    const chainPromise = new Promise((resolve, reject) => {
+      if (this.status === 'success') {
+        const x = handleFullfilled(this.success)
+        resolvePromise(chainPromise, x, resolve, reject)
+      }
+
+      if (this.status === 'error') {
+        const x = handleRejected(this.error)
+        resolvePromise(chainPromise, x, resolve, reject)
+      }
+
+      if (this.status === 'pending') {
+        this.resolveQueue.push(() => {
+          const x = handleFullfilled(this.success)
+          resolvePromise(chainPromise, x, resolve, reject)
+        })
+
+        this.rejectQueue.push(() => {
+          const x = handleRejected(this.error)
+          resolvePromise(chainPromise, x, resolve, reject)
+        })
+      }
+    })
+
+    return chainPromise
+  }
+}
+```
+
 ## 参考资料
 
 + [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
