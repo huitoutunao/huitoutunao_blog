@@ -162,6 +162,7 @@ $ yarn config set cache-folder "D:\nodejs\yarn_cache"
 
 ## 参考文献
 
+- [win10 nvm 安装推荐](https://blog.csdn.net/Anony_me/article/details/124153201)
 - [nvm](https://github.com/nvm-sh/nvm#important-notes)
 - [nvm-windows](https://github.com/coreybutler/nvm-windows)
 - [nvm-windows-releases](https://github.com/coreybutler/nvm-windows/releases)
