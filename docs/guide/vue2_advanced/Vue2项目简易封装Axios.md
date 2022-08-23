@@ -268,8 +268,8 @@ export default {
         let ciphertext = ''
         ciphertext = CryptoJS.TripleDES.encrypt(word, key, {
             iv,
-            mode: CryptoJS.mode.ECB, // ECB模式
-            padding: CryptoJS.pad.Pkcs7, // padding处理
+            mode: CryptoJS.mode.ECB, // ECB 模式
+            padding: CryptoJS.pad.Pkcs7, // padding 处理
         })
         return ciphertext.toString()
     },
@@ -279,8 +279,8 @@ export default {
         let ciphertext = ''
             ciphertext = CryptoJS.TripleDES.decrypt(word, key, {
             iv,
-            mode: CryptoJS.mode.ECB, // ECB模式
-            padding: CryptoJS.pad.Pkcs7, // padding处理
+            mode: CryptoJS.mode.ECB, // ECB 模式
+            padding: CryptoJS.pad.Pkcs7, // padding 处理
         })
 
         // 解析数据后转为 UTF-8
