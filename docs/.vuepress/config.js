@@ -111,6 +111,7 @@ module.exports = {
                 sidebarDepth: 2,
                 collapsable: true,
                 children: [
+                    '/guide/essays/安装node-sass报错及解决方案',
                     '/guide/essays/前端监控系统之为什么需要它',
                     '/guide/essays/认识JSBridge',
                     '/guide/essays/NVM的安装和使用',
