@@ -126,6 +126,7 @@ module.exports = {
                     '/guide/essays/Github搜索开源项目',
                     '/guide/essays/H5手机App开发',
                     '/guide/essays/向面试官提问',
+                    '/guide/essays/网站SEO',
                 ]
             }],
             '/question/': [{
