@@ -400,6 +400,10 @@ class MyPromise {
   }
 
   then(handleFullfilled, handleRejected) {
+    // 值穿透
+    handleFullfilled = typeof handleFullfilled === 'function' ? handleFullfilled : res => res
+    handleRejected = typeof handleRejected === 'function' ? handleFullfilled : err => { throw err }
+
     const chainPromise = new Promise((resolve, reject) => {
       if (this.status === 'success') {
         const x = handleFullfilled(this.success)
