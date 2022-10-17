@@ -437,3 +437,4 @@ class MyPromise {
 
 + [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
 + [手撕 Promise](https://juejin.cn/post/6845166891061739528)
++ [Promises/A+](https://promisesaplus.com/)
