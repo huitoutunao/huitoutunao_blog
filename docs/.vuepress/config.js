@@ -84,6 +84,7 @@ module.exports = {
                     '/guide/vue2_advanced/Vue2源码之Object的变化侦测',
                     '/guide/vue2_advanced/Vue2源码之Array的变化侦测',
                     '/guide/vue2_advanced/Vue2源码之虚拟DOM',
+                    '/guide/vue2_advanced/Vue使用小技巧',
                 ]
             }, {
                 title: '浏览器和HTTP',
