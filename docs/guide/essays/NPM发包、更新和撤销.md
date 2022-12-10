@@ -25,9 +25,20 @@ npm 是世界上最大的软件注册表。来自世界各地的开发人员都�
 
 ### 版本号说明
 
-- patch：表示修改 bug 版本，一般是 1.0.x。
-- Minor：表示更新新特性版本，一般是 1.x.1。
-- Major：表示改动特别大版本，一般是 2.0.0。
+v1.0.0-0
+主版本号(major).次版本号(minor).修订号(patch)-预发布号(release)
+
+```
+npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease [--preid=<prerelease-id>] | from-git]
+```
+
++ prerelease: 升级预发布号，一般是 1.0.0 => 1.0.1-0，如果没有预发布号，则增加 minor，同时prerelease 设为 0；如果有 prerelease， 则 prerelease 增加 1。
++ prepatch: 升级修订号，保留预发布号，一般是 1.0.0 => 1.0.1-0。
++ preminor: 升级次版本号，保留预发布号，一般是 1.0.0 => 1.1.0-0。
++ premajor: 升级主版本号，保留预发布号，一般是 1.0.0 => 2.0.0-0。
++ patch：表示修改 bug 版本，一般是 1.0.x。
++ minor：表示更新新特性版本，一般是 1.x.1。
++ major：表示改动特别大版本，一般是 2.0.0。
 
 ## npm 撤销包
 npm unpublish。按照官网规范，在 24 小时内发布的包是允许撤销的，但是如果你的包已经在社区有一定影响力了，就不要撤销了，因为那些依赖于这个包的开发人员会崩溃的:joy:。如果你实在是要撤销包，那么这里建议使用这条命令：npm deprecate \<pkg>\[@\<version>] \<message>，如：npm deprecate npmdemo "这个包已经不再更新维护了，请谨慎使用！"。
