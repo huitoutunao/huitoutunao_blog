@@ -1,15 +1,16 @@
 # 手撕 Promise
+
 ## 基本结构
 
-+ 构造函数里传入一个函数，它有两个参数（resolve, reject）
-+ resolve 成功时执行回调
-+ reject 失败时执行回调
-  
+- 构造函数里传入一个函数，它有两个参数（resolve, reject）
+- resolve 成功时执行回调
+- reject 失败时执行回调
+
 ```js
 class MyPromise {
   constructor(fn) {
-    const resolve = res => {}
-    const reject = err => {}
+    const resolve = (res) => {}
+    const reject = (err) => {}
     fn(resolve, reject)
   }
 }
@@ -23,11 +24,11 @@ const mp = new MyPromise((resolve, reject) => {
 
 ## 三种状态实现
 
-+ 进行中 pending
-+ 已成功 fulfilled
-+ 已失败 rejected
+- 进行中 pending
+- 已成功 fulfilled
+- 已失败 rejected
 
-> 一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从pending 变为 fulfilled 和从 pending 变为 rejected。
+> 一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected。
 
 ```js
 class MyPromise {
@@ -56,6 +57,7 @@ class MyPromise {
 ```
 
 ### pending
+
 ```js
 const mp = new MyPromise(() => {
   // 不进行 resolve 和 reject
@@ -70,6 +72,7 @@ console.log(mp)
 ```
 
 ### fulfilled
+
 ```js
 const mp = new MyPromise((resolve) => {
   resolve('我是成功')
@@ -84,6 +87,7 @@ console.log(mp)
 ```
 
 ### rejected
+
 ```js
 const mp = new MyPromise((resolve, reject) => {
   reject('我是失败')
@@ -139,11 +143,14 @@ class MyPromise {
 const mp = new MyPromise((resolve) => {
   resolve('我是成功')
 })
-mp.then((res) => {
-  console.log('进入then的fulfilled,', res)
-}, (err) => {
-  console.log('进入then的rejected,', err)
-})
+mp.then(
+  (res) => {
+    console.log('进入then的fulfilled,', res)
+  },
+  (err) => {
+    console.log('进入then的rejected,', err)
+  }
+)
 // => 结果
 // 进入then的fulfilled, 我是成功
 ```
@@ -227,19 +234,23 @@ const resolvePromise = (chainPromise, x, resolve, reject) => {
       const { then } = x
 
       if (typeof then === 'function') {
-        then.call(x, (res) => {
-          if (flag) {
-            return
+        then.call(
+          x,
+          (res) => {
+            if (flag) {
+              return
+            }
+            flag = true
+            resolvePromise(chainPromise, res, resolve, reject)
+          },
+          (err) => {
+            if (flag) {
+              return
+            }
+            flag = true
+            reject(err)
           }
-          flag = true
-          resolvePromise(chainPromise, res, resolve, reject)
-        }, (err) => {
-          if (flag) {
-            return
-          }
-          flag = true
-          reject(err)
-        })
+        )
       } else {
         resolve(x)
       }
@@ -314,14 +325,16 @@ class MyPromise {
 // 测试用例
 new MyPromise((resolve) => {
   resolve('我是第一名')
-}).then((res) => {
-  console.log('进入1', res)
-  return new Promise((resolve) => {
-    resolve('hello world')
-  })
-}).then((res) => {
-  console.log('进入2', res)
 })
+  .then((res) => {
+    console.log('进入1', res)
+    return new Promise((resolve) => {
+      resolve('hello world')
+    })
+  })
+  .then((res) => {
+    console.log('进入2', res)
+  })
 // => 结果
 // 进入1 我是第一名
 // 进入2 hello world
@@ -332,6 +345,7 @@ new MyPromise((resolve) => {
 原理：`setTimeout` 解决异步问题
 
 以上面为基础，优化如下：
+
 ```js
 const resolvePromise = (chainPromise, x, resolve, reject) => {
   let flag
@@ -344,19 +358,23 @@ const resolvePromise = (chainPromise, x, resolve, reject) => {
       const { then } = x
 
       if (typeof then === 'function') {
-        then.call(x, (res) => {
-          if (flag) {
-            return
+        then.call(
+          x,
+          (res) => {
+            if (flag) {
+              return
+            }
+            flag = true
+            resolvePromise(chainPromise, res, resolve, reject)
+          },
+          (err) => {
+            if (flag) {
+              return
+            }
+            flag = true
+            reject(err)
           }
-          flag = true
-          resolvePromise(chainPromise, res, resolve, reject)
-        }, (err) => {
-          if (flag) {
-            return
-          }
-          flag = true
-          reject(err)
-        })
+        )
       } else {
         resolve(x)
       }
@@ -401,8 +419,13 @@ class MyPromise {
 
   then(handleFullfilled, handleRejected) {
     // 值穿透
-    handleFullfilled = typeof handleFullfilled === 'function' ? handleFullfilled : res => res
-    handleRejected = typeof handleRejected === 'function' ? handleFullfilled : err => { throw err }
+    handleFullfilled = typeof handleFullfilled === 'function' ? handleFullfilled : (res) => res
+    handleRejected =
+      typeof handleRejected === 'function'
+        ? handleFullfilled
+        : (err) => {
+            throw err
+          }
 
     const chainPromise = new Promise((resolve, reject) => {
       if (this.status === 'success') {
@@ -435,6 +458,6 @@ class MyPromise {
 
 ## 参考资料
 
-+ [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
-+ [手撕 Promise](https://juejin.cn/post/6845166891061739528)
-+ [Promises/A+](https://promisesaplus.com/)
+- [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
+- [手撕 Promise](https://juejin.cn/post/6845166891061739528)
+- [Promises/A+](https://promisesaplus.com/)
