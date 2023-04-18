@@ -1,25 +1,34 @@
 # 手撕 Promise
 
+## 前言
+
+不论是前端日常开发，还是前端面试题，总是会遇到 Promise 相关的问题。因此今天就来一探究竟，揭开 Promise 的神秘面纱。
+
 ## 基本结构
 
-- 构造函数里传入一个函数，它有两个参数（resolve, reject）
-- resolve 成功时执行回调
-- reject 失败时执行回调
+- 构造函数里传入一个函数，它有两个形参 `resolve`、`reject`
+- `resolve` 函数成功时执行
+- `reject` 函数失败时执行
 
 ```js
-class MyPromise {
-  constructor(fn) {
-    const resolve = (res) => {}
-    const reject = (err) => {}
-    fn(resolve, reject)
+class Promise {
+  constructor(executor) {
+    // resolve 函数
+    const resolve = (value) => {}
+
+    // reject 函数
+    const reject = (error) => {}
+
+    // 同步调用「执行器函数」
+    executor(resolve, reject)
   }
 }
 
-// 测试
-const mp = new MyPromise((resolve, reject) => {
-  console.log('我到这里了')
+const p = new Promise((resolve, reject) => {
+  resolve('ok')
 })
-// 结果 => 我到这里了
+
+console.log(p)
 ```
 
 ## 三种状态实现
