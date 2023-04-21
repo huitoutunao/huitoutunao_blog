@@ -6,9 +6,9 @@
 
 ## 基本结构
 
-- 构造函数里传入一个函数，它有两个形参 `resolve`、`reject`
-- `resolve` 函数成功时执行
-- `reject` 函数失败时执行
++ 构造函数里传入一个函数，它有两个形参 `resolve`、`reject`
++ `resolve` 函数成功时执行
++ `reject` 函数失败时执行
 
 ```js
 class Promise {
@@ -33,11 +33,20 @@ console.log(p)
 
 ## 三种状态实现
 
-- 进行中 pending
-- 已成功 fulfilled
-- 已失败 rejected
++ 进行中 `pending`
++ 已成功 `fulfilled`
++ 已失败 `rejected`
 
 > 一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected。
+
+在开始之前，我们先看 `Chrome` 内置的 `Promise` 输出结果：
+```js
+const p = new Promise((resolve, reject) => {
+  resolve('ok')
+})
+
+console.log(p)
+```
 
 ```js
 class MyPromise {
