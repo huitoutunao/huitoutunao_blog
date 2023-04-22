@@ -237,58 +237,80 @@ class Promise {
 }
 ```
 
-## Promise.prototype.then()
+## `Promise.prototype.then()`
 
 > 它的作用是为 Promise 实例添加状态改变时的回调函数。then 方法的第一个参数是 resolved 状态的回调函数，第二个参数是 rejected 状态的回调函数，它们都是可选的。
 
+在开始之前，我们先看 `Chrome` 内置的 `Promise` 输出结果：
 ```js
-class MyPromise {
-  constructor(fn) {
-    this.status = 'pending'
-    this.success = ''
-    this.error = ''
+const p = new Promise((resolve, reject) => {
+  resolve('ok')
+  // reject('error')
+  // throw 'Error'
+})
 
-    const resolve = (res) => {
-      if (this.status === 'pending') {
-        this.success = res
-        this.status = 'success'
-      }
+p.then((value) => {
+  console.log(value) // 输出：ok
+}, (error) => {
+  console.warn(error)
+})
+```
+
+通过上面运行效果，需要在 `Promise` 类添加 `then` 方法：
+```js{42-52}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+
+    // resolve 函数
+    const resolve = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
     }
 
-    const reject = (err) => {
-      if (this.status === 'pending') {
-        this.error = err
-        this.status = 'error'
-      }
+    // reject 函数
+    const reject = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'rejected' // 已失败
+
+      // 设置对象结果值
+      this.PromiseResult = data
     }
 
-    fn(resolve, reject)
+    // 捕获 throw
+    try {
+      // 同步调用「执行器函数」
+      executor(resolve, reject)
+    } catch (error) {
+      // 修改 promise 对象状态为失败
+      reject(error)
+    }
   }
 
-  then(handleFullfilled, handleRejected) {
-    if (this.status === 'success') {
-      handleFullfilled(this.success)
+  // 添加 then 方法
+  then(handleResolve, handleReject) {
+    // 根据 PromiseState 调用对应回调函数
+    if (this.PromiseState === 'fulfilled') {
+      // PromiseResult 传递给回调函数的结果值
+      handleResolve(this.PromiseResult)
     }
-
-    if (this.status === 'error') {
-      handleRejected(this.error)
+    if (this.PromiseState === 'rejected') {
+      // PromiseResult 传递给回调函数的结果值
+      handleReject(this.PromiseResult)
     }
   }
 }
-
-const mp = new MyPromise((resolve) => {
-  resolve('我是成功')
-})
-mp.then(
-  (res) => {
-    console.log('进入then的fulfilled,', res)
-  },
-  (err) => {
-    console.log('进入then的rejected,', err)
-  }
-)
-// => 结果
-// 进入then的fulfilled, 我是成功
 ```
 
 ## 异步实现
