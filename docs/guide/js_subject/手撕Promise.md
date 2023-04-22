@@ -14,10 +14,10 @@
 class Promise {
   constructor(executor) {
     // resolve 函数
-    const resolve = (value) => {}
+    const resolve = (data) => {}
 
     // reject 函数
-    const reject = (error) => {}
+    const reject = (data) => {}
 
     // 同步调用「执行器函数」
     executor(resolve, reject)
@@ -33,90 +33,208 @@ console.log(p)
 
 ## 三种状态实现
 
+> 一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected。
+
 + 进行中 `pending`
 + 已成功 `fulfilled`
 + 已失败 `rejected`
-
-> 一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected。
++ 状态只能改变一次
 
 在开始之前，我们先看 `Chrome` 内置的 `Promise` 输出结果：
 ```js
 const p = new Promise((resolve, reject) => {
-  resolve('ok')
+  // resolve('ok')
+  // reject('error')
+  // throw 'Error'
 })
 
 console.log(p)
 ```
 
++ 首选 `Promise` 传入的函数不执行任何操作：
+
+![图片4](../../assets/js_subject/promise4.png)
+
++ `resolve('ok')` 结果如下：
+
+![图片1](../../assets/js_subject/promise1.png)
+
++ `reject('error')` 结果如下：
+
+![图片2](../../assets/js_subject/promise2.png)
+
++ `throw 'Error'` 结果如下：
+
+![图片3](../../assets/js_subject/promise3.png)
+
++ 状态只能改变一次，运行如下代码查看效果：
 ```js
-class MyPromise {
-  constructor(fn) {
-    this.status = 'pending'
-    this.success = ''
-    this.error = ''
+const p = new Promise((resolve, reject) => {
+  resolve('ok')
+  reject('error')
+  // throw 'Error'
+})
 
-    const resolve = (res) => {
-      if (this.status === 'pending') {
-        this.success = res
-        this.status = 'success'
-      }
+console.log(p)
+```
+
+![图片5](../../assets/js_subject/promise5.png)
+
+通过上面打印的结果，`PromiseState` 指当前状态，`PromiseResult` 指结果值。现在我们模仿上面的运行结果实现如下：
+
+### pending
+```js{4,5}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+
+    // resolve 函数
+    const resolve = (data) => {}
+
+    // reject 函数
+    const reject = (data) => {}
+
+    // 同步调用「执行器函数」
+    executor(resolve, reject)
+  }
+}
+
+const p = new Promise((resolve, reject) => {
+  // resolve('ok')
+  // reject('error')
+  // throw 'Error'
+})
+
+console.log(p)
+```
+
+### fulfilled
+```js{8-14}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+
+    // resolve 函数
+    const resolve = (data) => {
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
     }
 
-    const reject = (err) => {
-      if (this.status === 'pending') {
-        this.error = err
-        this.status = 'error'
-      }
-    }
+    // reject 函数
+    const reject = (data) => {}
 
-    fn(resolve, reject)
+    // 同步调用「执行器函数」
+    executor(resolve, reject)
   }
 }
 ```
 
-### pending
-
-```js
-const mp = new MyPromise(() => {
-  // 不进行 resolve 和 reject
-})
-console.log(mp)
-// => 结果
-// {
-//   "status": "pending",
-//   "success": "",
-//   "error": ""
-// }
-```
-
-### fulfilled
-
-```js
-const mp = new MyPromise((resolve) => {
-  resolve('我是成功')
-})
-console.log(mp)
-// => 结果
-// {
-//   "status": "success",
-//   "success": "我是成功",
-//   "error": ""
-// }
-```
-
 ### rejected
+```js{17-23,26-32}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
 
+    // resolve 函数
+    const resolve = (data) => {
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
+    }
+
+    // reject 函数
+    const reject = (data) => {
+      // 修改对象状态
+      this.PromiseState = 'rejected' // 已失败
+
+      // 设置对象结果值
+      this.PromiseResult = data
+    }
+
+    // 捕获 throw
+    try {
+      // 同步调用「执行器函数」
+      executor(resolve, reject)
+    } catch (error) {
+      // 修改 promise 对象状态为失败
+      reject(error)
+    }
+  }
+}
+```
+
+### 状态只能改变一次
+
+目前我们的 Promise 运行如下代码：
 ```js
-const mp = new MyPromise((resolve, reject) => {
-  reject('我是失败')
+const p = new Promise((resolve, reject) => {
+  resolve('ok')
+  reject('error')
+  // throw 'Error'
 })
-console.log(mp)
-// => 结果
-// {
-//   "status": "error",
-//   "success": "",
-//   "error": "我是失败"
-// }
+
+console.log(p)
+```
+
+打印结果如下：
+
+![图片6](../../assets/js_subject/promise6.png)
+
+输出的结果明显有问题，正确的状态应是 `fulfilled`，因为状态只能是 `pending` 变成 `fulfilled`，或者 `pending` 变成 `rejected`，所以通过判断状态是否为 `pending` 即可修复该问题。
+
+优化代码如下：
+```js{10,22}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+
+    // resolve 函数
+    const resolve = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
+    }
+
+    // reject 函数
+    const reject = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'rejected' // 已失败
+
+      // 设置对象结果值
+      this.PromiseResult = data
+    }
+
+    // 捕获 throw
+    try {
+      // 同步调用「执行器函数」
+      executor(resolve, reject)
+    } catch (error) {
+      // 修改 promise 对象状态为失败
+      reject(error)
+    }
+  }
+}
 ```
 
 ## Promise.prototype.then()
