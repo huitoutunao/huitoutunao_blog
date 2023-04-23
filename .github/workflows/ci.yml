@@ -10,9 +10,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Setup Node
+      uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
     - name: Install and Build
-      with:
-        node-version: '14'
       run: |
           npm install
           npm run build
