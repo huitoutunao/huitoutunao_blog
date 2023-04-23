@@ -51,7 +51,7 @@ const p = new Promise((resolve, reject) => {
 console.log(p)
 ```
 
-+ 首选 `Promise` 传入的函数不执行任何操作：
++ 首先 `Promise` 传入的函数不执行任何操作：
 
 ![图片4](../../assets/js_subject/promise4.png)
 
