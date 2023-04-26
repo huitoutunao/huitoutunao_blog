@@ -434,6 +434,82 @@ p.then((value) => {
 })
 ```
 
+我们需要借助 `callbacks` 数组保存回调函数，因此改造代码如下：
+```js{6,20-22,37-39,66-69}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+    this.callbacks = []
+
+    // resolve 函数
+    const resolve = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态成功时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleResolve(data)
+      })
+    }
+
+    // reject 函数
+    const reject = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'rejected' // 已失败
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态失败时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleReject(data)
+      })
+    }
+
+    // 捕获 throw
+    try {
+      // 同步调用「执行器函数」
+      executor(resolve, reject)
+    } catch (error) {
+      // 修改 promise 对象状态为失败
+      reject(error)
+    }
+  }
+
+  // 添加 then 方法
+  then(handleResolve, handleReject) {
+    // 根据 PromiseState 调用对应回调函数
+    if (this.PromiseState === 'fulfilled') {
+      // PromiseResult 传递给回调函数的结果值
+      handleResolve(this.PromiseResult)
+    }
+    if (this.PromiseState === 'rejected') {
+      // PromiseResult 传递给回调函数的结果值
+      handleReject(this.PromiseResult)
+    }
+
+    // 等待状态时保存 handleResolve 和 handleReject 函数，后面改变状态时调用
+    if (this.PromiseState === 'pending') {
+      this.callbacks.push({
+        handleResolve,
+        handleReject,
+      })
+    }
+  }
+}
+```
+
 ## then 链式调用
 
 原理：在第一个 then 中返回一个新的 Promise。
