@@ -510,246 +510,37 @@ class Promise {
 }
 ```
 
-## then 链式调用
+## 同步执行 `then` 的返回结果
 
-原理：在第一个 then 中返回一个新的 Promise。
-
+首先看 `Chrome` 内置 `Promise` 的运行结果：
 ```js
-const resolvePromise = (chainPromise, x, resolve, reject) => {
-  let flag
-  if (x === chainPromise) {
-    return reject(new TypeError('Chaining cycle detected for promise'))
-  }
-
-  if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
-    try {
-      const { then } = x
-
-      if (typeof then === 'function') {
-        then.call(
-          x,
-          (res) => {
-            if (flag) {
-              return
-            }
-            flag = true
-            resolvePromise(chainPromise, res, resolve, reject)
-          },
-          (err) => {
-            if (flag) {
-              return
-            }
-            flag = true
-            reject(err)
-          }
-        )
-      } else {
-        resolve(x)
-      }
-    } catch (e) {
-      if (flag) {
-        return
-      }
-      flag = true
-      reject(e)
-    }
-  } else {
-    resolve(x)
-  }
-}
-
-class MyPromise {
-  constructor(fn) {
-    this.status = 'pending'
-    this.success = ''
-    this.error = ''
-    this.resolveQueue = []
-    this.rejectQueue = []
-
-    const resolve = (res) => {
-      if (this.status === 'pending') {
-        this.success = res
-        this.status = 'success'
-        this.resolveQueue.forEach((item) => item())
-      }
-    }
-
-    const reject = (err) => {
-      if (this.status === 'pending') {
-        this.error = err
-        this.status = 'error'
-        this.rejectQueue.forEach((item) => item())
-      }
-    }
-
-    fn(resolve, reject)
-  }
-
-  then(handleFullfilled, handleRejected) {
-    const chainPromise = new Promise((resolve, reject) => {
-      if (this.status === 'success') {
-        const x = handleFullfilled(this.success)
-        resolvePromise(chainPromise, x, resolve, reject)
-      }
-
-      if (this.status === 'error') {
-        const x = handleRejected(this.error)
-        resolvePromise(chainPromise, x, resolve, reject)
-      }
-
-      if (this.status === 'pending') {
-        this.resolveQueue.push(() => {
-          const x = handleFullfilled(this.success)
-          resolvePromise(chainPromise, x, resolve, reject)
-        })
-
-        this.rejectQueue.push(() => {
-          const x = handleRejected(this.error)
-          resolvePromise(chainPromise, x, resolve, reject)
-        })
-      }
-    })
-
-    return chainPromise
-  }
-}
-
-// 测试用例
-new MyPromise((resolve) => {
-  resolve('我是第一名')
+const p = new Promise((resolve, reject) => {
+  resolve('ok')
 })
-  .then((res) => {
-    console.log('进入1', res)
-    return new Promise((resolve) => {
-      resolve('hello world')
-    })
-  })
-  .then((res) => {
-    console.log('进入2', res)
-  })
-// => 结果
-// 进入1 我是第一名
-// 进入2 hello world
+
+const res = p.then((value) => {
+  console.log(value)
+  // 因为这里没有 return 返回值，所以结果是 undefined
+}, (error) => {
+  console.warn(error)
+})
+
+console.log(res)
 ```
 
-## onFulfilled 和 onRejected 的异步调用
+`res` 的结果如下图：
 
-原理：`setTimeout` 解决异步问题
+![图片7](../../assets/js_subject/promise7.png)
 
-以上面为基础，优化如下：
++ 结果是新的 `Promise` 对象
++ 结果值 `(PromiseResult)` 是 `then` 方法中 `handleResolve` 回调函数的返回值
++ 结果状态 `(PromiseState)` 是 `fulfilled`
 
-```js
-const resolvePromise = (chainPromise, x, resolve, reject) => {
-  let flag
-  if (x === chainPromise) {
-    return reject(new TypeError('Chaining cycle detected for promise'))
-  }
 
-  if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
-    try {
-      const { then } = x
 
-      if (typeof then === 'function') {
-        then.call(
-          x,
-          (res) => {
-            if (flag) {
-              return
-            }
-            flag = true
-            resolvePromise(chainPromise, res, resolve, reject)
-          },
-          (err) => {
-            if (flag) {
-              return
-            }
-            flag = true
-            reject(err)
-          }
-        )
-      } else {
-        resolve(x)
-      }
-    } catch (e) {
-      if (flag) {
-        return
-      }
-      flag = true
-      reject(e)
-    }
-  } else {
-    resolve(x)
-  }
-}
-
-class MyPromise {
-  constructor(fn) {
-    this.status = 'pending'
-    this.success = ''
-    this.error = ''
-    this.resolveQueue = []
-    this.rejectQueue = []
-
-    const resolve = (res) => {
-      if (this.status === 'pending') {
-        this.success = res
-        this.status = 'success'
-        this.resolveQueue.forEach((item) => item())
-      }
-    }
-
-    const reject = (err) => {
-      if (this.status === 'pending') {
-        this.error = err
-        this.status = 'error'
-        this.rejectQueue.forEach((item) => item())
-      }
-    }
-
-    fn(resolve, reject)
-  }
-
-  then(handleFullfilled, handleRejected) {
-    // 值穿透
-    handleFullfilled = typeof handleFullfilled === 'function' ? handleFullfilled : (res) => res
-    handleRejected =
-      typeof handleRejected === 'function'
-        ? handleFullfilled
-        : (err) => {
-            throw err
-          }
-
-    const chainPromise = new Promise((resolve, reject) => {
-      if (this.status === 'success') {
-        const x = handleFullfilled(this.success)
-        resolvePromise(chainPromise, x, resolve, reject)
-      }
-
-      if (this.status === 'error') {
-        const x = handleRejected(this.error)
-        resolvePromise(chainPromise, x, resolve, reject)
-      }
-
-      if (this.status === 'pending') {
-        this.resolveQueue.push(() => {
-          const x = handleFullfilled(this.success)
-          resolvePromise(chainPromise, x, resolve, reject)
-        })
-
-        this.rejectQueue.push(() => {
-          const x = handleRejected(this.error)
-          resolvePromise(chainPromise, x, resolve, reject)
-        })
-      }
-    })
-
-    return chainPromise
-  }
-}
-```
 
 ## 参考资料
 
-- [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
-- [手撕 Promise](https://juejin.cn/post/6845166891061739528)
-- [Promises/A+](https://promisesaplus.com/)
++ [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
++ [手撕 Promise](https://juejin.cn/post/6845166891061739528)
++ [Promises/A+](https://promisesaplus.com/)
