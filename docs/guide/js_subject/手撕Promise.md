@@ -652,6 +652,38 @@ console.log(res)
 
 ## 异步状态 `then` 方法的返回结果
 
+首先看 `Chrome` 内置 `Promise` 的运行结果：
+```js
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('ok')
+  }, 1000)
+})
+
+const res = p.then((value) => {
+  console.log(value)
+  // 因为这里没有 return 返回值，所以结果是 undefined
+}, (error) => {
+  console.warn(error)
+})
+
+console.log(res)
+```
+
+`res` 的结果如下图：
+
+![图片8](../../assets/js_subject/promise8.png)
+
+对比目前手写 `Promise` 的 `res` 输出结果如下图：
+
+![图片9](../../assets/js_subject/promise9.png)
+
+观察发现 `PromiseState` 状态并没有变为 `fulfilled`，说明 `then` 方法中 `pending` 判断逻辑需要优化。
+
+改造代码如下：
+```js
+//
+```
 
 
 ## 参考资料
