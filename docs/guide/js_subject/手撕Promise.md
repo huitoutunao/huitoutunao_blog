@@ -678,11 +678,158 @@ console.log(res)
 
 ![图片9](../../assets/js_subject/promise9.png)
 
-观察发现 `PromiseState` 状态并没有变为 `fulfilled`，说明 `then` 方法中 `pending` 判断逻辑需要优化。
+观察发现 `PromiseState` 状态并没有变为 `fulfilled`，说明 `then` 方法中 `pending` 逻辑需要优化。
 
 改造代码如下：
-```js
-//
+```js{82-119}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+    this.callbacks = []
+
+    // resolve 函数
+    const resolve = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态成功时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleResolve(data)
+      })
+    }
+
+    // reject 函数
+    const reject = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'rejected' // 已失败
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态失败时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleReject(data)
+      })
+    }
+
+    // 捕获 throw
+    try {
+      // 同步调用「执行器函数」
+      executor(resolve, reject)
+    } catch (error) {
+      // 修改 promise 对象状态为失败
+      reject(error)
+    }
+  }
+
+  // 添加 then 方法
+  then(handleResolve, handleReject) {
+    // 返回新的 Promise 对象
+    return new Promise((resolve, reject) => {
+      // 根据 PromiseState 调用对应回调函数
+      if (this.PromiseState === 'fulfilled') {
+        try {
+          // PromiseResult 传递给回调函数的结果值
+          const result = handleResolve(this.PromiseResult)
+          if (result instanceof Promise) {
+            // 如果是 Promise 类型对象
+            result.then((v) => {
+              resolve(v)
+            }, (e) => {
+              reject(e)
+            })
+          } else {
+            // 结果状态改为成功
+            resolve(result)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      }
+      if (this.PromiseState === 'rejected') {
+        // PromiseResult 传递给回调函数的结果值
+        handleReject(this.PromiseResult)
+      }
+
+      // 等待状态时保存 handleResolve 和 handleReject 函数，后面改变状态时调用
+      if (this.PromiseState === 'pending') {
+        this.callbacks.push({
+          handleResolve: () => {
+            try {
+              const result = handleResolve(this.PromiseResult)
+              if (result instanceof Promise) {
+                result.then((v) => {
+                  resolve(v)
+                }, (e) => {
+                  reject(e)
+                })
+              } else {
+                // 返回结果不是 Promise 对象，状态变为 fulfilled
+                resolve(result)
+              }
+            } catch (e) {
+              reject(e)
+            }
+          },
+          handleReject: () => {
+            try {
+              const result = handleReject(this.PromiseResult)
+              if (result instanceof Promise) {
+                result.then((v) => {
+                  resolve(v)
+                }, (e) => {
+                  reject(e)
+                })
+              } else {
+                // 返回结果不是 Promise 对象，状态变为 fulfilled
+                resolve(result)
+              }
+            } catch (e) {
+              reject(e)
+            }
+          },
+        })
+      }
+    })
+  }
+}
+
+// 示例
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('ok')
+    // reject('err')
+  }, 1000)
+})
+
+const res = p.then((value) => {
+  // console.log(value)
+  return 'success'
+  // return new Promise((resolve, reject) => {
+  //   resolve('hello promise')
+  // })
+  // throw 'fail'
+}, (error) => {
+  console.warn(error) // 返回结果是 undefined
+  // return 'Err'
+  // return new Promise((resolve, reject) => {
+  //   reject('hello promise')
+  // })
+  // throw 'fail'
+})
+
+console.log(res)
 ```
 
 
