@@ -1,6 +1,6 @@
 # 从零搭建一个简单的 Vue 脚手架
 
-![脚手架预览图](../../assets/essays/httn_cli1.gif)
+![脚手架预览图](/images/essays/httn_cli1.gif)
 
 ## 前言
 

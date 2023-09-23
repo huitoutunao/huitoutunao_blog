@@ -6,7 +6,7 @@
 
 见下图：
 
-![git1](../../assets/essays/git_1.jpg)
+![git1](/images/essays/git_1.jpg)
 
 workspace：工作区，就是平时进行开发改动的地方，是当前看到最新的内容，在开发的过程也就是对工作区的操作。
 
@@ -83,18 +83,18 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 
 现在有 2 个分支，分别是 master 和 test 分支，它们都是基于 test1 提交检出的分支。在 master 分支上分别提交两个文件 `3.js` 和 `4.js`，test 分支上分别提交两个文件 `1.js` 和 `2.js`。它们的提交记录截图如下：
 
-![git2](../../assets/essays/git_2.png)
+![git2](/images/essays/git_2.png)
 
 
 在 test 分支上执行 `git rebase master` 命令，可以看到先是逐个应用了 master 分支的更改，然后以 master 分支最后的提交作为基点，再逐个应用 test 的每个更改。最后切换到 master 分支上，执行合并后得到下面记录截图：
 
-![git3](../../assets/essays/git_3.png)
+![git3](/images/essays/git_3.png)
 
 上面的例子还是比较简单的，如果在变基时遇到代码冲突，我们需要依次使用 `git add`、`git rebase --continue` 的方式来处理冲突，完成 rebase 的过程，如果不想要某次 rebase 的结果，那么需要使用 `git rebase --skip` 来跳过这次 rebase 操作。
 
 解决冲突后，运行 `git rebase --continue` 会出现下面的 `vim` 界面：
 
-![git4](../../assets/essays/git_4.png)
+![git4](/images/essays/git_4.png)
 
 然后键入 `:E` 进入编辑模式，如果需要修改提交文案，可以键入 `i`，`delete` 是删除文案键，更新文案完成后，键入 `esc` 退出编辑模式，最后键入 `:wq` 保存并退出。
 
@@ -104,15 +104,15 @@ rebase 译作为变基，作用和 merge 类似，用于把分支修改合并到
 
 在开发中，如果遇到多个无效提交想将它们压缩成一次提交，需要使用命令 `git rebase -i <base-commit>`，其中 `<base-commit>` 是提交的 hash 值，以它作为起点，把后面的提交压缩（不包含起点），然后会进入 vim 的交互式界面：
 
-![git5](../../assets/essays/git_5.png)
+![git5](/images/essays/git_5.png)
 
 我们要使用 Squash 策略进行合并，但至少保留一个 pick，否则命令会执行失败。
 
-![git6](../../assets/essays/git_6.png)
+![git6](/images/essays/git_6.png)
 
 退出编辑模式，然后键入 `:wq` 保存并推出，此时又会出现另一个界面。
 
-![git7](../../assets/essays/git_7.png)
+![git7](/images/essays/git_7.png)
 
 键入 `:E` 进入编辑模式，将更改合并提交的文案，最后再 `:wq` 保存并退出。
 
@@ -137,7 +137,7 @@ git revert 撤销某次操作，此操作不会修改原本的提交记录，而
 
 git revert 会自动生成一条提交记录。
 
-![git8](../../assets/essays/git_8.png)
+![git8](/images/essays/git_8.png)
 
 git reset 会直接将提交记录退回到指定的 commit 上，如果是在自己开发分支上，可以使用这种方式撤销提交记录，之后使用 `git push --force` 进行推送到远程。多人协作的集成分支上推荐使用 git revert 命令进行撤消提交。这样，提交的历史记录不会被抹去，可以安全的进行撤回。
 

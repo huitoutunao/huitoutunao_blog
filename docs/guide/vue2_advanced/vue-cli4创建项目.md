@@ -35,7 +35,7 @@ vue create app_cli
 
 #### 运行后，可以看到下面出现两个选项，第一项是默认设置babel和eslint插件，第二项是自定义安装插件，我选择了第二项。
 
-![avatar](../../assets/vue_js/vue_1.jpg)
+![avatar](/images/vue_js/vue_1.jpg)
 
 #### 选项如下图，我分别选择了babel，router，vuex。
 
@@ -58,13 +58,13 @@ Unit Testing：单元测试
 E2E Testing：e2e（end to end） 测试
 
 
-![avatar](../../assets/vue_js/vue_2.jpg)
+![avatar](/images/vue_js/vue_2.jpg)
 
 #### 接下来只要按照下面选择就好了，最后就是漫长的等待...
 
-![avatar](../../assets/vue_js/vue_3.jpg)
+![avatar](/images/vue_js/vue_3.jpg)
 
-![avatar](../../assets/vue_js/vue_4.jpg)
+![avatar](/images/vue_js/vue_4.jpg)
 
 ## 配置相关插件——lint
 

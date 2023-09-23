@@ -44,7 +44,7 @@ wrapperDom.onmousemove = doEvent
 ```
 运行效果图如下：
 
-![debounce1](../../assets/js_subject/debounce.gif)
+![debounce1](/images/js_subject/debounce.gif)
 
 从效果图可以看出，浏览器处理数字累加还是蛮流畅的，因为这个例子的事件函数相对简单。假设 1s 触发 1000 次事件，且事件是发送 ajax 请求，那么浏览器处理时就会出现卡顿。
 
@@ -71,7 +71,7 @@ wrapperDom.onmousemove = debounce(doEvent, 1000)
 
 运行效果图如下：
 
-![debounce2](../../assets/js_subject/debounce2.gif)
+![debounce2](/images/js_subject/debounce2.gif)
 
 现在不管你在 1s 内鼠标移动多少次，它都只在移动完 1s 后再触发事件。
 
@@ -124,7 +124,7 @@ wrapperDom.onmousemove = debounce(doEvent, 1000, true)
 
 运行效果图如下：
 
-![debounce3](../../assets/js_subject/debounce3.gif)
+![debounce3](/images/js_subject/debounce3.gif)
 
 ## 返回值
 

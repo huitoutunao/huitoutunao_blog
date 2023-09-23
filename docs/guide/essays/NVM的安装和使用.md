@@ -30,7 +30,7 @@ $ nvm
 ```
 成功结果图如下：
 
-![nvm_1](../../assets/essays/nvm_1.png)
+![nvm_1](/images/essays/nvm_1.png)
 ```sh
 # 会提示 nvw 下的相关命令
 $ nvm
@@ -135,7 +135,7 @@ $ npm i -g yarn
 3. 执行策略更改。
 
 见下图：
-![nvm_2](../../assets/essays/nvm_2.png)
+![nvm_2](/images/essays/nvm_2.png)
 
 ### 更改存储路径
 ```sh

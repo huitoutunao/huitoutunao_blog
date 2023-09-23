@@ -53,19 +53,19 @@ console.log(p)
 
 + 首先 `Promise` 传入的函数不执行任何操作：
 
-![图片4](../../assets/js_subject/promise4.png)
+![图片4](/images/js_subject/promise4.png)
 
 + `resolve('ok')` 结果如下：
 
-![图片1](../../assets/js_subject/promise1.png)
+![图片1](/images/js_subject/promise1.png)
 
 + `reject('error')` 结果如下：
 
-![图片2](../../assets/js_subject/promise2.png)
+![图片2](/images/js_subject/promise2.png)
 
 + `throw 'Error'` 结果如下：
 
-![图片3](../../assets/js_subject/promise3.png)
+![图片3](/images/js_subject/promise3.png)
 
 + 状态只能改变一次，运行如下代码查看效果：
 ```js
@@ -78,7 +78,7 @@ const p = new Promise((resolve, reject) => {
 console.log(p)
 ```
 
-![图片5](../../assets/js_subject/promise5.png)
+![图片5](/images/js_subject/promise5.png)
 
 通过上面打印的结果，`PromiseState` 指当前状态，`PromiseResult` 指结果值。现在我们模仿上面的运行结果实现如下：
 
@@ -189,7 +189,7 @@ console.log(p)
 
 打印结果如下：
 
-![图片6](../../assets/js_subject/promise6.png)
+![图片6](/images/js_subject/promise6.png)
 
 输出的结果明显有问题，正确的状态应是 `fulfilled`，因为状态只能是 `pending` 变成 `fulfilled`，或者 `pending` 变成 `rejected`，所以通过判断状态是否为 `pending` 即可修复该问题。
 
@@ -530,7 +530,7 @@ console.log(res)
 
 `res` 的结果如下图：
 
-![图片7](../../assets/js_subject/promise7.png)
+![图片7](/images/js_subject/promise7.png)
 
 + 结果是新的 `Promise` 对象
 + 结果值 `(PromiseResult)` 是 `then` 方法中 `handleResolve` 回调函数的返回值
@@ -672,11 +672,11 @@ console.log(res)
 
 `res` 的结果如下图：
 
-![图片8](../../assets/js_subject/promise8.png)
+![图片8](/images/js_subject/promise8.png)
 
 对比目前手写 `Promise` 的 `res` 输出结果如下图：
 
-![图片9](../../assets/js_subject/promise9.png)
+![图片9](/images/js_subject/promise9.png)
 
 观察发现 `PromiseState` 状态并没有变为 `fulfilled`，说明 `then` 方法中 `pending` 逻辑需要优化。
 

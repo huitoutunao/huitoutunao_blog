@@ -90,7 +90,7 @@
 
 渲染阶段总结一张图如下：
 
-![来自课程原图](../../assets/browser/browser_4.png)
+![来自课程原图](/images/browser/browser_4.png)
 
 ## 扩展：渲染阶段
 
@@ -98,7 +98,7 @@
 
 重排是在网络浏览器中执行的一个流程，用于重新计算文档中各元素的位置和几何形状，以便重新呈现该文档的部分内容或全部内容。
 
-![来自课程原图](../../assets/browser/browser_5.png)
+![来自课程原图](/images/browser/browser_5.png)
 
 重排需要更新完整的渲染流水线，所以开销也是最大的。
 
@@ -152,7 +152,7 @@ scrollIntoViewIfNeeded()
 
 当一个元素的外观发生改变，但没有改变布局，重新把元素外观绘制出来的过程，叫做重绘。
 
-![来自课程原图](../../assets/browser/browser_6.png)
+![来自课程原图](/images/browser/browser_6.png)
 
 相较于重排操作，重绘省去了布局和分层阶段，所以执行效率会比重排操作要高一些。
 
@@ -183,7 +183,7 @@ background-size
 
 合成指的是跳过重排和重绘阶段，只执行后续的合成操作。
 
-![来自课程原图](../../assets/browser/browser_7.png)
+![来自课程原图](/images/browser/browser_7.png)
 
 这样的效率是最高的，因为是在非主线程上合成，并没有占用主线程的资源，另外也避开了布局和绘制两个子阶段，所以相对于重绘和重排，合成能大大提升绘制效率。
 

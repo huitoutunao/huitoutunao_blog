@@ -8,7 +8,7 @@
 
 见下图：
 
-![预览图](../../assets/browser/browser_8.png)
+![预览图](/images/browser/browser_8.png)
 
 ## Cookie 的属性
 

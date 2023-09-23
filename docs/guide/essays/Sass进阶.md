@@ -209,7 +209,7 @@ $index-width: 10px;
 #context a.notice {
     color: blue;
     font-weight: bold;
-    font-size: 16px; 
+    font-size: 16px;
 }
 ```
 
@@ -329,7 +329,7 @@ $value-map: (text: #00ff00, background: #0000ff, border: #ff0000);
 
 ## 组织 Sass 文件
 
-![sass_1](../../assets/essays/sass_1.png)
+![sass_1](/images/essays/sass_1.png)
 
 ### base
 

@@ -12,7 +12,7 @@ npm install --save-dev es-checker
 # 执行检测
 npx es-checker
 ```
-![图1](../../assets/essays/1.png)
+![图1](/images/essays/1.png)
 
 从结果图可以看到，我这里是不支持 ES6 的 import/export 模块化机制语法。
 
@@ -106,8 +106,8 @@ console.log(add(1, 2))
 
 断点和调试效果图如下：
 
-![图2](../../assets/essays/2.png)
-![图3](../../assets/essays/3.png)
+![图2](/images/essays/2.png)
+![图3](/images/essays/3.png)
 
 ## 结语
 

@@ -71,12 +71,12 @@ Chrome 有个机制，同一个域名同时最多只能建立 6 个 TCP 连接�
 
 ## 为什么很多站点第二次打开速度会很快？
 
-![图片1](../../assets/browser/browser_1.png)
+![图片1](/images/browser/browser_1.png)
 ## 登录状态是如何保持的？
 
-![图片2](../../assets/browser/browser_2.png)
+![图片2](/images/browser/browser_2.png)
 ## 结语
 
-![图片3](../../assets/browser/browser_3.png)
+![图片3](/images/browser/browser_3.png)
 
 这是学习[《浏览器工作原理与实践》](https://time.geekbang.org/column/intro/216)李兵老师课程的笔记。

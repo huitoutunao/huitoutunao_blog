@@ -53,8 +53,8 @@ baz()
 
 查看浏览器截图如下：
 
-![关于this_1](../../assets/js_advanced/this_1.png)
-![关于this_2](../../assets/js_advanced/this_2.png)
+![关于this_1](/images/js_advanced/this_1.png)
+![关于this_2](/images/js_advanced/this_2.png)
 
 从调用栈列表中我们分析出 box 函数的调用位置是在 bar 这里。
 **分析调用栈（就是为了到达当前执行位置所调用的所有函数）。真正的调用位置就在当前正在执行的函数的前一个调用中。**
@@ -104,7 +104,7 @@ var name3 = 'bar'
 分析：在全局作用域声明的变量就是全局对象的一个属性。因此 this.name 的 this 指向全局对象。
 如果函数**运行**在严格模式（demo2），则不能将全局对象用于默认绑定，因此 this 会绑定到 undefined，而在严格模式下**调用**则不影响 `foo3()` 函数的默认绑定。换句话说，决定 this 绑定对象的并不是调用位置是否处于严格模式，而是函数体是否处于严格模式，如果函数体处于严格模式，那么 this 就会被绑定到 undefined，否则就被绑定到全局对象。
 
-::: warning 注意
+::: warning
 日常开发的时候，不应该将严格模式和非严格模式混合使用。整个程序要么严格要么非严格。
 :::
 
@@ -190,7 +190,7 @@ foo.call(obj) // bar
 
 分析：通过 `foo.call()`，我们可以在调用 foo 时强制把它的 this 绑定到 obj 上。这里使用 `foo.apply()` 也可以达到一样的结果，它们的区别是其他参数上。
 
-::: tip 提示
+::: tip
 如果你传入一个原始值（String、Boolean或Number）来当作 this 的绑定对象，这个原始值会被转换成它的对象形式（`new String()`、`new Boolean()`或`new Number()`），这称为基本包装类型的对象。
 :::
 

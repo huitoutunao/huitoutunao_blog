@@ -71,7 +71,7 @@ wrapperDom.onmousemove = throttle(doEvent, 1500)
 ```
 运行效果图如下：
 
-![throttle1](../../assets/js_subject/throttle1.gif)
+![throttle1](/images/js_subject/throttle1.gif)
 
 从效果图可以看出，鼠标首次触发事件是在 1.5s 后，就是说它不是立即触发事件的，而且在鼠标移出区域 1.5s 后，即结束后执行了一次事件。
 
@@ -79,7 +79,7 @@ wrapperDom.onmousemove = throttle(doEvent, 1500)
 ```js
 function throttle (func, wait) {
     let lastInvokeTime = 0
-    
+
     function throttled (...args) {
         const lastThis = this
         const lastArgs = args
@@ -96,7 +96,7 @@ function throttle (func, wait) {
 ```
 运行效果图如下：
 
-![throttle2](../../assets/js_subject/throttle2.gif)
+![throttle2](/images/js_subject/throttle2.gif)
 
 从该效果图可以看出，它与上面介绍的有两点不同：1、首次执行事件；2、结束后没有执行事件。
 
@@ -187,7 +187,7 @@ wrapperDom.onmousemove = throttle(doEvent, 1500, {
 ```
 运行效果图如下：
 
-![throttle3](../../assets/js_subject/throttle3.gif)
+![throttle3](/images/js_subject/throttle3.gif)
 
 ## 结语
 

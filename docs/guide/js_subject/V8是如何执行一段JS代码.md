@@ -30,7 +30,7 @@
 
 ## V8 是如何执行一段 JS 代码
 
-![预览图](../../assets/js_subject/V8_do_js1.png)
+![预览图](/images/js_subject/V8_do_js1.png)
 
 ### 第一：生成抽象语法树和执行上下文
 
@@ -48,7 +48,7 @@ call()
 
 [javascript-ast](https://resources.jointjs.com/demos/javascript-ast)生成的 AST 语法树如下：
 
-![预览图](../../assets/js_subject/V8_do_js2.png)
+![预览图](/images/js_subject/V8_do_js2.png)
 
 抽象语法树的生成分为两个阶段，词法分析和语法分析，先分词再解析。
 
