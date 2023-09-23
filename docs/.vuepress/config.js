@@ -5,7 +5,7 @@ import navbar from './configs/navbar.js'
 import sidebar from './configs/sidebar.js'
 
 export default defineUserConfig({
-  base: '/source/',
+  base: '/',
   lang: 'zh-CN',
   title: '灰头涂脑',
   description: '站在巨人肩膀上看世界',
