@@ -1,0 +1,1 @@
+import{_ as t,o as a,c,a as e,b as o}from"./app-bc941942.js";const s={},_=e("h1",{id:"框架篇",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#框架篇","aria-hidden":"true"},"#"),o(" 框架篇")],-1),n=e("p",null,"汇总框架的面试题",-1),r=[_,n];function d(i,l){return a(),c("div",null,r)}const f=t(s,[["render",d],["__file","1.html.vue"]]);export{f as default};
