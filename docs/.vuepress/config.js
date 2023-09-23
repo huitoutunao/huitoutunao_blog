@@ -6,6 +6,7 @@ import sidebar from './configs/sidebar.js'
 
 export default defineUserConfig({
   base: '/',
+  dest: './dist',
   lang: 'zh-CN',
   title: '灰头涂脑',
   description: '站在巨人肩膀上看世界',
