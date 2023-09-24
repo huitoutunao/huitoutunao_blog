@@ -83,6 +83,8 @@ console.log(p)
 通过上面打印的结果，`PromiseState` 指当前状态，`PromiseResult` 指结果值。现在我们模仿上面的运行结果实现如下：
 
 ### pending
+
+::: details 点击查看代码
 ```js{4,5}
 class Promise {
   // 构造器
@@ -110,7 +112,11 @@ const p = new Promise((resolve, reject) => {
 console.log(p)
 ```
 
+:::
+
 ### fulfilled
+
+::: details 点击查看代码
 ```js{8-14}
 class Promise {
   // 构造器
@@ -136,7 +142,10 @@ class Promise {
 }
 ```
 
+:::
 ### rejected
+
+::: details 点击查看代码
 ```js{17-23,26-32}
 class Promise {
   // 构造器
@@ -174,6 +183,7 @@ class Promise {
 }
 ```
 
+:::
 ### 状态只能改变一次
 
 目前我们的 Promise 运行如下代码：
@@ -194,6 +204,8 @@ console.log(p)
 输出的结果明显有问题，正确的状态应是 `fulfilled`，因为状态只能是 `pending` 变成 `fulfilled`，或者 `pending` 变成 `rejected`，所以通过判断状态是否为 `pending` 即可修复该问题。
 
 优化代码如下：
+
+::: details 点击查看代码
 ```js{10,22}
 class Promise {
   // 构造器
@@ -237,6 +249,8 @@ class Promise {
 }
 ```
 
+:::
+
 ## `Promise.prototype.then()`
 
 > 它的作用是为 Promise 实例添加状态改变时的回调函数。then 方法的第一个参数是 resolved 状态的回调函数，第二个参数是 rejected 状态的回调函数，它们都是可选的。
@@ -257,6 +271,8 @@ p.then((value) => {
 ```
 
 通过上面运行效果，需要在 `Promise` 类添加 `then` 方法：
+
+::: details 点击查看代码
 ```js{42-52}
 class Promise {
   // 构造器
@@ -313,6 +329,8 @@ class Promise {
 }
 ```
 
+:::
+
 ## 异步实现
 
 按照惯例，先看 `Chrome` 内置 `Promise` 的表现：
@@ -335,6 +353,8 @@ p.then((value) => {
 因为 `resolve` 或 `reject` 在 `setTimeout` 内执行时，`then` 方法的 `PromiseState` 还是 `pending` 状态，所以我们就需要在 `then` 方法里把成功或失败的回调函数存到公用对象，当 `resolve` 或 `reject` 执行改变状态时，就调用它们。
 
 优化代码如下：
+
+::: details 点击查看代码
 ```js{20-22,37-39,65-70}
 class Promise {
   // 构造器
@@ -410,6 +430,8 @@ class Promise {
 }
 ```
 
+:::
+
 再看 `Chrome` 内置 `Promise` 执行多个回调的表现：
 ```js
 const p = new Promise((resolve, reject) => {
@@ -435,6 +457,8 @@ p.then((value) => {
 ```
 
 我们需要借助 `callbacks` 数组保存回调函数，因此改造代码如下：
+
+::: details 点击查看代码
 ```js{6,20-22,37-39,66-69}
 class Promise {
   // 构造器
@@ -510,6 +534,8 @@ class Promise {
 }
 ```
 
+:::
+
 ## 同步执行 `then` 的返回结果
 
 首先看 `Chrome` 内置 `Promise` 的运行结果：
@@ -537,6 +563,8 @@ console.log(res)
 + 结果状态 `(PromiseState)` 是 `fulfilled`
 
 实现代码如下：
+
+::: details 点击查看代码
 ```js{55-75}
 class Promise {
   // 构造器
@@ -650,6 +678,8 @@ const res = p.then((value) => {
 console.log(res)
 ```
 
+:::
+
 ## 异步状态 `then` 方法的返回结果
 
 首先看 `Chrome` 内置 `Promise` 的运行结果：
@@ -681,6 +711,8 @@ console.log(res)
 观察发现 `PromiseState` 状态并没有变为 `fulfilled`，说明 `then` 方法中 `pending` 逻辑需要优化。
 
 改造代码如下：
+
+::: details 点击查看代码
 ```js{82-119}
 class Promise {
   // 构造器
@@ -832,8 +864,11 @@ const res = p.then((value) => {
 console.log(res)
 ```
 
+:::
+
 ## then 方法完善
 
+::: details 点击查看代码
 ```js{57-75,79,82,89,92}
 class Promise {
   // 构造器
@@ -935,6 +970,294 @@ class Promise {
 }
 ```
 
+:::
+
+## catch 方法添加
+
+首先看 `Chrome` 内置 `Promise` 的运行结果：
+```js
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject('err')
+  }, 1000)
+})
+
+p.catch((err) => {
+  console.log(err)
+})
+```
+
+输出结果如下图：
+
+![图片10](/images/js_subject/promise10.png)
+
+对比目前手写 `Promise` 输出结果如下图：
+
+![图片11](/images/js_subject/promise11.png)
+
+观察发现，目前手写 `Promise` 缺少 `catch` 方法。
+
+改造代码如下：
+
+::: details 点击查看代码
+```js{99-102}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+    this.callbacks = []
+
+    // resolve 函数
+    const resolve = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态成功时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleResolve(data)
+      })
+    }
+
+    // reject 函数
+    const reject = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'rejected' // 已失败
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态失败时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleReject(data)
+      })
+    }
+
+    // 捕获 throw
+    try {
+      // 同步调用「执行器函数」
+      executor(resolve, reject)
+    } catch (error) {
+      // 修改 promise 对象状态为失败
+      reject(error)
+    }
+  }
+
+  // 添加 then 方法
+  then(handleResolve, handleReject) {
+    // 返回新的 Promise 对象
+    return new Promise((resolve, reject) => {
+      // 封装处理结果回调函数
+      const callBackResult = (fn) => {
+        try {
+          // PromiseResult 传递给回调函数的结果值
+          const result = fn(this.PromiseResult)
+          if (result instanceof Promise) {
+            // 如果是 Promise 类型对象
+            result.then((v) => {
+              resolve(v)
+            }, (e) => {
+              reject(e)
+            })
+          } else {
+            // 结果状态改为成功
+            resolve(result)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      }
+
+      // 根据 PromiseState 调用对应回调函数
+      if (this.PromiseState === 'fulfilled') {
+        callBackResult(handleResolve)
+      }
+      if (this.PromiseState === 'rejected') {
+        callBackResult(handleReject)
+      }
+
+      // 等待状态时保存 handleResolve 和 handleReject 函数，后面改变状态时调用
+      if (this.PromiseState === 'pending') {
+        this.callbacks.push({
+          handleResolve: () => {
+            callBackResult(handleResolve)
+          },
+          handleReject: () => {
+            callBackResult(handleReject)
+          },
+        })
+      }
+    })
+  }
+
+  // 添加 catch 方法
+  catch(handleReject) {
+    return this.then(undefined, handleReject)
+  }
+}
+```
+
+:::
+
+### 异常穿透
+
+举个例子：
+```js
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject('err')
+  }, 1000)
+})
+
+p
+  .then((value) => {
+    console.log(111)
+  })
+  .then((value) => {
+    console.log(222)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+```
+
+Chrome 内置的 `Promise` 输出结果如下：
+
+![图片10](/images/js_subject/promise10.png)
+
+对比目前手写 `Promise` 输出结果如下图：
+
+![图片12](/images/js_subject/promise12.png)
+
+改造代码如下：
+
+::: details 点击查看代码
+```js{54-62}
+class Promise {
+  // 构造器
+  constructor(executor) {
+    this.PromiseState = 'pending' // 进行中
+    this.PromiseResult = null // 结果值
+    this.callbacks = []
+
+    // resolve 函数
+    const resolve = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'fulfilled' // 已成功
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态成功时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleResolve(data)
+      })
+    }
+
+    // reject 函数
+    const reject = (data) => {
+      // 判断状态是否为 pending
+      if (this.PromiseState !== 'pending') return
+
+      // 修改对象状态
+      this.PromiseState = 'rejected' // 已失败
+
+      // 设置对象结果值
+      this.PromiseResult = data
+
+      // 状态失败时执行回调函数
+      this.callbacks.forEach((item) => {
+        item.handleReject(data)
+      })
+    }
+
+    // 捕获 throw
+    try {
+      // 同步调用「执行器函数」
+      executor(resolve, reject)
+    } catch (error) {
+      // 修改 promise 对象状态为失败
+      reject(error)
+    }
+  }
+
+  // 添加 then 方法
+  then(handleResolve, handleReject) {
+    // 判断回调函数参数
+    if (typeof handleReject !== 'function') {
+      handleReject = (reason) => {
+        throw reason
+      }
+    }
+    if (typeof handleResolve !== 'function') {
+      handleResolve = (value) => value
+    }
+
+    // 返回新的 Promise 对象
+    return new Promise((resolve, reject) => {
+      // 封装处理结果回调函数
+      const callBackResult = (fn) => {
+        try {
+          // PromiseResult 传递给回调函数的结果值
+          const result = fn(this.PromiseResult)
+          if (result instanceof Promise) {
+            // 如果是 Promise 类型对象
+            result.then((v) => {
+              resolve(v)
+            }, (e) => {
+              reject(e)
+            })
+          } else {
+            // 结果状态改为成功
+            resolve(result)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      }
+
+      // 根据 PromiseState 调用对应回调函数
+      if (this.PromiseState === 'fulfilled') {
+        callBackResult(handleResolve)
+      }
+      if (this.PromiseState === 'rejected') {
+        callBackResult(handleReject)
+      }
+
+      // 等待状态时保存 handleResolve 和 handleReject 函数，后面改变状态时调用
+      if (this.PromiseState === 'pending') {
+        this.callbacks.push({
+          handleResolve: () => {
+            callBackResult(handleResolve)
+          },
+          handleReject: () => {
+            callBackResult(handleReject)
+          },
+        })
+      }
+    })
+  }
+
+  // 添加 catch 方法
+  catch(handleReject) {
+    return this.then(undefined, handleReject)
+  }
+}
+```
+
+:::
 
 ## 参考资料
 
