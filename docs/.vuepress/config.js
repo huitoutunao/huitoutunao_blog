@@ -1,5 +1,6 @@
 import { defineUserConfig, defaultTheme } from 'vuepress'
-import { searchPlugin } from '@vuepress/plugin-search'
+// import { searchPlugin } from '@vuepress/plugin-search'
+import { docsearchPlugin } from '@vuepress/plugin-docsearch'
 import markdownItLatex2img from 'markdown-it-latex2img'
 import navbar from './configs/navbar.js'
 import sidebar from './configs/sidebar.js'
@@ -50,7 +51,13 @@ export default defineUserConfig({
     toggleSidebar: '切换侧边栏',
   }),
   plugins: [
-    searchPlugin(),
+    // searchPlugin(),
+    docsearchPlugin({
+      apiKey: '0f0328a546f58b3cb46610152f200901',
+      indexName: 'huitoutunao',
+      appId: 'SJVDTH9RC3',
+      placeholder: '搜索文档',
+    }),
   ],
   extendsMarkdown: (md) => {
     md.use(markdownItLatex2img)
