@@ -1,0 +1,1 @@
+import{_ as t,o as a,c,a as e,b as n}from"./app-665c4bcb.js";const o={},s=e("h1",{id:"前端笔记",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#前端笔记","aria-hidden":"true"},"#"),n(" 前端笔记")],-1),r=e("p",null,"记录自己在前端进阶路上的点滴，我也希望分享的文章能对你有所帮助，共勉！",-1),_=[s,r];function d(i,l){return a(),c("div",null,_)}const f=t(o,[["render",d],["__file","index.html.vue"]]);export{f as default};
