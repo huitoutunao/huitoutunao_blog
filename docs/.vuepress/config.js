@@ -57,6 +57,11 @@ export default defineUserConfig({
       indexName: 'huitoutunao',
       appId: 'SJVDTH9RC3',
       placeholder: '搜索文档',
+      translations: {
+        button: {
+          buttonText: '搜索文档',
+        },
+      },
     }),
   ],
   extendsMarkdown: (md) => {
