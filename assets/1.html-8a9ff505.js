@@ -1,0 +1,1 @@
+import{_ as t,o as a,c,a as e,b as o}from"./app-7afcd560.js";const s={},_=e("h1",{id:"异步篇",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#异步篇","aria-hidden":"true"},"#"),o(" 异步篇")],-1),n=e("p",null,"汇总异步的面试题",-1),r=[_,n];function d(i,l){return a(),c("div",null,r)}const f=t(s,[["render",d],["__file","1.html.vue"]]);export{f as default};

@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-2a138df0","path":"/question/qs_async/1.html","title":"异步篇","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1696604981000},"filePathRelative":"question/qs_async/1.md"}');export{t as data};

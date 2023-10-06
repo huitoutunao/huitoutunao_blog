@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-e6344ea0","path":"/guide/vue2_advanced/Vue%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7.html","title":"Vue 开发小技巧","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"参考资料","slug":"参考资料","link":"#参考资料","children":[]}],"git":{"updatedTime":1696604981000},"filePathRelative":"guide/vue2_advanced/Vue使用小技巧.md"}');export{e as data};
