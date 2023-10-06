@@ -1259,6 +1259,46 @@ class Promise {
 
 :::
 
+## resolve 方法
+
+直接上代码：
+```js
+class Promise {
+  // ...省略代码
+
+  // 添加 resolve 方法
+  static resolve(value) {
+    return new Promise((resolve, reject) => {
+      if (value instanceof Promise) {
+        value.then((v) => {
+          resolve(v)
+        }, (r) => {
+          reject(r)
+        })
+      } else {
+        resolve(value)
+      }
+    })
+  }
+}
+```
+
+## reject 方法
+
+直接上代码：
+```js
+class Promise {
+  // ...省略代码
+
+  // 添加 reject 方法
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason)
+    })
+  }
+}
+```
+
 ## 参考资料
 
 + [ES6 中文文档](https://es6.ruanyifeng.com/#docs/promise)
