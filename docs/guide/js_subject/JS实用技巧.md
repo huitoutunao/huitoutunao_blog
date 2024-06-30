@@ -4,6 +4,52 @@
 
 Javascript 可以做许多神奇的事情，也有很多东西需要学习，下面是收集日常开发中常用的代码片段。
 
+## 位运算符（非 ~）
+
+在数组的 `findIndex` 运算中，常常通过结果是否等于 −1 判断是否存在符合期望的子项，这也能通过非运算来简写：
+
+```js
+const n = [1, 2, 3, 4]
+const idx = n.findIndex((i) => i === 2)
+// if (idx !== -1) {} // 通常的写法
+// 相当于
+if (~idx) {}
+```
+
+## 位运算符（或 |）
+
+对一个数字`| 0`可以取整，负数也同样适用，`num | 0`
+
+```js
+1.5 | 0  // 1
+-1.9 | 0 // -1
+```
+
+
+## 双位运算符~~
+
+使用双位运算符来替代正数的 `Math.floor()` 与负数的 `Math.ceil()`。双否定位操作符的优势在于它执行相同的操作运行速度更快。
+
+```js
+Math.floor(4.9) === 4 // true
+// 相当于
+~~4.9 === 4 // true
+
+Math.ceil(-4.5) === -4 // true
+// 相当于
+~~-4.5 === -4 // true
+```
+
+## 使用解构删除不必要属性
+
+希望删除`internal`和`tooBig`参数。我们可以把它们赋值给`internal`和`tooBig`变量，然后在`cleanObject`中存储剩下的属性以备后用。
+
+```js
+const {_internal, tooBig, ...cleanObject} = { el1: '1', internal: 'secret', tooBig:{}, el2: '2', el3: '3' }
+
+console.log(cleanObject)
+```
+
 ## 保留指定的小数位
 
 ```js
@@ -119,9 +165,15 @@ const num = OddEven(2)
 ## 补零
 
 ```js
-const FillZero = (num, len) => num.toString().padStart(len, '0')
-const num = FillZero(119, 4)
-// num => 0119
+// 方案一
+const FillZero1 = (num, len) => num.toString().padStart(len, '0')
+const num1 = FillZero1(119, 4)
+// num1 => 0119
+
+// 方案二
+const FillZero2 = (num, len) => (`0${num}`).slice(-len)
+const num2 = FillZero2(9, 2)
+// num2 => 09
 ```
 
 ## 转数值
